@@ -23,14 +23,16 @@
         "groups": [
           {
             "group": "Introduction",
+            "icon": "book-open",
             "pages": [
               "introduction/what-is-owly",
               "introduction/why-owly",
-              "introduction/target-users"
+              "introduction/who-is-owly-for"
             ]
           },
           {
             "group": "Our Advantages",
+            "icon": "stars",
             "pages": [
               "advantages/speed-execution",
               "advantages/non-custodial",
@@ -40,6 +42,7 @@
           },
           {
             "group": "User Guide",
+            "icon": "map",
             "pages": [
               "guide/quick-start",
               "guide/asset-management",
@@ -49,6 +52,7 @@
           },
           {
             "group": "FAQ",
+            "icon": "question",
             "pages": [
               "faq/fees",
               "faq/security",
@@ -63,14 +67,16 @@
         "groups": [
           {
             "group": "产品介绍",
+            "icon": "book-open",
             "pages": [
               "zh/introduction/what-is-owly",
               "zh/introduction/why-owly",
-              "zh/introduction/target-users"
+              "zh/introduction/who-is-owly-for"
             ]
           },
           {
             "group": "核心优势",
+            "icon": "stars",
             "pages": [
               "zh/advantages/speed-execution",
               "zh/advantages/non-custodial",
@@ -80,6 +86,7 @@
           },
           {
             "group": "操作指南",
+            "icon": "map",
             "pages": [
               "zh/guide/quick-start",
               "zh/guide/asset-management",
@@ -89,6 +96,7 @@
           },
           {
             "group": "常见问题",
+            "icon": "question",
             "pages": [
               "zh/faq/fees",
               "zh/faq/security",
@@ -131,7 +139,7 @@
     "socials": {
       "x": "https://x.com/owlyfi",
       "telegram": "https://t.me/owlyfi",
-      "github": "https://github.com/owly-fi"
+      "github": "https://github.com/owlyfi"
     }
   }
 }
