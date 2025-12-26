@@ -106,9 +106,9 @@
           "icon": "rocket"
         },
         {
-          "anchor": "Community",
-          "href": "https://discord.gg/owly",
-          "icon": "discord"
+          "anchor": "Telegram",
+          "href": "https://t.me/owlyfi",
+          "icon": "telegram"
         }
       ]
     }
@@ -117,7 +117,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:support@owly.fi"
+        "href": "https://t.me/arbalists"
       }
     ],
     "primary": {
@@ -128,8 +128,8 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/owly_fi",
-      "discord": "https://discord.gg/owly",
+      "x": "https://x.com/owlyfi",
+      "telegram": "https://t.me/owlyfi",
       "github": "https://github.com/owly-fi"
     }
   }
