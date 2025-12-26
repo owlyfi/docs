@@ -18,19 +18,41 @@ Owly 利用 Hyperliquid 的高性能基础设施，提供行业领先的跟单�
 ## 我们的技术优势
 
 <CardGroup cols={2}>
-  <Card title="< 100ms 延迟" icon="gauge-high">
-    从信号检测到交易执行仅需不到100毫秒。
+  <Card title="~ 100ms 延迟" icon="gauge-high">
+    得益于优化基础设施与自研 SDK 的性能叠加，从信号检测到交易执行仅需约 100 毫秒。
+  </Card>
+  <Card title="优化基础设施" icon="server">
+    经过多平台、多区域压力测试选出的最优执行节点。
+  </Card>
+  <Card title="自研高性能 SDK" icon="code">
+    使用自研 [async-hyperliquid](https://github.com/owlyfi/async-hyperliquid) SDK，将执行速度从秒级提升至微秒级。
   </Card>
   <Card title="直接集成" icon="plug">
     与 Hyperliquid 的订单撮合引擎原生集成。
   </Card>
-  <Card title="优化基础设施" icon="server">
-    服务器就近部署，最小化网络延迟。
-  </Card>
-  <Card title="智能订单路由" icon="route">
-    智能拆单以最小化市场冲击。
-  </Card>
 </CardGroup>
+
+## 优化基础设施
+
+为了最小化网络传输带来的延迟，我们对全球多个区域及主流云服务平台进行了深度评测。
+
+- **多区域测试**：我们测试了包括 AWS、Google Cloud、Azure 等在内的多个云平台，并对比了不同地理位置对 Hyperliquid 节点的访问延迟。
+- **最优选择**：经过数千次、跨多地域的下单压力测试，我们最终选定了目前执行交易速度最快的服务器节点，确保在硬件层面提供极致的物理吞吐与低延迟表现。
+
+## 自研高性能 SDK
+
+为了追求极致的执行效率，我们团队开发并开源了高性能 SDK：**[async-hyperliquid](https://github.com/owlyfi/async-hyperliquid)**。
+
+- **微秒级性能**：相比官方 SDK 的秒级延迟，我们将下单速度提升到了微秒级别。
+- **超高并发**：并发处理能力比官方 SDK 提升了约 **15倍**。
+- **高级订单支持**：原生支持高级订单类型，包括 **TP/SL（止盈止损）** 和 **TWAP（时间加权平均价格）**。
+- **全方位协议支持**：完整支持 **HIP-3** 协议。
+- **极速币种适配**：通过优化的本地缓存机制与自动更新，第一时间支持新上线币种。
+
+![SDK Benchmark](https://raw.githubusercontent.com/owlyfi/async-hyperliquid/main/benchmarks/benchmarks.png)
+
+
+
 
 ## 性能对比
 

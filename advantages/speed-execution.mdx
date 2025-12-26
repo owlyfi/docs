@@ -18,19 +18,41 @@ In copy trading, every millisecond counts. The delay between the original trade 
 ## Our Technical Edge
 
 <CardGroup cols={2}>
-  <Card title="< 100ms Latency" icon="gauge-high">
-    From signal detection to trade execution in under 100 milliseconds.
+  <Card title="~ 100ms Latency" icon="gauge-high">
+    Achieved through the synergy of optimized infrastructure and our high-performance SDK, clocking from signal detection to execution in ~100ms.
+  </Card>
+  <Card title="Optimized Infrastructure" icon="server">
+    Optimal execution nodes selected through multi-platform and multi-region stress testing.
+  </Card>
+  <Card title="High-Performance SDK" icon="code">
+    Powered by our open-source [async-hyperliquid](https://github.com/owlyfi/async-hyperliquid) SDK, reducing execution time from seconds to microseconds.
   </Card>
   <Card title="Direct Integration" icon="plug">
     Native integration with Hyperliquid's order matching engine.
   </Card>
-  <Card title="Optimized Infrastructure" icon="server">
-    Co-located servers for minimal network latency.
-  </Card>
-  <Card title="Smart Order Routing" icon="route">
-    Intelligent order splitting to minimize market impact.
-  </Card>
 </CardGroup>
+
+## Optimized Infrastructure
+
+To minimize network latency, we conducted extensive evaluations across multiple geographic regions and major cloud service platforms.
+
+- **Multi-Region Testing**: We benchmarked various cloud providers, including AWS, Google Cloud, and Azure, measuring access latency to Hyperliquid's nodes from different global locations.
+- **Top-Tier Selection**: After thousands of cross-regional stress tests, we selected the server configuration that delivers the fastest trade execution, ensuring maximum physical throughput and minimal hardware-level latency.
+
+## High-Performance SDK
+
+To achieve extreme execution efficiency, our team developed and open-sourced a high-performance SDK: **[async-hyperliquid](https://github.com/owlyfi/async-hyperliquid)**.
+
+- **Microsecond Performance**: Compared to the second-level latency of the official SDK, we've improved order execution speed to the microsecond level.
+- **Superior Throughput**: Concurrency capacity is approximately **15x** higher than the official SDK.
+- **Advanced Order Support**: Native support for advanced order types, including **TP/SL (Take Profit/Stop Loss)** and **TWAP (Time-Weighted Average Price)**.
+- **Full Protocol Support**: Comprehensive support for **HIP-3**.
+- **Instant New Asset Support**: High-performance local caching with automatic updates for immediate support of new assets.
+
+![SDK Benchmark](https://raw.githubusercontent.com/owlyfi/async-hyperliquid/main/benchmarks/benchmarks.png)
+
+
+
 
 ## Performance Comparison
 
