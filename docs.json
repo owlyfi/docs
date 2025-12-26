@@ -1,68 +1,98 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Owly Documentation",
+  "name": "Owly",
+  "appearance": {
+    "default": "dark"
+  },
   "colors": {
-    "primary": "#7C3AED",
-    "light": "#8B5CF6",
-    "dark": "#6D28D9"
+    "primary": "#7DA100",
+    "light": "#EBFF88",
+    "dark": "#5C7A00"
   },
   "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "English",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Introduction",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "introduction/what-is-owly",
+              "introduction/why-owly",
+              "introduction/target-users"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Our Advantages",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "advantages/speed-execution",
+              "advantages/non-custodial",
+              "advantages/risk-management",
+              "advantages/transparency"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "User Guide",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "guide/quick-start",
+              "guide/asset-management",
+              "guide/copy-trading",
+              "guide/dashboard"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "FAQ",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "faq/fees",
+              "faq/security",
+              "faq/troubleshooting",
+              "faq/community"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "中文",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "产品介绍",
             "pages": [
-              "api-reference/introduction"
+              "zh/introduction/what-is-owly",
+              "zh/introduction/why-owly",
+              "zh/introduction/target-users"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "核心优势",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "zh/advantages/speed-execution",
+              "zh/advantages/non-custodial",
+              "zh/advantages/risk-management",
+              "zh/advantages/transparency"
+            ]
+          },
+          {
+            "group": "操作指南",
+            "pages": [
+              "zh/guide/quick-start",
+              "zh/guide/asset-management",
+              "zh/guide/copy-trading",
+              "zh/guide/dashboard"
+            ]
+          },
+          {
+            "group": "常见问题",
+            "pages": [
+              "zh/faq/fees",
+              "zh/faq/security",
+              "zh/faq/troubleshooting",
+              "zh/faq/community"
             ]
           }
         ]
@@ -71,52 +101,36 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "App",
+          "href": "https://app.owly.fi",
+          "icon": "rocket"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Community",
+          "href": "https://discord.gg/owly",
+          "icon": "discord"
         }
       ]
     }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@owly.fi"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Launch App",
+      "href": "https://app.owly.fi"
     }
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/owly_fi",
+      "discord": "https://discord.gg/owly",
+      "github": "https://github.com/owly-fi"
     }
   }
 }

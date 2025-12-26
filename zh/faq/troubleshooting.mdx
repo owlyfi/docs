@@ -1,0 +1,126 @@
+---
+title: "故障排查"
+description: "常见问题及解决方法"
+icon: "wrench"
+---
+
+
+Owly 上可能遇到的常见问题的解决方案。
+
+## 连接问题
+
+<AccordionGroup>
+  <Accordion title="钱包无法连接" icon="plug">
+    **解决方案：**
+    1. 刷新页面后重试
+    2. 清除浏览器缓存和 Cookie
+    3. 禁用冲突的浏览器扩展
+    4. 尝试其他浏览器（推荐 Chrome/Brave）
+    5. 确保钱包在 Arbitrum 网络上
+  </Accordion>
+  
+  <Accordion title="交易一直待处理" icon="clock">
+    **解决方案：**
+    1. 等待几分钟 - 网络可能拥堵
+    2. 在 Arbiscan 上检查交易状态
+    3. 如果卡住，尝试在钱包中加速或取消
+    4. 确保有足够的 ETH 支付 Gas
+  </Accordion>
+  
+  <Accordion title="会话过期" icon="right-from-bracket">
+    **解决方案：**
+    1. 刷新页面
+    2. 断开并重新连接钱包
+    3. 再次签署认证消息
+  </Accordion>
+</AccordionGroup>
+
+## 存款问题
+
+<AccordionGroup>
+  <Accordion title="存款未显示" icon="eye-slash">
+    **解决方案：**
+    1. 等待 5-10 分钟确认
+    2. 在 Arbiscan 上验证交易是否成功
+    3. 确认发送到了正确地址
+    4. 确保在 Arbitrum 上发送了 USDC（非其他网络）
+    5. 如果 30 分钟后仍未显示，请联系支持
+  </Accordion>
+  
+  <Accordion title="网络错误" icon="triangle-exclamation">
+    如果您在错误网络上发送了代币：
+    - **Arbitrum 代币到 Arbitrum 地址**：会正常到账
+    - **其他网络代币**：可能无法找回
+    
+    请立即联系支持寻求帮助。
+  </Accordion>
+</AccordionGroup>
+
+## 跟单交易问题
+
+<AccordionGroup>
+  <Accordion title="交易未被跟单" icon="copy">
+    **请检查以下事项：**
+    1. 跟单交易是否处于活跃状态（未暂停）
+    2. 子账户中是否有足够余额
+    3. 仓位限制是否已达到
+    4. 交易员是否在活跃交易
+    5. 检查资产是否在您的排除列表中
+  </Accordion>
+  
+  <Accordion title="入场价格不同" icon="arrows-up-down">
+    一些滑点是正常的，原因包括：
+    - 网络延迟
+    - 市场波动
+    - 订单簿深度
+    
+    显著差异可能表明处于高波动期。
+  </Accordion>
+  
+  <Accordion title="仓位大小不同" icon="not-equal">
+    这可能发生在以下情况：
+    - 跟单比例不是 1:1
+    - 由于最小仓位大小进行了四舍五入
+    - 保证金不足以满足完整规模
+  </Accordion>
+</AccordionGroup>
+
+## 显示问题
+
+<AccordionGroup>
+  <Accordion title="余额显示不正确" icon="rotate">
+    **解决方案：**
+    1. 强制刷新页面（Ctrl+Shift+R）
+    2. 等待数据同步（可能需要 1-2 分钟）
+    3. 检查持仓是否影响了显示的余额
+  </Accordion>
+  
+  <Accordion title="页面无法加载" icon="circle-xmark">
+    **解决方案：**
+    1. 检查网络连接
+    2. 尝试清除浏览器缓存
+    3. 禁用广告拦截器或 VPN
+    4. 尝试无痕/隐私模式
+  </Accordion>
+</AccordionGroup>
+
+## 仍需帮助？
+
+如果您的问题未解决：
+
+<CardGroup cols={2}>
+  <Card title="Discord 支持" icon="discord" href="https://discord.gg/owly">
+    从我们的社区和支持团队获得帮助。
+  </Card>
+  <Card title="邮件支持" icon="envelope" href="mailto:support@owly.fi">
+    用于账户特定问题。
+  </Card>
+</CardGroup>
+
+<Note>
+  联系支持时请提供：
+  - 您的钱包地址
+  - 问题描述
+  - 相关截图
+  - 相关交易哈希
+</Note>

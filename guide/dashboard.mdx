@@ -1,0 +1,93 @@
+---
+title: "Dashboard"
+description: "Understanding your portfolio and performance metrics"
+icon: "chart-line"
+---
+
+
+Learn how to read and use your Owly dashboard effectively.
+
+## Portfolio Overview
+
+Your main dashboard displays:
+
+<CardGroup cols={2}>
+  <Card title="Total Value" icon="dollar-sign">
+    Sum of all sub-account balances and open positions.
+  </Card>
+  <Card title="Total PnL" icon="trending-up">
+    Overall profit/loss across all copy trading activities.
+  </Card>
+  <Card title="Active Copies" icon="copy">
+    Number of traders you're currently copying.
+  </Card>
+  <Card title="Open Positions" icon="list">
+    Current positions across all sub-accounts.
+  </Card>
+</CardGroup>
+
+## Performance Charts
+
+### PnL Over Time
+
+The performance chart shows your returns over different periods:
+- **1D**: Last 24 hours
+- **7D**: Last 7 days
+- **30D**: Last 30 days
+- **All**: Since account creation
+
+### Reading the Chart
+
+- **Green areas**: Cumulative profit periods
+- **Red areas**: Cumulative loss periods
+- **Line**: Running equity curve
+
+## Sub-Account Cards
+
+Each sub-account card displays:
+
+| Field | Description |
+|-------|-------------|
+| **Balance** | Available USDC in the account |
+| **Equity** | Total value including open positions |
+| **PnL** | Profit/loss for the selected period |
+| **ROI** | Return on investment percentage |
+| **Status** | Active/Idle copy trading status |
+
+## Position Details
+
+Click on a sub-account to see:
+
+<AccordionGroup>
+  <Accordion title="Open Positions" icon="list">
+    Current positions with entry price, size, PnL, and liquidation level.
+  </Accordion>
+  <Accordion title="Trade History" icon="clock-rotate-left">
+    Complete history of all executed trades.
+  </Accordion>
+  <Accordion title="Copy Trading Status" icon="copy">
+    Which trader you're copying and current settings.
+  </Accordion>
+</AccordionGroup>
+
+## Interpreting Metrics
+
+### ROI (Return on Investment)
+
+```
+ROI = (Current Value - Initial Value) / Initial Value × 100%
+```
+
+### Win Rate
+
+```
+Win Rate = Profitable Trades / Total Trades × 100%
+```
+
+### Max Drawdown
+
+The largest peak-to-trough decline in your portfolio value.
+
+<Tip>
+  Focus on risk-adjusted returns rather than absolute PnL. A trader with 50% returns and 10% max drawdown is often better than one with 100% returns and 50% drawdown.
+</Tip>

@@ -1,0 +1,80 @@
+---
+title: "Fee Structure"
+description: "Understanding Owly's transparent fee model"
+icon: "receipt"
+---
+
+
+Owly maintains a simple and transparent fee structure.
+
+## Fee Types
+
+<CardGroup cols={2}>
+  <Card title="Trading Fees" icon="arrows-rotate">
+    Standard Hyperliquid trading fees apply to all trades.
+  </Card>
+  <Card title="Performance Fees" icon="chart-line">
+    A percentage of profits paid to successful curators.
+  </Card>
+</CardGroup>
+
+## Detailed Breakdown
+
+| Fee Type | Rate | When Applied |
+|----------|------|--------------|
+| **Trading Fee** | 0.01% - 0.035% | Per trade (Hyperliquid standard) |
+| **Performance Fee** | 10% - 30% | On profitable periods |
+| **Management Fee** | 0% | Not applicable |
+| **Withdrawal Fee** | 0% | Network gas only |
+
+## Performance Fee Calculation
+
+Performance fees are only charged on profits:
+
+```
+Performance Fee = Net Profit × Fee Percentage
+```
+
+### Example
+
+If you make $1,000 profit and the curator's fee is 20%:
+- **Your profit after fees**: $800
+- **Curator receives**: $200
+
+<Note>
+  Performance fees are calculated using a high-water mark system. You only pay fees on new profits, not on recovering previous losses.
+</Note>
+
+## High-Water Mark Explained
+
+The high-water mark ensures you don't pay fees twice on the same gains:
+
+<Steps>
+  <Step title="Initial Deposit">
+    You deposit $10,000. High-water mark = $10,000
+  </Step>
+  <Step title="Profit Period">
+    Account grows to $12,000. Fee charged on $2,000 profit.
+  </Step>
+  <Step title="Loss Period">
+    Account drops to $11,000. No fee charged.
+  </Step>
+  <Step title="Recovery">
+    Account returns to $12,000. No fee (already paid on this level).
+  </Step>
+  <Step title="New Profits">
+    Account grows to $14,000. Fee charged on $2,000 new profit.
+  </Step>
+</Steps>
+
+## No Hidden Fees
+
+Owly does not charge:
+- ❌ Account opening fees
+- ❌ Monthly subscription fees
+- ❌ Deposit fees
+- ❌ Inactivity fees
+
+<Tip>
+  Always check a curator's fee percentage before starting copy trading. Higher fees require proportionally higher returns to be worthwhile.
+</Tip>

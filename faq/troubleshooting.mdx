@@ -1,0 +1,126 @@
+---
+title: "Troubleshooting"
+description: "Common issues and how to resolve them"
+icon: "wrench"
+---
+
+
+Solutions to common issues you might encounter on Owly.
+
+## Connection Issues
+
+<AccordionGroup>
+  <Accordion title="Wallet won't connect" icon="plug">
+    **Solutions:**
+    1. Refresh the page and try again
+    2. Clear browser cache and cookies
+    3. Disable conflicting browser extensions
+    4. Try a different browser (Chrome/Brave recommended)
+    5. Ensure your wallet is on Arbitrum network
+  </Accordion>
+  
+  <Accordion title="Transaction stuck pending" icon="clock">
+    **Solutions:**
+    1. Wait a few minutes - network may be congested
+    2. Check transaction status on Arbiscan
+    3. If stuck, try speeding up or canceling in your wallet
+    4. Ensure you have enough ETH for gas
+  </Accordion>
+  
+  <Accordion title="Session expired" icon="right-from-bracket">
+    **Solutions:**
+    1. Refresh the page
+    2. Disconnect and reconnect wallet
+    3. Sign the authentication message again
+  </Accordion>
+</AccordionGroup>
+
+## Deposit Issues
+
+<AccordionGroup>
+  <Accordion title="Deposit not showing" icon="eye-slash">
+    **Solutions:**
+    1. Wait 5-10 minutes for confirmation
+    2. Verify transaction was successful on Arbiscan
+    3. Confirm you sent to the correct address
+    4. Ensure you sent USDC on Arbitrum (not other networks)
+    5. Contact support if still not showing after 30 minutes
+  </Accordion>
+  
+  <Accordion title="Wrong network" icon="triangle-exclamation">
+    If you sent tokens on the wrong network:
+    - **Arbitrum tokens to Arbitrum address**: Will work
+    - **Other network tokens**: May be irrecoverable
+    
+    Contact support immediately for assistance.
+  </Accordion>
+</AccordionGroup>
+
+## Copy Trading Issues
+
+<AccordionGroup>
+  <Accordion title="Trades not being copied" icon="copy">
+    **Check the following:**
+    1. Copy trading is active (not paused)
+    2. Sufficient balance in sub-account
+    3. Position limits not reached
+    4. Trader is actively trading
+    5. Check if asset is in your excluded list
+  </Accordion>
+  
+  <Accordion title="Different entry prices" icon="arrows-up-down">
+    Some slippage is normal due to:
+    - Network latency
+    - Market volatility
+    - Order book depth
+    
+    Significant differences may indicate high volatility periods.
+  </Accordion>
+  
+  <Accordion title="Position size differs" icon="not-equal">
+    This can happen when:
+    - Copy ratio is not 1:1
+    - Rounding due to minimum position sizes
+    - Insufficient margin for full size
+  </Accordion>
+</AccordionGroup>
+
+## Display Issues
+
+<AccordionGroup>
+  <Accordion title="Balance shows incorrectly" icon="rotate">
+    **Solutions:**
+    1. Hard refresh the page (Ctrl+Shift+R)
+    2. Wait for data to sync (may take 1-2 minutes)
+    3. Check if positions are affecting displayed balance
+  </Accordion>
+  
+  <Accordion title="Page not loading" icon="circle-xmark">
+    **Solutions:**
+    1. Check your internet connection
+    2. Try clearing browser cache
+    3. Disable ad blockers or VPN
+    4. Try incognito/private mode
+  </Accordion>
+</AccordionGroup>
+
+## Still Need Help?
+
+If your issue isn't resolved:
+
+<CardGroup cols={2}>
+  <Card title="Discord Support" icon="discord" href="https://discord.gg/owly">
+    Get help from our community and support team.
+  </Card>
+  <Card title="Email Support" icon="envelope" href="mailto:support@owly.fi">
+    For account-specific issues.
+  </Card>
+</CardGroup>
+
+<Note>
+  When contacting support, please include:
+  - Your wallet address
+  - Description of the issue
+  - Screenshots if applicable
+  - Transaction hashes if relevant
+</Note>
