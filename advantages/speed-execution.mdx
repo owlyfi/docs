@@ -48,6 +48,15 @@ To achieve extreme execution efficiency, our team developed and open-sourced a h
 - **Full Protocol Support**: Comprehensive support for **HIP-3**.
 - **Instant New Asset Support**: High-performance local caching with automatic updates for immediate support of new assets.
 
+#### SDK Performance Benchmarks
+
+| Operation | Owly (Async) | Official SDK (Sync) | Improvement |
+| :--- | :--- | :--- | :--- |
+| **State Retrieval (Read)** | **156.1 req/s** | 9.99 req/s | **~15.6x** |
+| **Order Execution (Write)** | **2.3 req/s** | 1.06 req/s | **~2.2x** |
+
+> [View Original Benchmark Chart](https://github.com/owlyfi/async-hyperliquid/blob/main/benchmarks/benchmarks.png)
+
 ## Performance Comparison
 
 | Metric | Industry Average | Owly |
