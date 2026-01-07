@@ -59,6 +59,13 @@
               "faq/troubleshooting",
               "faq/community"
             ]
+          },
+          {
+            "group": "Updates",
+            "icon": "sparkles",
+            "pages": [
+              "changelog"
+            ]
           }
         ]
       },
@@ -102,6 +109,13 @@
               "zh/faq/security",
               "zh/faq/troubleshooting",
               "zh/faq/community"
+            ]
+          },
+          {
+            "group": "更新动态",
+            "icon": "sparkles",
+            "pages": [
+              "zh/changelog"
             ]
           }
         ]
