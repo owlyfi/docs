@@ -69,7 +69,7 @@
           },
           {
             "group": "Legal",
-            "icon": "scale",
+            "icon": "shield",
             "pages": [
               "legal/terms-of-service",
               "legal/privacy-policy"
