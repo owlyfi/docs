@@ -1,0 +1,229 @@
+---
+title: "Terms of Service"
+description: "Owly.fi terms governing use of the website and app"
+icon: "scale"
+---
+
+# Terms of Service
+
+Please read these Terms of Service (the “**Terms**”) carefully because they govern your use of the website located at https://owly.fi (the “**Site**”) and services accessible via https://app.owly.fi and the corresponding application (the “**App**”) offered by Owly.fi (the “**Company**”, “**we**”, “**us**” or “**our**”). The App provides a non-custodial interface that helps users discover, monitor, and copy trades on Hyperliquid and other third-party protocols we do not own or control (the “**Protocols**”). To make these Terms easier to read, the Site, App, and our services are collectively called the “**Interface**.”
+
+**NOTICE ON PROHIBITED USE – RESTRICTED PERSONS**
+
+THE INTERFACE AND ANY RELATED SERVICES ARE NOT OFFERED TO AND MAY NOT BE USED BY:
+
+PERSONS OR ENTITIES WHO RESIDE IN, ARE CITIZENS OF, ARE LOCATED IN, ARE INCORPORATED IN, OR HAVE A REGISTERED OFFICE IN ANY RESTRICTED TERRITORY, AS DEFINED BELOW (EACH SUCH PERSON OR ENTITY FROM A RESTRICTED TERRITORY, A “**RESTRICTED PERSON**”).
+
+WE DO NOT MAKE EXCEPTIONS. THEREFORE, IF YOU ARE A RESTRICTED PERSON, THEN DO NOT ATTEMPT TO USE THE INTERFACE OR ANY RELATED SERVICES. USE OF A VIRTUAL PRIVATE NETWORK (“**VPN**”) OR ANY OTHER SIMILAR MEANS INTENDED TO CIRCUMVENT THE RESTRICTIONS SET FORTH HEREIN IS PROHIBITED.
+
+**WHEN YOU AGREE TO THESE TERMS, YOU ARE AGREEING (WITH LIMITED EXCEPTION) TO RESOLVE ANY DISPUTE BETWEEN YOU AND THE COMPANY THROUGH BINDING, INDIVIDUAL ARBITRATION RATHER THAN IN COURT. PLEASE REVIEW CAREFULLY SECTION 16 (DISPUTE RESOLUTION) BELOW FOR DETAILS REGARDING ARBITRATION. HOWEVER, IF YOU ARE A RESIDENT OF A JURISDICTION WHERE APPLICABLE LAW PROHIBITS ARBITRATION OF DISPUTES, THE AGREEMENT TO ARBITRATE IN SECTION 16 WILL NOT APPLY TO YOU BUT THE PROVISIONS OF SECTION 15 (GOVERNING LAW AND FORUM CHOICE) WILL APPLY INSTEAD.**
+
+### 1. Agreement to Terms
+
+By using our Interface, you agree to be bound by these Terms. If you don’t agree to be bound by these Terms, then you must not use the Interface. Notwithstanding the foregoing, the laws of some jurisdictions may limit or not permit certain provisions of this agreement, such as indemnification, the exclusion of certain warranties or the limitation of liability. In such a case, such provisions will apply only to the maximum extent permitted by the laws of such jurisdictions. Also, you may have additional legal rights in your jurisdiction, and nothing in these terms will prejudice such rights that you may have as a consumer of the Interface under such applicable law.
+
+### 2. Changes to these Terms or the Interface
+
+We may update these Terms from time to time in our sole discretion. If we do, we’ll let you know by posting the updated Terms on the Interface and/or may also send other communications. It’s important that you review these Terms whenever we update them or you use the Interface. If you continue to use the Interface after we have posted updated Terms, it means that you accept and agree to the changes. If you don’t agree to be bound by the changes, you may not use the Interface anymore. Because our Interface is evolving over time, we may change or discontinue all or any part of the Interface, at any time and without notice, at our sole discretion.
+
+### 3. Who May Use the Interface? 
+
+You may use the Interface only if you are at least 18 years of age (or such other minimum age at which you can provide consent to data processing under the laws of your territory), and not otherwise barred from using the Interface under applicable law. In order to protect the integrity of the Interface, we reserve the right, at any time, in our sole discretion, to block access to the Interface from certain IP addresses and unique device identifiers. For the purposes of these Terms, “Restricted Territory” means Algeria, Bangladesh, Bolivia, Belarus, Burundi, Burma (Myanmar), Cote D'Ivoire (Ivory Coast), Crimea and Sevastopol, Cuba, Democratic Republic of Congo, Ecuador, Iran, Iraq, Liberia, Libya, Mali, Morocco, Nepal, North Korea, Somalia, Sudan, Syria, Venezuela, Yemen, Zimbabwe or any other country to which Canada, Panama, the United States, the United Kingdom or the European Union embargoes goods or imposes similar sanctions.
+
+### 4. About the Interface
+
+#### a. Interface
+
+The Interface provides Users with access to non-custodial tools for discovering traders, viewing analytics, configuring copy-trading parameters, and submitting transactions to Hyperliquid and other third-party Protocols. We do not operate or control those Protocols. All information provided in connection with your access and use of the Interface is for informational purposes only and does not constitute financial, investment, legal, or tax advice. You should not take, or refrain from taking, any action based on any information contained on the Site or any other information that we make available at any time, including blog posts, data, articles, links to third-party content, Discord content, news feeds, tutorials, tweets, and videos. Before you make any financial, legal, technical, or other decisions involving the Interface, you should seek independent professional advice from a licensed and qualified individual in the area for which such advice would be appropriate.
+
+#### b. Our Relationship
+
+You acknowledge and agree that the Company is an online platform provider and not a broker-dealer, exchange, or investment adviser. The Company does not direct or control the day-to-day activities of the users accessing the Site or guarantee performance. Neither we nor any affiliated entity is a party to any transaction on the blockchain networks underlying the Protocols; we do not have possession, custody or control over any cryptoassets appearing on the Interface; and we do not have possession, custody, or control over any User’s funds or cryptoassets. Further, we do not store, send, or receive any funds or cryptoassets. You understand that when you interact with Protocol smart contracts, you retain control over your cryptoassets at all times. The private key associated with the wallet address you use (or any API credentials you authorize) is the only key that can control the cryptoassets you use with the Interface. You alone are responsible for securing your private keys and API credentials. We do not have access to your private keys. Due to the non-custodial and decentralized nature of the technology, we are not intermediaries, agents, advisors, or custodians, and we do not have a fiduciary relationship or obligation to you regarding any decisions or activities you undertake when using our Interface. You acknowledge that we may not have any information regarding Users beyond what you provide and what is publicly available via the blockchain. We are not responsible for any activities you engage in when using the Interface, and you should understand the risks associated with cryptoassets, blockchain technology generally, and the Interface.
+\
+The software underlying blockchain networks on which the Protocols are deployed is open source, which means that anyone can use, utilize, and build on top of it. By using the Interface, you acknowledge and agree (i) that we are not responsible for the operation of the blockchain-based software and networks underlying the Protocols, (ii) that there exists no guarantee of the functionality, security, or availability of that software and networks, and (iii) that the underlying blockchain-based networks are subject to sudden changes in operating rules, such as those commonly referred to as “forks”.
+
+#### c. Fees
+
+There may be associated fees in connection with transactions enacted on a blockchain. All transactions using blockchains require the payment of gas fees, which are transaction fees paid on every transaction that occurs on the selected blockchain network. In addition, Owly may charge a platform fee on copy-trade activity as displayed in the Interface (currently 0.055% of trade size), and Hyperliquid or other Protocols may charge their own fees. Please note that all such fees are non-refundable.
+
+#### d. Promotions and Rewards
+
+We may offer promotions or rewards programs from time to time (each a “**Program**”). We reserve the right to alter, change, and/or terminate any Program at any time and for any reason, which may result in the cancellation of unredeemed rewards or benefits, upon written (including electronic) notice or publication to you. Each Program is subject to additional terms that will be made available to eligible participants upon launch. Such terms are subject to these Terms. We reserve the right to disqualify you from any Program if you have violated this Agreement or if you have, in our determination, misused the Program. Any Program and all services offered in connection therewith are provided on a strictly “as is” and “as available” basis. **We make no warranty** with regard to any rewards obtained by participants through a Program, that any Program will be uninterrupted, timely, or error-free, or as to the results that may be obtained from participation.
+
+#### e. Communication from the Interface
+
+You may elect to receive emails or other communications from the Company in connection with the Interface. If you elect receive communications in connection with your cryptoassets, you agree and acknowledge that the Company is under no obligation to send any emails or communicate with you regarding such cryptoassets and that the Company will not be responsible or liable to you for any loss and takes no responsibility for and will not be liable to you for in the case of failure of such email or communication.
+
+#### f. Disputes Between Users
+
+The Company is not a party to any relationship in the delivery or completion of transactions between users of the Site. In the event that you have a dispute with any user of the Site, you agree to address such dispute directly with such user. If permitted in your jurisdiction, you release the Company (and the Company’s officers, directors, agents, investors, subsidiaries, and employees) (collectively “Releasees”) from, and covenant not to sue Releasees for any and all claims, demands, or damages (actual or consequential) of any kind and nature, known and unknown, suspected and unsuspected, disclosed and undisclosed, arising out of or in any way connected with such dispute.
+
+#### g. Regulatory and Compliance Suspensions or Terminations
+
+We may suspend or terminate your access to the Interface at any time in connection with any transaction as required by applicable law, any governmental authority, or if we in our sole and reasonable discretion determine you are violating these Terms or the terms of any third-party service provider. Such suspension or termination shall not be constituted a breach of these Terms by the Company. In accordance with its anti-money laundering, anti-terrorism, anti-fraud, and other compliance policies and practices, we may impose reasonable limitations and controls on the ability of you or any beneficiary to utilize the Interface. Such limitations may include, where good cause exists, rejecting transaction requests, freezing funds, or otherwise restricting you from using the Interface.
+
+### 5. Intellectual Property
+
+#### 5.1 Intellectual Property
+
+We exclusively own all right, title and interest in and to the Interface and any content made available through the Site, including all associated intellectual property rights. You acknowledge that the Interface and content are protected by copyright, trademark, and other laws. You agree not to remove, alter or obscure any copyright, trademark, service mark or other proprietary rights notices incorporated in or accompanying the Interface and content. Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable right to access and use the Interface and content made available to you, solely for your non-commercial purposes.
+
+#### **5.2 Eligibility Criteria**
+
+Any Program is open to participants over the age of eighteen (18) who do not reside in Restricted Territories, are not Restricted Persons, and who meet all other eligibility criteria necessary for participation, as communicated and determined by the Company, in its sole discretion.
+
+#### **5.3** **Promotions, Rewards, and Airdrops (if any)**
+
+a. These Terms govern your participation in any promotion, reward, or airdrop offered by the Company in connection with a Program.
+
+b. Participation may require linking a digital wallet or completing other steps described in the Program terms.
+
+c. You agree to pay any applicable fees, including without limitation any fees that fund the network of computers that run the decentralized blockchain network (colloquially known as “gas fees”), in connection with any Program and/or your transactions on the Site.
+
+d. You are solely responsible for all costs incurred by you in using a Program, and for determining, collecting, reporting, and paying all applicable Taxes that you may be required by law to collect and remit to any governmental or regulatory agencies. As used herein, “**Taxes**” means the taxes, duties, levies, tariffs, and other charges imposed by any federal, state, multinational or local governmental or regulatory authority. You are solely responsible for maintaining all relevant Tax records and complying with any reporting requirements you may have as related to a Program. You are further solely responsible for independently maintaining the accuracy of any record submitted to any tax authority including any information derived from a Program. We reserve the right to report any activity occurring using a Program to relevant tax authorities as required under applicable law.
+
+### 6. Feedback
+
+We appreciate feedback, comments, ideas, proposals and suggestions for improvements to the Interface (“Feedback”). If you choose to submit Feedback, you agree that we are free to use it (and permit others to use it) without any restriction or compensation to you.
+
+### 7. General Prohibitions and the Company’s Enforcement Rights
+
+You agree not to do any of the following:
+
+a. Post, upload, publish, submit or transmit any content that: (i) infringes, misappropriates or violates a third party’s patent, copyright, trademark, trade secret, moral rights or other intellectual property rights, or rights of publicity or privacy; (ii) violates, or encourages any conduct that would violate, any applicable law or regulation or would give rise to civil liability; (iii) is fraudulent, false, misleading or deceptive; (iv) is defamatory, obscene, pornographic, vulgar or offensive; (v) promotes discrimination, bigotry, racism, hatred, harassment or harm against any individual or group; (vi) is violent or threatening or promotes violence or actions that are threatening to any person or entity; or (vii) promotes illegal or harmful activities or substances;
+
+b. Use, display, mirror or frame the Interface or any individual element within the Interface, the Company’s name, any Company trademark, logo or other proprietary information, or the layout and design of any page or form contained on a page, without the Company’s express written consent;
+
+c. Access, tamper with, or use non-public areas of the Interface, the Company’s computer systems, or the technical delivery systems of the Company’s providers;
+
+d. Attempt to probe, scan or test the vulnerability of any Company system or network or breach any security or authentication measures;
+
+e. Avoid, bypass, remove, deactivate, impair, descramble or otherwise circumvent any technological measure implemented by the Company or any of the Company’s providers or any other third party (including another user) to protect the Interface;
+
+f. Attempt to access or search the Interface or download content from the Interface using any engine, software, tool, agent, device or mechanism (including spiders, robots, crawlers, data mining tools or the like) other than the software and/or search agents provided by the Company or other generally available third-party web browsers;
+
+g. Send any unsolicited or unauthorized advertising, promotional materials, email, junk mail, spam, chain letters or other form of solicitation;
+
+h. Use any meta tags or other hidden text or metadata utilizing Company trademark, logo URL or product name without the Company’s express written consent;
+
+i. Use the Interface, or any portion thereof, for any commercial purpose or for the benefit of any third party or in any manner not permitted by these Terms;
+
+j. Forge any TCP/IP packet header or any part of the header information in any email or newsgroup posting, or in any way use the Interface to send altered, deceptive or false source-identifying information;
+
+k. Attempt to decipher, decompile, disassemble or reverse engineer any of the software used to provide the Interface;
+
+l. Interfere with, or attempt to interfere with, the access of any user, host or network, including, without limitation, sending a virus, overloading, flooding, spamming, or mail-bombing the Interface;
+
+m. Collect or store any personally identifiable information from the Interface from other users of the Interface without their express permission;
+
+n. Impersonate or misrepresent your affiliation with any person or entity;
+
+o. Use the Interface for capital raising, securities offerings, or token sales in violation of applicable law or without our prior written consent;
+
+p. Violate any applicable law, rule, or regulation concerning the integrity of trading markets, including (but not limited to) the manipulative tactics commonly known as spoofing and wash trading;
+
+q. Violate any applicable law or regulation; or
+
+r. Encourage or enable any other individual to do any of the foregoing.
+
+The Company is not obligated to monitor access to or use of the Interface or to review or edit any content. However, we have the right to do so for the purpose of operating the Interface, to ensure compliance with these Terms and to comply with applicable law or other legal requirements. We reserve the right, but are not obligated, to remove or disable access to any content, at any time and without notice, including, but not limited to, if we, at our sole discretion, consider it objectionable or in violation of these Terms. If we have a reasonable belief that you have created multiple accounts or have associated the same digital asset wallet to multiple accounts, we reserve the right to disable your access to the Interface. If you believe we have erroneously disabled your access, you may contact us at **<support@owly.fi>**. We have the right to investigate violations of these Terms or conduct that affects the Interface. We may also consult and cooperate with law enforcement authorities to prosecute users who violate the law.
+
+### 8. No Fiduciary Duties
+
+The Interface is not intended to, and does not, create or impose any fiduciary duties on the Company. To the fullest extent permitted by law, any user of the Interface acknowledges and agrees that the Company owes no fiduciary duties or liabilities it or any other party, and that to the extent any such duties or liabilities may exist at law or in equity, those duties and liabilities are hereby irrevocably disclaimed, waived, and eliminated. Any user of the Interface further agrees that the only duties and obligations that the Company may owe are those set out expressly herein.
+
+### 9. Copyright Policy
+
+The Company respects copyright law and expects its users to do the same. It is the Company’s policy to terminate access in appropriate circumstances for account holders who repeatedly infringe or are believed to be repeatedly infringing the rights of copyright holders.
+
+### 10. Links to Third Party Websites or Resources
+
+The Interface may allow you to access third-party websites or other resources. We provide access only as a convenience and are not responsible for the content, products or services on or available from those resources or links displayed on such websites. You acknowledge sole responsibility for and assume all risk arising from your use of any third-party resources.
+
+### 11. Termination
+
+We may suspend or terminate your access to and use of the Interface, including suspending access to your account, at our sole discretion, at any time and without notice to you. You may cancel your access at any time by sending us an email at **<support@owly.fi>**. Upon any termination, discontinuation or cancellation of the Interface or your access to the Interface, the following Sections, and such other provisions that by their nature are intended to survive, will survive: 5, 6, 7, 8, 11, 12, 13, 14, 15, 16 and 17.
+
+### 12. Warranty Disclaimers
+
+THE SERVICES ARE PROVIDED “AS IS,” WITHOUT WARRANTY OF ANY KIND. WITHOUT LIMITING THE FOREGOING, WE EXPLICITLY DISCLAIM ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT AND NON-INFRINGEMENT, AND ANY WARRANTIES ARISING OUT OF COURSE OF DEALING OR USAGE OF TRADE. WE MAKE NO WARRANTY THAT THE INTERFACE WILL MEET YOUR REQUIREMENTS OR BE AVAILABLE ON AN UNINTERRUPTED, SECURE, OR ERROR-FREE BASIS. WE MAKE NO WARRANTY REGARDING THE QUALITY, ACCURACY, TIMELINESS, TRUTHFULNESS, COMPLETENESS OR RELIABILITY OF ANY INFORMATION OR CONTENT ON THE INTERFACE.
+
+THE COMPANY WILL NOT BE RESPONSIBLE OR LIABLE TO YOU FOR ANY LOSS AND TAKES NO RESPONSIBILITY FOR, AND WILL NOT BE LIABLE TO YOU FOR, ANY USE OF THE SERVICES, INCLUDING BUT NOT LIMITED TO ANY LOSSES, DAMAGES OR CLAIMS ARISING FROM: (I) USER ERROR SUCH AS FORGOTTEN PASSWORDS, INCORRECTLY CONSTRUCTED TRANSACTIONS, OR MISTYPED WALLET ADDRESSES; (II) SERVER FAILURE OR DATA LOSS; (III) CRYPTOCURRENCY WALLETS OR CORRUPT FILES; (IV) UNAUTHORIZED ACCESS TO SERVICES; OR (V) ANY THIRD PARTY ACTIVITIES, INCLUDING WITHOUT LIMITATION THE USE OF VIRUSES, PHISHING, BRUTEFORCING OR OTHER MEANS OF ATTACK AGAINST ANY BLOCKCHAIN NETWORK UNDERLYING THE SERVICES.
+
+By accessing and using the Interface, you represent that you understand the inherent risks associated with using cryptographic and blockchain-based systems, and that you have a working knowledge of the usage and intricacies of cryptoassets and other digital assets such as bitcoin (BTC), ether (ETH), USD Coin (USDC) and other digital tokens such as those following the Ethereum Token Standard (ERC-20). You further understand that the markets for these cryptoassets are highly volatile due to factors including (but not limited to) adoption, speculation, technology, security, and regulation. You acknowledge that the cost and speed of transacting with cryptographic and blockchain-based systems are variable and may increase at any time. You further acknowledge the risk that your cryptoassets may lose some or all of their value while they are supplied to or from the Interface. You further acknowledge that we are not responsible for any of these variables or risks and cannot be held liable for any resulting losses that you experience while accessing Interface. Accordingly, you understand and agree to assume full responsibility for all of the risks of accessing, using and interacting with the Interface.
+
+### 13. Indemnity
+
+You will indemnify and hold the Company and its officers, directors, employees and agents harmless from and against any claims, disputes, demands, liabilities, damages, losses, costs and expenses, including, without limitation, reasonable legal and accounting fees arising out of or in any way connected with (a) your access to or use of the Interface, (b) any content that you post or otherwise make available through the Interface, or (c) your violation of these Terms.
+
+### 14. Limitation of Liability
+
+a. TO THE MAXIMUM EXTENT PERMITTED BY LAW, NEITHER THE COMPANY NOR ITS SERVICE PROVIDERS INVOLVED IN CREATING, PRODUCING, OR DELIVERING THE SERVICES WILL BE LIABLE FOR ANY INCIDENTAL, SPECIAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES, OR DAMAGES FOR LOST PROFITS, LOST REVENUES, LOST SAVINGS, LOST BUSINESS OPPORTUNITY, LOSS OF DATA OR GOODWILL, SERVICE INTERRUPTION, COMPUTER DAMAGE OR SYSTEM FAILURE OR THE COST OF SUBSTITUTE SERVICES OF ANY KIND ARISING OUT OF OR IN CONNECTION WITH THESE TERMS OR FROM THE USE OF OR INABILITY TO USE THE SERVICES, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), PRODUCT LIABILITY OR ANY OTHER LEGAL THEORY, AND WHETHER OR NOT THE COMPANY OR ITS SERVICE PROVIDERS HAVE BEEN INFORMED OF THE POSSIBILITY OF SUCH DAMAGE, EVEN IF A LIMITED REMEDY SET FORTH HEREIN IS FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE.
+
+b. TO THE MAXIMUM EXTENT PERMITTED BY THE LAW OF THE APPLICABLE JURISDICTION, IN NO EVENT WILL THE COMPANY’S TOTAL LIABILITY ARISING OUT OF OR IN CONNECTION WITH THESE TERMS OR FROM THE USE OF OR INABILITY TO USE THE SERVICES EXCEED, AS APPLICABLE, THE AMOUNTS YOU HAVE PAID OR ARE PAYABLE BY YOU TO THE COMPANY FOR USE OF THE SERVICES OR, IF YOU HAVE NOT HAD ANY PAYMENT OBLIGATIONS TO THE COMPANY, ONE HUNDRED DOLLARS ($100).
+
+c. THE EXCLUSIONS AND LIMITATIONS OF DAMAGES SET FORTH ABOVE ARE FUNDAMENTAL ELEMENTS OF THE BASIS OF THE BARGAIN BETWEEN THE COMPANY AND YOU.
+
+### 15. Governing Law and Forum Choice
+
+These Terms and any action related thereto will be governed by the laws of the Cayman Islands, without regard to its conflict of laws provisions. Except as otherwise expressly set forth in Section 16 (Dispute Resolution), the exclusive jurisdiction for all Disputes (defined below) that you and the Company are not required to arbitrate will be the courts located in the George Town, Cayman Islands, and you and the Company each waive any objection to jurisdiction and venue in such courts.
+
+### 16. Dispute Resolution
+
+#### a. Mandatory Arbitration of Disputes
+
+We each agree that any dispute, claim or controversy arising out of or relating to these Terms or the breach, termination, enforcement, interpretation or validity thereof or the use of the Interface (collectively, “**Disputes**”) will be resolved **solely by binding, individual arbitration and not in a class, representative or consolidated action or proceeding**. You and the Company agree that the Cayman Arbitration Act governs the interpretation and enforcement of these Terms, and that you and the Company are each waiving the right to a trial by jury or to participate in a class action. This arbitration provision shall survive termination of these Terms.
+
+#### b. Exceptions
+
+As limited exceptions to Section 16(a) above: (i) we both may seek to resolve a Dispute in small claims court if it qualifies; and (ii) we each retain the right to seek injunctive or other equitable relief from a court to prevent (or enjoin) the infringement or misappropriation of our intellectual property rights.
+
+#### c. Notice
+
+Before initiating arbitration or a small claims court proceeding, you and the Company agree that each will send to the other party a written notice that describes the Dispute(s) and the relief sought (the “Notice”) to allow the parties to attempt to resolve the Dispute informally. The Notice to the Company should indicate your preferred mailing address and email address and should be sent to: <admin@owly.fi>. Any Notice from the Company will be sent via any means we have to contact you, including via airdrop to your wallet. You and the Company each agree to negotiate any Dispute between us in good faith. You and the Company each agree that neither may initiate arbitration proceedings or a small claims court proceeding unless the parties have made a good faith effort to resolve the Dispute through the informal resolution procedure described in this paragraph and are unable to do so within sixty (60) days after receipt of any Notice. Any applicable statue of limitations will be tolled for sixty (60) days while the parties engage in this informal dispute resolution procedure.
+
+#### d. Conducting Arbitration and Arbitration Rules
+
+For Dispute(s) that we cannot resolve within sixty (60) days of the Notice despite those good faith efforts, either you or the Company may start arbitration or small claims proceedings. The arbitration of all Disputes will be in binding arbitration conducted by the Cayman International Mediation & Arbitration Centre (“CI-MAC”) under the CI-MAC rules then in effect (rules available at <https://www.caymanarbitration.com/>) and governed by the Arbitration Act (as amended) of the Cayman Islands. The number of arbitrators shall be one and the decision of the sole arbitrator to any such Dispute(s) shall be final and binding upon both parties. The arbitrator can award the same damages and relief that a court can award. You and the Company each waives any right you or it may have to assert the doctrine of forum non conveniens, to assert that it is not subject to the jurisdiction of such arbitration or courts, or to object to venue to the extent any proceeding is brought in accordance herewith. If any Dispute(s) asserted in any request or demand for arbitration could have been brought in small claims court, then either you or the Company may elect to have the Dispute(s) heard in small claims court, rather than in arbitration, at any time before the arbitrator is appointed, by notifying the other party of that election in writing. Any dispute about whether a Dispute qualifies for small claims court will be resolved by that court, not by an arbitrator. In the event of any such dispute, the arbitration proceeding will remain closed unless and until the small claims court issues a decision that the Dispute should proceed in arbitration.
+
+Any arbitration hearings will be conducted in George Town, Cayman Islands, but will be conducted remotely to the extent permitted by the CI-MAC Rules. The parties agree that, except as otherwise provided herein, the arbitrator shall have exclusive authority to decide all issues, including jurisdictional and arbitrability issues and the formation, existence, validity, interpretation, applicability, enforceability, and scope of this arbitration provision. The arbitrator is bound by this Agreement.
+
+The arbitrator shall issue a reasoned written decision sufficient to explain the essential findings and conclusions on which the award is based. The award shall be binding only among the parties and shall have no preclusive effect in any other arbitration or other proceeding involving a different party. Judgment on any award may be entered in any court having jurisdiction. This arbitration provision shall not preclude any party to the arbitration from at any time seeking injunctions or other forms of equitable relief in aid of arbitration from a court of appropriate jurisdiction, including whether an arbitration demand is filed in violation of these Terms. If for any reason this arbitration provision is found not to apply to a Dispute and as a result a Dispute proceeds in a court of general jurisdiction rather than in arbitration or small claims court, the Dispute shall be exclusively brought in accordance with Section 15 above.
+
+#### e. Arbitration Costs
+
+Payment of all filing, administration and arbitrator fees will be governed by the CI-MAC Rules. The Company will not seek to recover its attorneys’ fees and costs in arbitration from you unless the arbitrator finds that either the substance of your Dispute or the relief sought in your demand for arbitration was frivolous or was brought for an improper purpose. If you prevail in arbitration you will be entitled to an award of attorneys’ fees and expenses to the extent provided under applicable law.
+
+#### f. Injunctive and Declaratory Relief
+
+Except as provided in Section 16(b) above, the arbitrator shall determine all issues of liability on the merits of any claim asserted by either party and may award declaratory or injunctive relief only in favor of the individual party seeking relief and only to the extent necessary to provide relief warranted by that party’s individual claim. To the extent that you or we prevail on a claim and seek public injunctive relief (that is, injunctive relief that has the primary purpose and effect of prohibiting unlawful acts that threaten future injury to the public), the entitlement to and extent of such relief must be litigated in a civil court of competent jurisdiction and not in arbitration. The parties agree that litigation of any issues of public injunctive relief shall be stayed pending the outcome of the merits of any individual claims in arbitration.
+
+#### g. Class Action Waiver
+
+**YOU AND THE COMPANY AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING.** Further, if the parties’ Dispute is resolved through arbitration, the arbitrator may not consolidate another person’s claims with your claims, and may not otherwise preside over any form of a representative or class proceeding. If you or the Company believes that any Dispute that the other has filed in arbitration is inconsistent with the limitations in this paragraph, then you or the Company may seek an order from a court determining whether the other’s Dispute is within the scope of this class action waiver. If a court or an arbitrator determines that any part of this arbitration provision or class action waiver is unenforceable with respect to any Dispute, then the arbitration provision and class action waiver will not apply to that Dispute. But the arbitration provision and class action waiver will still apply to all other Disputes, remedies and requests for relief that you or the Company may assert in that or any other action. In any such case, you and the Company agree that the parties will arbitrate all Disputes, remedies and requests for relief subject to individual arbitration first, and that any remaining unresolved Claims, remedies, or requests for relief may be pursued in court only after the arbitrator’s award has been issued. The parties agree that any statute of limitations applicable to the unresolved Disputes, remedies or requests for relief shall be tolled pending the outcome of the individual Disputes in arbitration.
+
+#### h. Severability
+
+With the exception of any of the provisions in Section 16(g) (Class Action Waiver), if an arbitrator or court of competent jurisdiction decides that any part of these Terms is invalid or unenforceable, the other parts of these Terms will still apply.
+
+### 17. General Terms
+
+#### a. Reservation of Rights
+
+The Company and its licensors exclusively own all right, title and interest in and to the Interface, including all associated intellectual property rights. You acknowledge that the Interface is protected by copyright, trademark, and other laws of the United States and foreign countries. You agree not to remove, alter or obscure any copyright, trademark, service mark or other proprietary rights notices incorporated in or accompanying the Interface.
+
+#### b. Entire Agreement
+
+These Terms constitute the entire and exclusive understanding and agreement between the Company and you regarding the Interface, and these Terms supersede and replace all prior oral or written understandings or agreements between the Company and you regarding the Interface. If any provision of these Terms is held invalid or unenforceable by an arbitrator or a court of competent jurisdiction, that provision will be enforced to the maximum extent permissible and the other provisions of these Terms will remain in full force and effect. You may not assign or transfer these Terms, by operation of law or otherwise, without the Company’s prior written consent. Any attempt by you to assign or transfer these Terms, without such consent, will be null. The Company may freely assign or transfer these Terms without restriction. Subject to the foregoing, these Terms will bind and inure to the benefit of the parties, their successors and permitted assigns.
+
+#### c. Notices
+
+Any notices or other communications provided by the Company under these Terms will be given: (i) via email; or (ii) by posting to the Interface. For notices made by email, the date of receipt will be deemed the date on which such notice is transmitted.
+
+#### d. Waiver of Rights
+
+The Company’s failure to enforce any right or provision of these Terms will not be considered a waiver of such right or provision. The waiver of any such right or provision will be effective only if in writing and signed by a duly authorized representative of the Company. Except as expressly set forth in these Terms, the exercise by either party of any of its remedies under these Terms will be without prejudice to its other remedies under these Terms or otherwise.
+
+### 18. Contact Information
+
+If you have any questions about these Terms or the Interface, please contact the Company at **<support@owly.fi>**.

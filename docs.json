@@ -66,6 +66,14 @@
             "pages": [
               "changelog"
             ]
+          },
+          {
+            "group": "Legal",
+            "icon": "scale",
+            "pages": [
+              "legal/terms-of-service",
+              "legal/privacy-policy"
+            ]
           }
         ]
       },

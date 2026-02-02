@@ -1,0 +1,86 @@
+---
+title: "Privacy Policy"
+description: "How Owly.fi collects and uses information"
+icon: "shield-check"
+---
+
+# Privacy Policy
+
+Owly.fi ("Owly," "we," "our," or "us") provides a non-custodial interface for discovering, monitoring, and copying trades on Hyperliquid and other third-party protocols. This Privacy Policy ("Privacy Policy") explains how we collect, use, and share information in connection with our Services as well as your rights and choices regarding such information. These terms apply to our website, app, and any other online location that links to this Privacy Policy (collectively, the "Services").
+
+By using the Services, you agree to our collection, use, and sharing of your information as described in this Privacy Policy. If you do not agree with the terms, you should not use or access the Services.
+
+## 1. Information Collection
+
+### **A. Information You Provide**
+
+We may collect the following information when you use our Services:
+
+* **Account Information**: If you choose to provide it, we may collect your email address, nickname, and other profile details.
+* **Correspondence and Content**: When you contact us, we may collect your name, contact information, and the content of any communication, including feedback and questions. You are solely responsible for any information you voluntarily provide to us that has not been solicited.
+* **Referral or Invite Codes**: If you enter an invite/referral code, we may store it to apply benefits and for fraud prevention.
+
+### **B. Information Collected Automatically**
+
+We collect the following information automatically:
+
+* **Wallet Address and Public On-Chain Data**: We collect the wallet address you use to connect to the Services and may access public blockchain data associated with that address.
+* **Device and Log Information**: We collect data about the device used to access the Services (such as device type, operating system, and browser type) and basic logs (such as timestamps and IP address) to optimize and troubleshoot.
+* **Usage Information**: We may collect information about how you interact with the Services, including pages visited, features used, and actions taken. This information helps us continuously improve the user experience.
+
+## 2. Use of Information
+
+We may collect and use information for the following business purposes:
+
+* **Operating and Managing Services**: To provide you with access to the Services, respond to inquiries, send updates, enforce our Terms, detect and prevent fraud, and comply with legal obligations.
+* **Providing Core Features**: To enable wallet-based authentication, trader discovery, copy-trading workflows, performance analytics, and related features you request.
+* **Improving Services**: To analyze user behavior and improve Services for a better user experience.
+* **Security and Compliance**: To maintain the security and integrity of the Services and comply with applicable laws and legal processes.
+* **Consent**: To fulfill purposes for which we have obtained your explicit consent.
+
+We may use aggregated or de-identified information for any purpose, as allowed by law.
+
+## 3. Sharing and Disclosure of Information
+
+We may share or disclose information as follows:
+
+* **Service Providers**: We may share information with third-party providers for services such as security, analytics, IT, and blockchain transaction monitoring. These providers only act on our behalf.
+* **Affiliates and Advisors**: We may share information with affiliates and professional advisors for audits and compliance.
+* **Aggregated Information**: We may share non-identifiable information as allowed by law.
+* **Third-Party Protocols**: When you authorize transactions, your wallet address and transaction data may be sent to Hyperliquid or other third-party protocols. Such transactions are public on-chain.
+
+## 4. Third-Party Services
+
+Our Services may include links or integrations to third-party websites or services. We are not responsible for the privacy practices of these third parties, and your interactions with them are subject to their own privacy policies.
+
+## 5. Cookies Policy
+
+We use local storage and similar technologies to remember preferences (such as language and session state). Third-party services integrated with our platform may also use cookies or similar technologies. Please review their privacy policies for details on their cookie practices.
+
+## 6. Analytics
+
+We may use third-party analytics tools to understand how users engage with the Services, which helps us improve functionality. You may opt-out of certain tracking by adjusting your browser settings or using privacy tools.
+
+## 7. Data Security
+
+We implement reasonable measures to protect your information from unauthorized access, loss, or misuse. However, internet transmission is never completely secure, and we cannot guarantee absolute security.
+
+## 8. Data Retention
+
+We retain information as long as necessary for the purposes outlined in this Privacy Policy or as required by law. If you request deletion, we may retain certain information for legal, tax, or regulatory purposes.
+
+## 9. International Transfers
+
+Information collected through the Services may be transferred to and processed in jurisdictions with different data protection laws. By using our Services, you consent to these transfers.
+
+## 10. Children
+
+The Services are intended for users who can legally enter into contracts. We do not knowingly collect personal information from children. If you believe we have done so, please contact us to remove the information.
+
+## 11. Changes to This Privacy Policy
+
+We reserve the right to update this Privacy Policy at any time. Any changes will be posted on this page, and your continued use of the Services indicates acceptance of the new terms.
+
+## 12. Contact Us
+
+If you have questions or comments about this Privacy Policy, please contact us at <support@owly.fi>.
