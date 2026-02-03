@@ -7,59 +7,26 @@ icon: "wallet"
 
 了解如何在 Owly 上管理您的资金。
 
-## 存入资金
+## 资金管理
 
-### 支持的资产
+根据您的账户类型，Owly 提供两种资金管理方式。
 
-目前，Owly 支持：
-- **USDC**（Arbitrum 网络）
+### 1. 托管账户 (Managed Accounts)
+*在 Owly 平台内直接创建的账户。*
 
-### 如何存款
+*   **操作方式**：您可以直接通过 **Owly 界面** 进行充值和提现操作。
+*   **特点**：集成度高，操作便捷。
 
-<Steps>
-  <Step title="打开存款对话框">
-    导航到您的子账户并点击"存款"。
-  </Step>
-  <Step title="复制地址">
-    复制显示的 Arbitrum USDC 存款地址。
-  </Step>
-  <Step title="发送 USDC">
-    从您的钱包或交易所将 USDC 转账到此地址。
-  </Step>
-  <Step title="等待确认">
-    资金通常在交易确认后1-2分钟内到账。
-  </Step>
-</Steps>
+### 2. 自管账户 (Self-Managed Accounts)
+*包含 API 钱包和导入的 Hyperliquid 子账户。*
 
-<Warning>
-  请只在 Arbitrum 网络上发送 USDC。发送其他代币或使用错误的网络可能导致资金永久丢失。
-</Warning>
+*   **操作方式**：请直接前往 [Hyperliquid](https://hyperliquid.xyz) 官方平台进行资金的充值和提取。
+*   **特点**：您保留对账户资金的完全控制权，Owly 仅负责策略执行。
 
-## 提取资金
+## 费用说明
 
-### 如何提款
-
-<Steps>
-  <Step title="停止跟单">
-    确保所有跟单交易已停止且仓位已平仓。
-  </Step>
-  <Step title="打开提款对话框">
-    在子账户卡片上点击"提款"。
-  </Step>
-  <Step title="输入金额">
-    指定您希望提取的金额。
-  </Step>
-  <Step title="确认目标地址">
-    验证您的提款地址（您连接的钱包）。
-  </Step>
-  <Step title="提交">
-    确认提款交易。
-  </Step>
-</Steps>
-
-<Note>
-  提款只能发送到您连接的钱包地址。这是防止未授权提款的安全功能。
-</Note>
+*   **Owly 费用**：**0**。Owly 不收取任何充值、提现或转账的手续费。
+*   **网络费用**：Arbitrum 网络产生的 Gas 费或 Hyperliquid 的跨链/桥接费用由网络收取，与平台无关。
 
 ## 内部转账
 

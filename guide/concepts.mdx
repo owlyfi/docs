@@ -1,0 +1,82 @@
+---
+title: "Core Concepts"
+description: "Understand key terms and concepts in Owly and Hyperliquid"
+icon: "book"
+---
+
+## Account Types
+
+Understanding the three types of copy trading accounts supported by Owly is crucial for choosing the best option for you.
+
+### 1. API Wallet (API Agent Wallet)
+This is the advanced method recommended by Owly.
+- **Mechanism**: Uses Hyperliquid's Agent Wallet API for trading.
+- **Nature**: **Non-custodial**. You have full control over your funds.
+- **Features**: Each sub-account is essentially an independent Hyperliquid trading account managed via API authorization.
+- **Pros**: No high trading volume requirement to create, suitable for most users.
+
+### 2. Hyperliquid Sub-account
+Directly imports existing sub-accounts using Hyperliquid's native sub-account feature.
+- **Mechanism**: Links directly to your existing Hyperliquid sub-account.
+- **Nature**: **Non-custodial**.
+- **Features**: Funds are managed and transferred within a single Hyperliquid master account.
+- **Pros**: Unified fund management.
+- **Cons**: Volume requirement; Hyperliquid requires the master account to have **100,000 USDC** trading volume on Hyperliquid to create sub-accounts.
+
+### 3. Owly Managed
+- **Mechanism**: Accounts created and managed for you by Owly.
+- **Nature**: **Custodial**.
+- **Features**: Extremely simple operation, generated with just a few clicks.
+- **Cons**: Users do not hold the private keys; security depends on the platform.
+- **Recommendation**: We strongly recommend the first two non-custodial options to ensure absolute asset security.
+
+### Comparison Table
+
+| Feature | API Wallet (Agent) | Hyperliquid Sub-account | Owly Managed |
+|---------|-------------------|------------------------|--------------|
+| **Type** | Non-custodial (Recommended) | Non-custodial | Custodial |
+| **Fund Control** | User Full Control | User Full Control | Platform Managed |
+| **Prerequisites** | No volume req | Hyperliquid Volume (>100k) | None |
+| **Complexity** | Medium | Medium | Low |
+| **Best For** | Most Users | Whales / Pro Traders | Beginners / Small Amounts |
+
+## Key Indicators
+
+Refer to these indicators when selecting traders.
+
+### ROI (Return on Investment)
+`ROI = (Current Value - Initial Value) / Initial Value × 100%`
+Measures the profitability of a strategy. We typically display 7-day, 30-day, or Total ROI.
+
+### Sharpe Ratio
+Measures the excess return per unit of risk taken.
+- **> 1**: Good
+- **> 2**: Excellent
+- **> 3**: Exceptional
+A higher Sharpe Ratio indicates better returns for the same level of risk.
+
+### Max Drawdown
+The maximum observed loss from a peak to a trough of a portfolio.
+- **Significance**: Represents the potential loss in a worst-case scenario. Lower drawdown indicates a more robust strategy.
+
+### Win Rate
+`Win Rate = Winning Trades / Total Trades`
+- **Note**: A high win rate does not necessarily mean high profits (if individual losses are large). It should be considered alongside the Profit/Loss ratio.
+
+### Volatility
+Measures the degree of variation in returns. Lower volatility means a smoother equity curve.
+
+## Copy Trading Logic
+
+### Multi-Dimensional Ranking System
+Owly moves beyond single-factor ROI ranking, using a multi-dimensional scoring system to find "Smart Money":
+- **Profitability**: ROI, Absolute Profit
+- **Risk Control**: Drawdown Control, Sharpe Ratio
+- **Stability**: Trading Frequency, Capacity
+We algorithmically synthesize these metrics to recommend traders with the best overall performance.
+
+### Portfolio SL/TP (Stop Loss/Take Profit)
+Unlike traditional single-order stop-loss, Owly provides portfolio-level risk control.
+- **Mechanism**: The system monitors the net equity of the entire sub-account.
+- **Trigger**: When the total equity of the sub-account reaches your set Take Profit or Stop Loss level, the system automatically closes all positions and stops copy trading.
+- **Advantage**: Effectively prevents a single "black swan" event from wiping out the entire account, protecting your principal.

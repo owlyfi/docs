@@ -44,6 +44,7 @@
             "group": "User Guide",
             "icon": "map",
             "pages": [
+              "guide/concepts",
               "guide/quick-start",
               "guide/asset-management",
               "guide/copy-trading",
@@ -103,6 +104,7 @@
             "group": "操作指南",
             "icon": "map",
             "pages": [
+              "zh/guide/concepts",
               "zh/guide/quick-start",
               "zh/guide/asset-management",
               "zh/guide/copy-trading",
@@ -138,7 +140,7 @@
         },
         {
           "anchor": "Telegram",
-          "href": "https://t.me/owlyfi",
+          "href": "https://t.me/owlyfi_support",
           "icon": "telegram"
         }
       ]
@@ -148,7 +150,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "https://t.me/arbalists"
+        "href": "https://t.me/owlyfi_support"
       }
     ],
     "primary": {
@@ -160,7 +162,7 @@
   "footer": {
     "socials": {
       "x": "https://x.com/owlyfi",
-      "telegram": "https://t.me/owlyfi",
+      "telegram": "https://t.me/owlyfi_support",
       "github": "https://github.com/owlyfi"
     }
   }

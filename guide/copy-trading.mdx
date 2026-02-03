@@ -11,9 +11,12 @@ Learn how to effectively use Owly's copy trading features.
 
 ### Discovery Page
 
-The Discovery page helps you find traders to copy:
+The Discovery page uses a **Multi-Dimensional Ranking System** to help you find "Smart Money" based on comprehensive performance metrics, not just ROI.
 
 <CardGroup cols={2}>
+  <Card title="Smart Ranking" icon="trophy">
+    Algorithmically weighted scores balancing profit, risk, and stability.
+  </Card>
   <Card title="Performance Filters" icon="filter">
     Filter by ROI, win rate, and time period.
   </Card>
@@ -23,20 +26,17 @@ The Discovery page helps you find traders to copy:
   <Card title="Trading Style" icon="sliders">
     Find traders matching your preferred strategy.
   </Card>
-  <Card title="Favorites" icon="star">
-    Save traders for later comparison.
-  </Card>
 </CardGroup>
 
 ### Key Metrics to Consider
 
 | Metric | What to Look For |
 |--------|------------------|
-| **30D ROI** | Consistent positive returns |
-| **Max Drawdown** | Lower is generally safer |
+| **Ranking Score** | Higher score indicates better overall balance |
+| **Sharpe Ratio** | > 2 indicates excellent risk-adjusted returns |
+| **Max Drawdown** | Lower is generally safer (< 20%) |
 | **Win Rate** | > 50% combined with good risk/reward |
 | **Trade Frequency** | Matches your preferred activity level |
-| **Account Age** | Longer track record = more reliable data |
 
 ## Starting Copy Trading
 
@@ -57,7 +57,7 @@ The Discovery page helps you find traders to copy:
     Configure how much of each trade to copy (e.g., 0.5x, 1x, 2x).
   </Step>
   <Step title="Configure Risk Settings">
-    Set your stop-loss, max leverage, and position limits.
+    Set **Portfolio SL/TP** to protect your total equity, along with max leverage and position limits.
   </Step>
   <Step title="Confirm">
     Review all settings and start copying.
