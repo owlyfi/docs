@@ -48,7 +48,8 @@
               "guide/asset-management",
               "guide/copy-trading",
               "guide/dashboard",
-              "guide/owner-guide"
+              "guide/owner-guide",
+              "guide/referral"
             ]
           },
           {
@@ -93,7 +94,8 @@
               "zh/guide/asset-management",
               "zh/guide/copy-trading",
               "zh/guide/dashboard",
-              "zh/guide/owner-guide"
+              "zh/guide/owner-guide",
+              "zh/guide/referral"
             ]
           },
           {
