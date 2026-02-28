@@ -48,7 +48,9 @@
               "guide/quick-start",
               "guide/asset-management",
               "guide/copy-trading",
-              "guide/dashboard"
+              "guide/dashboard",
+              "guide/owner-guide",
+              "guide/referral"
             ]
           },
           {
@@ -108,7 +110,9 @@
               "zh/guide/quick-start",
               "zh/guide/asset-management",
               "zh/guide/copy-trading",
-              "zh/guide/dashboard"
+              "zh/guide/dashboard",
+              "zh/guide/owner-guide",
+              "zh/guide/referral"
             ]
           },
           {

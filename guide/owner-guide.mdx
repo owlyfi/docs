@@ -1,0 +1,311 @@
+---
+title: "For Asset Owners"
+description: "Manage Hyperliquid Sub Accounts and delegate to fund managers for Copy Trading"
+icon: "user-shield"
+---
+
+This guide walks you through managing Hyperliquid Sub Accounts on Owly and delegating them to fund managers for Copy Trading.
+
+## Workflow Overview
+
+1. [Preparation](#step-1:-preparation)
+2. [Create Sub Account](#step-2:-create-sub-account-and-api-on-hyperliquid)
+3. [Import to Owly](#step-3:-import-sub-account-to-owly)
+4. [Assign Manager](#step-4:-assign-to-fund-manager)
+5. [Daily Management](#step-5:-daily-management)
+6. [Permissions & Security](#permissions--security)
+
+## Step 1: Preparation
+
+### 1.1 Register Owly Account
+
+<Steps>
+  <Step title="Visit Owly">
+    Go to [app.owly.fi](https://app.owly.fi)
+  </Step>
+  <Step title="Connect Wallet">
+    Click "Connect Wallet" to connect your main wallet
+  </Step>
+  <Step title="Sign Verification">
+    Sign the verification message to confirm wallet ownership
+  </Step>
+  <Step title="Registration Complete">
+    Complete registration and enter the Owly platform
+  </Step>
+</Steps>
+
+### 1.2 Confirm Fund Manager Registration
+
+<Check>Fund manager must be a registered Owly user</Check>
+<Check>Obtain the fund manager's wallet address</Check>
+
+<Warning>
+If the fund manager is not registered, the assignment will fail.
+</Warning>
+
+## Step 2: Create Sub Account and API on Hyperliquid
+
+### 2.1 Prerequisites
+
+<Note>
+Creating a Sub Account requires your main account to have reached **100,000 USDC trading volume**.
+</Note>
+
+### 2.2 Create Sub Account
+
+<Steps>
+  <Step title="Visit Hyperliquid">
+    Go to [app.hyperliquid.xyz](https://app.hyperliquid.xyz)
+  </Step>
+  <Step title="Connect Wallet">
+    Connect your main wallet
+  </Step>
+  <Step title="Navigate to Sub Accounts">
+    Find Sub Accounts in the menu
+  </Step>
+  <Step title="Create Sub Account">
+    Click Create Sub Account, enter a name and confirm creation
+  </Step>
+</Steps>
+
+### 2.3 Create API Key for Sub Account
+
+<Steps>
+  <Step title="Enter Sub Account">
+    Select the Sub Account you just created
+  </Step>
+  <Step title="Create API Key">
+    Click API, create a new API Key
+  </Step>
+  <Step title="Save Private Key">
+    **Important**: Securely save the private key - it's only shown once
+  </Step>
+</Steps>
+
+<Warning>
+**Each Sub Account must have its own API Key!**
+
+While one API Key can technically operate all Sub Accounts, due to Nonce mechanism limitations, **one API Key cannot operate multiple Sub Accounts simultaneously**, otherwise trading conflicts will occur.
+
+Owly requires: **One Sub Account = One dedicated API Key**.
+</Warning>
+
+### 2.4 Set Up Builder Fee
+
+<Steps>
+  <Step title="Visit Settings Page">
+    Go to [Owly Builder Fee Settings](https://owly.fi/app/builder-test)
+  </Step>
+  <Step title="Connect Wallet">
+    Connect your main wallet
+  </Step>
+  <Step title="Complete Authorization">
+    Follow the on-page instructions to complete Builder Fee authorization
+  </Step>
+</Steps>
+
+<Warning>
+If Builder Fee is not set, import validation will fail.
+</Warning>
+
+## Step 3: Import Sub Account to Owly
+
+### 3.1 Access Add Page
+
+<Steps>
+  <Step title="Login to Owly">
+    Login to Owly with your main wallet
+  </Step>
+  <Step title="Go to Sub Account Management">
+    Navigate to **Sub Account Management**
+  </Step>
+  <Step title="Add Sub Account">
+    Click **Add Sub Account**
+  </Step>
+</Steps>
+
+### 3.2 Select Sub Account
+
+Owly will automatically fetch your Sub Account list. Select the Sub Account you want to import.
+
+### 3.3 Enter API Key
+
+<Steps>
+  <Step title="Enter Private Key">
+    Enter the API private key you created on Hyperliquid
+  </Step>
+  <Step title="Set Display Name">
+    Set a display name for this account
+  </Step>
+</Steps>
+
+### 3.4 Confirm Import
+
+Owly will verify:
+- API Key validity
+- Builder Fee setup status
+
+Once verified, import is complete.
+
+## Step 4: Assign to Fund Manager
+
+<Steps>
+  <Step title="Go to Sub Account Management">
+    Navigate to **Sub Account Management** in Owly
+  </Step>
+  <Step title="Select Sub Account">
+    Choose the Sub Account to assign
+  </Step>
+  <Step title="Assign Fund Manager">
+    Click **Assign Fund Manager**
+  </Step>
+  <Step title="Enter Address">
+    Enter the fund manager's wallet address
+  </Step>
+  <Step title="Confirm Assignment">
+    Confirm the assignment
+  </Step>
+</Steps>
+
+<Note>
+If the fund manager hasn't registered on Owly, assignment will fail with "Address not registered" message.
+</Note>
+
+## Step 5: Daily Management
+
+### View Account Status
+
+Go to **Sub Account Management** to view all accounts, including positions, P&L, and Bot running status.
+
+### Stop Bot
+
+<Steps>
+  <Step title="Select Account">
+    Select the Sub Account
+  </Step>
+  <Step title="Stop Bot">
+    Click **Stop Bot**
+  </Step>
+  <Step title="Complete">
+    Bot will stop executing new trades
+  </Step>
+</Steps>
+
+### Remove Fund Manager Assignment
+
+<Steps>
+  <Step title="Select Account">
+    Select the Sub Account
+  </Step>
+  <Step title="Remove Assignment">
+    Click **Remove Assignment**
+  </Step>
+  <Step title="Confirm">
+    After confirmation, fund manager loses management permissions and associated Bots will automatically stop
+  </Step>
+</Steps>
+
+### Emergency Revocation (On-chain)
+
+To completely revoke an API Key:
+
+<Steps>
+  <Step title="Visit Hyperliquid">
+    Go to Hyperliquid
+  </Step>
+  <Step title="Enter Sub Account">
+    Navigate to the corresponding Sub Account
+  </Step>
+  <Step title="Revoke API">
+    Delete/revoke the API Key
+  </Step>
+</Steps>
+
+## Permissions & Security
+
+### API Key Technical Limitations
+
+| Limitation | Description |
+|:-----------|:------------|
+| **Scope** | API Key can sign operations for main account and all Sub Accounts |
+| **Nonce Mechanism** | Each API Key uses an independent Nonce sequence |
+| **Concurrency Limit** | One API Key cannot operate multiple Sub Accounts simultaneously (Nonce conflict) |
+| **Owly Requirement** | Each Sub Account must use a dedicated API Key |
+
+### API Key Permissions
+
+| Permission | Description |
+|:-----------|:------------|
+| ✅ Trading | Open, close, place, cancel orders |
+| ✅ Leverage Adjustment | Modify leverage multiplier |
+| ❌ Internal Transfer | Requires asset owner's private key signature |
+| ❌ Withdrawal | Requires asset owner's private key signature |
+
+<Note>
+**API Key can only perform trading operations, cannot transfer or withdraw funds**. All operations involving fund movements require the asset owner's private key signature. API Key leakage will not result in funds being transferred away.
+</Note>
+
+### Fund Manager Permissions
+
+After assignment, fund managers can:
+
+| Operation | Permission |
+|:----------|:-----------|
+| Configure and start/stop Copy Trade Bot | ✅ Allowed |
+| View positions and P&L | ✅ Allowed |
+| Withdraw or transfer funds | ❌ Not Allowed |
+| Modify account settings | ❌ Not Allowed |
+| Assign to others | ❌ Not Allowed |
+
+### Security Recommendations
+
+<Warning>
+1. **Safely store API private key** - never share with anyone
+2. **Use dedicated API Key for each Sub Account**
+3. **Only assign to trusted fund managers**
+4. **Regularly check trading records** - stop Bot immediately if anomalies detected
+5. **If API leak suspected** - immediately revoke on Hyperliquid
+</Warning>
+
+### Risk Disclosure
+
+| Scenario | Risk | Your Control |
+|:---------|:-----|:-------------|
+| Fund manager strategy loss | Capital reduction | Stop Bot, remove assignment |
+| High leverage operation | Liquidation risk | Monitor positions, intervene promptly |
+| API Key leak | Malicious trading | Revoke API on Hyperliquid |
+| Extreme market conditions | Significant losses | Set stop-loss in advance |
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Cannot create Sub Account">
+    Main account must reach 100,000 USDC trading volume
+  </Accordion>
+  <Accordion title="Import fails with 'Builder Fee not set'">
+    Please set Builder Fee on [Owly](https://owly.fi/app/builder-test) first
+  </Accordion>
+  <Accordion title="Cannot find my Sub Account">
+    Confirm you're using the main wallet that created the Sub Account
+  </Accordion>
+  <Accordion title="Assignment fails with 'Address not registered'">
+    Fund manager needs to register an Owly account first
+  </Accordion>
+  <Accordion title="Can fund manager withdraw my funds?">
+    No, API Key has no withdrawal permissions
+  </Accordion>
+  <Accordion title="Why does each Sub Account need a separate API?">
+    Nonce mechanism limitation - sharing causes trading conflicts
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Asset Management" href="/guide/asset-management" icon="wallet">
+    Learn how to manage deposits and withdrawals
+  </Card>
+  <Card title="Dashboard" href="/guide/dashboard" icon="chart-line">
+    Understand your portfolio and performance metrics
+  </Card>
+</CardGroup>

@@ -1,0 +1,311 @@
+---
+title: "资产所有者"
+description: "管理 Hyperliquid Sub Account 并分配给基金经理进行 Copy Trade"
+icon: "user-shield"
+---
+
+本手册指导您如何在 Owly 上管理 Hyperliquid Sub Account 并分配给基金经理进行 Copy Trade。
+
+## 操作流程概览
+
+1. [准备工作](#步骤-1:-准备工作)
+2. [创建 Sub Account](#步骤-2:-在-hyperliquid-创建-sub-account-和-api)
+3. [导入 Owly](#步骤-3:-导入-sub-account-到-owly)
+4. [分配基金经理](#步骤-4:-分配给基金经理)
+5. [日常管理](#步骤-5:-日常管理)
+6. [权限与安全](#权限与安全说明)
+
+## 步骤 1: 准备工作
+
+### 1.1 注册 Owly 账户
+
+<Steps>
+  <Step title="访问 Owly 官网">
+    前往 [app.owly.fi](https://app.owly.fi)
+  </Step>
+  <Step title="连接主钱包">
+    点击 "Connect Wallet" 连接您的主钱包
+  </Step>
+  <Step title="完成签名验证">
+    签名验证消息以确认钱包所有权
+  </Step>
+  <Step title="注册成功">
+    完成注册，进入 Owly 平台
+  </Step>
+</Steps>
+
+### 1.2 确认基金经理已注册
+
+<Check>基金经理必须已注册为 Owly 用户</Check>
+<Check>获取基金经理的钱包地址</Check>
+
+<Warning>
+如基金经理未注册，分配将失败。
+</Warning>
+
+## 步骤 2: 在 Hyperliquid 创建 Sub Account 和 API
+
+### 2.1 前置条件
+
+<Note>
+创建 Sub Account 需要您的主账户达到 **100,000 USDC 交易量**。
+</Note>
+
+### 2.2 创建 Sub Account
+
+<Steps>
+  <Step title="访问 Hyperliquid">
+    前往 [app.hyperliquid.xyz](https://app.hyperliquid.xyz)
+  </Step>
+  <Step title="连接钱包">
+    连接您的主钱包
+  </Step>
+  <Step title="进入 Sub Accounts">
+    在菜单中找到 Sub Accounts
+  </Step>
+  <Step title="创建 Sub Account">
+    点击 Create Sub Account，输入名称并确认创建
+  </Step>
+</Steps>
+
+### 2.3 为 Sub Account 创建 API Key
+
+<Steps>
+  <Step title="进入 Sub Account">
+    选择刚创建的 Sub Account
+  </Step>
+  <Step title="创建 API Key">
+    点击 API，创建新的 API Key
+  </Step>
+  <Step title="保存私钥">
+    **重要**: 安全保存私钥，只显示一次
+  </Step>
+</Steps>
+
+<Warning>
+**每个 Sub Account 必须创建独立的 API Key！**
+
+虽然一个 API Key 技术上可以操作所有 Sub Account，但由于 Nonce 机制限制，**一个 API Key 不能同时操作多个 Sub Account**，否则会导致交易冲突失败。
+
+Owly 要求：**一个 Sub Account 对应一个独立的 API Key**。
+</Warning>
+
+### 2.4 设置 Builder Fee
+
+<Steps>
+  <Step title="访问设置页面">
+    前往 [Owly Builder Fee 设置页面](https://owly.fi/app/builder-test)
+  </Step>
+  <Step title="连接钱包">
+    连接您的主钱包
+  </Step>
+  <Step title="完成授权">
+    按页面指引完成 Builder Fee 授权
+  </Step>
+</Steps>
+
+<Warning>
+如未设置 Builder Fee，导入时将验证失败。
+</Warning>
+
+## 步骤 3: 导入 Sub Account 到 Owly
+
+### 3.1 进入添加页面
+
+<Steps>
+  <Step title="登录 Owly">
+    使用您的主钱包登录 Owly
+  </Step>
+  <Step title="进入子账户管理">
+    在导航中找到 **子账户管理**
+  </Step>
+  <Step title="添加 Sub Account">
+    点击 **添加 Sub Account**
+  </Step>
+</Steps>
+
+### 3.2 选择 Sub Account
+
+Owly 会自动获取您的 Sub Account 列表，选择要导入的 Sub Account。
+
+### 3.3 输入 API Key
+
+<Steps>
+  <Step title="输入私钥">
+    输入您在 Hyperliquid 创建的 API 私钥
+  </Step>
+  <Step title="设置名称">
+    为此账户设置一个显示名称
+  </Step>
+</Steps>
+
+### 3.4 确认导入
+
+Owly 会验证:
+- API Key 有效性
+- Builder Fee 是否已设置
+
+验证通过后，导入成功。
+
+## 步骤 4: 分配给基金经理
+
+<Steps>
+  <Step title="进入子账户管理">
+    在 Owly 中进入 **子账户管理**
+  </Step>
+  <Step title="选择 Sub Account">
+    选择要分配的 Sub Account
+  </Step>
+  <Step title="分配基金经理">
+    点击 **分配基金经理**
+  </Step>
+  <Step title="输入地址">
+    输入基金经理的钱包地址
+  </Step>
+  <Step title="确认分配">
+    确认分配
+  </Step>
+</Steps>
+
+<Note>
+如果基金经理未注册 Owly，分配将失败并提示"该地址未注册"。
+</Note>
+
+## 步骤 5: 日常管理
+
+### 查看账户状态
+
+进入 **子账户管理** 查看所有账户，包括持仓、盈亏、Bot 运行状态。
+
+### 停止 Bot
+
+<Steps>
+  <Step title="选择账户">
+    选择 Sub Account
+  </Step>
+  <Step title="停止 Bot">
+    点击 **停止 Bot**
+  </Step>
+  <Step title="完成">
+    Bot 将停止执行新交易
+  </Step>
+</Steps>
+
+### 解除基金经理分配
+
+<Steps>
+  <Step title="选择账户">
+    选择 Sub Account
+  </Step>
+  <Step title="解除分配">
+    点击 **解除分配**
+  </Step>
+  <Step title="确认">
+    确认后，基金经理失去管理权限，关联的 Bot 会自动停止
+  </Step>
+</Steps>
+
+### 紧急撤销 (链上操作)
+
+如需完全撤销 API Key:
+
+<Steps>
+  <Step title="访问 Hyperliquid">
+    前往 Hyperliquid
+  </Step>
+  <Step title="进入 Sub Account">
+    进入对应 Sub Account
+  </Step>
+  <Step title="撤销 API">
+    删除/撤销 API Key
+  </Step>
+</Steps>
+
+## 权限与安全说明
+
+### API Key 技术限制
+
+| 限制 | 说明 |
+|:-----|:-----|
+| **权限范围** | API Key 可签名操作主账户及所有 Sub Account |
+| **Nonce 机制** | 每个 API Key 使用独立的 Nonce 序列 |
+| **并发限制** | 一个 API Key 不能同时操作多个 Sub Account（Nonce 冲突） |
+| **Owly 要求** | 每个 Sub Account 必须使用独立的 API Key |
+
+### API Key 权限范围
+
+| 权限 | 说明 |
+|:-----|:-----|
+| ✅ 下单 | 开仓、平仓、挂单、撤单 |
+| ✅ 杠杆调整 | 修改杠杆倍数 |
+| ❌ 内部转账 | 需要资产所有者私钥签名 |
+| ❌ 提现 | 需要资产所有者私钥签名 |
+
+<Note>
+**API Key 只能进行交易操作，无法进行转账和提现**。所有涉及资金变动的操作都需要资产所有者的私钥签名，API Key 泄露不会导致资金被转走。
+</Note>
+
+### 基金经理权限
+
+分配给基金经理后，其可以：
+
+| 操作 | 权限 |
+|:-----|:-----|
+| 配置和启停 Copy Trade Bot | ✅ 允许 |
+| 查看持仓和盈亏 | ✅ 允许 |
+| 提现或转出资金 | ❌ 不允许 |
+| 修改账户设置 | ❌ 不允许 |
+| 分配给其他人 | ❌ 不允许 |
+
+### 安全建议
+
+<Warning>
+1. **妥善保管 API 私钥**，切勿分享给任何人
+2. **每个 Sub Account 使用独立 API Key**
+3. **只分配给您信任的基金经理**
+4. **定期检查交易记录**，发现异常及时停止 Bot
+5. **如怀疑 API 泄露**，立即在 Hyperliquid 撤销
+</Warning>
+
+### 风险提示
+
+| 场景 | 风险 | 您的控制手段 |
+|:-----|:-----|:-------------|
+| 基金经理策略亏损 | 资金减少 | 停止 Bot、解除分配 |
+| 高杠杆操作 | 爆仓风险 | 监控持仓、及时干预 |
+| API Key 泄露 | 恶意交易 | 在 Hyperliquid 撤销 API |
+| 市场极端行情 | 大幅亏损 | 提前设置止损 |
+
+## 常见问题
+
+<AccordionGroup>
+  <Accordion title="无法创建 Sub Account">
+    主账户需达到 100,000 USDC 交易量
+  </Accordion>
+  <Accordion title="导入失败提示 Builder Fee 未设置">
+    请先在 [Owly](https://owly.fi/app/builder-test) 设置 Builder Fee
+  </Accordion>
+  <Accordion title="找不到我的 Sub Account">
+    确认使用的是创建 Sub Account 的主钱包
+  </Accordion>
+  <Accordion title="分配失败提示该地址未注册">
+    基金经理需先注册 Owly 账户
+  </Accordion>
+  <Accordion title="基金经理能提走我的资金吗">
+    不能，API Key 无提现权限
+  </Accordion>
+  <Accordion title="为什么每个 Sub Account 要单独的 API">
+    Nonce 机制限制，共用会导致交易冲突
+  </Accordion>
+</AccordionGroup>
+
+## 下一步
+
+<CardGroup cols={2}>
+  <Card title="资产管理" href="/zh/guide/asset-management" icon="wallet">
+    了解如何管理充值和提现
+  </Card>
+  <Card title="仪表盘" href="/zh/guide/dashboard" icon="chart-line">
+    了解您的投资组合和绩效指标
+  </Card>
+</CardGroup>
