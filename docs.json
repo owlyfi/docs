@@ -71,6 +71,13 @@
             ]
           },
           {
+            "group": "Community",
+            "icon": "folder-open",
+            "pages": [
+              "brand-kit"
+            ]
+          },
+          {
             "group": "Legal",
             "icon": "shield",
             "pages": [
@@ -130,6 +137,13 @@
             "icon": "sparkles",
             "pages": [
               "zh/changelog"
+            ]
+          },
+          {
+            "group": "社区中心",
+            "icon": "folder-open",
+            "pages": [
+              "zh/brand-kit"
             ]
           }
         ]
