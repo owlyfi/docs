@@ -48,9 +48,17 @@
               "guide/quick-start",
               "guide/asset-management",
               "guide/copy-trading",
+              "guide/grid-bot",
               "guide/dashboard",
               "guide/owner-guide",
               "guide/referral"
+            ]
+          },
+          {
+            "group": "API & Integrations",
+            "icon": "code",
+            "pages": [
+              "guide/b2b-api"
             ]
           },
           {
@@ -117,9 +125,17 @@
               "zh/guide/quick-start",
               "zh/guide/asset-management",
               "zh/guide/copy-trading",
+              "zh/guide/grid-bot",
               "zh/guide/dashboard",
               "zh/guide/owner-guide",
               "zh/guide/referral"
+            ]
+          },
+          {
+            "group": "API 与接入",
+            "icon": "code",
+            "pages": [
+              "zh/guide/b2b-api"
             ]
           },
           {

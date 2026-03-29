@@ -1,0 +1,212 @@
+---
+title: "Grid Bot"
+description: "Understand how Owly Grid Bot works and how to configure it safely"
+icon: "sliders"
+---
+
+Owly Grid Bot automates grid trading within a price range you define. It is designed for users who want a rules-based way to place, maintain, and rebalance orders without managing every level manually.
+
+## What Is Supported Today
+
+<Check>Perpetual (`perp`) grid trading is live today</Check>
+<Check>`neutral`, `long`, and `short` modes are supported</Check>
+<Check>`arithmetic` and `geometric` grid spacing are supported</Check>
+<Check>Trigger price, trailing range, take profit, and stop loss are supported</Check>
+<Check>`cross` and `isolated` margin modes are supported</Check>
+<Check>`unifiedAccount` is the current default account mode in the user-facing product</Check>
+
+<Note>
+Spot grid is planned but is not available for execution yet.
+</Note>
+
+## How Grid Bot Works
+
+At a high level, Grid Bot follows the same loop throughout its lifecycle:
+
+1. Read the current market price.
+2. Wait for the trigger condition if a trigger price is configured.
+3. Build the target grid orders within your selected range.
+4. Compare current live orders with the target grid and only adjust what needs to change.
+5. Exit through a risk flow if take profit or stop loss is triggered.
+
+These operating rules matter most in practice:
+
+- Grid Bot primarily uses the mark price for its decision logic.
+- If `trigger_price <= 0`, the bot becomes active immediately after start.
+- If `trailing_up_limit` or `trailing_down_limit` is `0`, that trailing behavior is disabled.
+- After take profit or stop loss is triggered, the bot exits the normal grid loop and moves into a risk exit flow.
+
+## Trading Modes
+
+### Neutral
+
+Neutral mode is built for range-bound markets.
+
+- Buy orders are placed below the market.
+- Sell orders are placed above the market.
+- The bot does not automatically build a directional base position.
+- `bootstrap_position` is automatically disabled in neutral mode.
+
+### Long
+
+Long mode is built for a bullish view.
+
+- Buy orders add long exposure below the market.
+- Sell orders above the market are placed as `reduce-only` take-profit orders.
+- You can enable `bootstrap_position` to build an initial directional position when the bot activates.
+
+### Short
+
+Short mode is built for a bearish view.
+
+- Sell orders add short exposure above the market.
+- Buy orders below the market are placed as `reduce-only` take-profit orders.
+- You can enable `bootstrap_position` to build an initial directional position when the bot activates.
+
+## Key Parameters
+
+| Parameter | What it controls | User guidance |
+| --- | --- | --- |
+| `coin` | Trading symbol, such as `BTC` | Confirm whether you are trading perp now or preparing for future spot support |
+| `grid_type` | Grid market type | Use `perp` for now; `spot` is planned |
+| `perp_mode` | `neutral`, `long`, or `short` | Match the mode to your market view |
+| `account_mode` | Account mode | The user-facing product currently defaults to `unifiedAccount` |
+| `margin_mode` | `cross` or `isolated` | If unsure, start with `cross` |
+| `leverage` | Leverage multiplier | Start with lower leverage |
+| `price_lower` / `price_upper` | Grid range | Must be above `0`, and the upper price must be higher than the lower price |
+| `grid_number` | Number of price levels | More levels means a denser grid |
+| `order_size` | Size per grid order | Must still satisfy exchange minimum order requirements |
+| `price_algorithm` | `arithmetic` or `geometric` | If unsure, start with `arithmetic` |
+| `sync_interval` | Reconciliation interval in seconds | Current minimum is `10`; default is `15` |
+| `rebalance_tolerance_bps` | Repricing tolerance band | A wider band can reduce frequent cancel-and-replace behavior |
+| `trigger_price` | Activation price | `0` means start immediately |
+| `trigger_direction` | `above` or `below` | Controls when the bot begins placing its grid |
+| `trailing_up_limit` | Highest level the range can trail upward | `0` disables upward trailing |
+| `trailing_down_limit` | Lowest level the range can trail downward | `0` disables downward trailing |
+| `bootstrap_position` | Whether to build an initial directional position | Only meaningful in `long` or `short` mode |
+| `bootstrap_size` | Size of the initial position | Falls back to `order_size` if not set separately |
+| `take_profit_price` | Global take-profit price | Triggers a risk exit |
+| `stop_loss_price` | Global stop-loss price | Triggers a risk exit |
+
+## Trigger, Trailing, and Risk Controls
+
+### Trigger Price
+
+Use a trigger price if you do not want the bot to place orders immediately after launch.
+
+- `trigger_direction = "above"`: the bot starts once price is greater than or equal to the trigger price
+- `trigger_direction = "below"`: the bot starts once price is less than or equal to the trigger price
+
+This is useful when you want to:
+
+- start after a breakout
+- wait for price to return to a target area before activation
+
+### Trailing Range
+
+Trailing lets the entire grid range move with the market when price leaves the original range.
+
+- `trailing_up_limit` controls how far the range may move upward
+- `trailing_down_limit` controls how far the range may move downward
+
+This can be helpful when:
+
+- a trending market would otherwise leave your grid inactive for too long
+- you want a range strategy with limited follow-through
+
+### Take Profit and Stop Loss
+
+These are global strategy-level controls, not settings for an individual order.
+
+Once triggered, Grid Bot moves into a risk exit flow:
+
+- it attempts to close the position
+- it cancels related grid orders
+- it stops normal grid maintenance
+
+## Bootstrap Rules in Directional Modes
+
+`bootstrap_position` is available in `long` and `short` mode, but there are important rules to understand:
+
+- Neutral mode never performs a bootstrap.
+- The account must either be flat or already hold a position in the same direction.
+- If a same-direction position already exists but is still smaller than `bootstrap_size`, the bot does not partially top it up and continue. It exits with an error instead.
+- If `bootstrap_position` is enabled and `bootstrap_size` is not set, the system uses `order_size`.
+
+Directional grids work best when you start from one of these states:
+
+- a flat account
+- a pre-planned base position that already matches the strategy direction
+
+## Important Limits Before You Start
+
+### Minimum Order Value
+
+Grid orders must satisfy exchange minimums. Based on the current implementation, each order should be large enough to represent at least about `10.5 USDC` in notional value.
+
+If `order_size` is too small, or the selected range results in too little notional value, the bot may refuse to start.
+
+### Exchange Rules Still Apply
+
+Final order price and quantity are always subject to exchange constraints. Actual execution depends on what the exchange accepts at that moment.
+
+### Spot Grid Is Not Live Yet
+
+Spot grid is planned, including support across HIP3 venues. If a future HIP3 DEX uses a quote coin other than `USDC`, you will need to prepare that quote asset in your account in advance.
+
+### Account Mode Must Match
+
+The user-facing product currently explains Grid Bot in the context of `unifiedAccount`, which matches Hyperliquid's default account model.
+
+## Suggested Starting Setup
+
+If this is your first time using Grid Bot, keep the setup simple:
+
+- use `neutral + perp + cross + low leverage`
+- leave `bootstrap_position` disabled
+- leave trailing disabled
+- avoid aggressive take-profit and stop-loss levels at first
+
+This gives you room to confirm that the order density, notional size, and selected range behave as expected before adding more complexity.
+
+## Example Configuration
+
+| Item | Example | Meaning |
+| --- | --- | --- |
+| Symbol | `BTC` | Run a BTC perpetual grid |
+| Grid type | `perp` | Perpetual grid is the currently supported mode |
+| Mode | `neutral` | Buy below the range and sell above it |
+| Account mode | `unifiedAccount` | Matches Hyperliquid's default account model |
+| Margin mode | `cross` | Use cross margin |
+| Leverage | `1` | Start with low leverage |
+| Lower price | `95,000` | Bottom of the range |
+| Upper price | `105,000` | Top of the range |
+| Grid levels | `10` | Split the range into 10 price levels |
+| Order size | `0.001` | Use the same size for each level |
+| Price algorithm | `arithmetic` | Use evenly spaced price levels |
+| Sync interval | `15 seconds` | Re-check and sync the grid every 15 seconds |
+| Rebalance tolerance | `8 bps` | Avoid constant rebuilds on small price drift |
+| Trigger price | `0` | Start immediately |
+| Trigger direction | `above` | Relevant when trigger price is above `0` |
+| Upward trailing limit | `0` | Disabled |
+| Downward trailing limit | `0` | Disabled |
+| Take-profit price | `0` | Disabled |
+| Stop-loss price | `0` | Disabled |
+
+This example represents a simple first setup:
+
+- BTC perpetual neutral grid
+- `unifiedAccount` account mode
+- a moderate range from `95,000` to `105,000`
+- no trailing
+- no global take profit or stop loss
+
+## What Users Should Keep in Mind
+
+<Warning>
+`long` and `short` mode are not automatic position repair tools. Make sure your initial position state and base-position plan are already aligned with your strategy.
+</Warning>
+
+<Tip>
+If you want fewer order updates, widen `rebalance_tolerance_bps`, avoid ranges that are too narrow, and do not make the grid unnecessarily dense.
+</Tip>
