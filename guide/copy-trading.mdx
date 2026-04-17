@@ -66,13 +66,19 @@ The Discovery page uses a **Multi-Dimensional Ranking System** to help you find 
 
 ## Copy Ratio Explained
 
-The copy ratio determines how your position sizes compare to the trader's:
+The copy ratio determines how your position sizes compare to the trader's.
 
-| Copy Ratio | Trader Opens $1000 | You Open |
-|------------|-------------------|----------|
-| 0.5x | $1000 | $500 |
-| 1x | $1000 | $1000 |
-| 2x | $1000 | $2000 |
+For example, assume the trader's total capital is **100,000 USDC** and your capital is **10,000 USDC**. If the trader opens a position using **10%** of their capital, that trade size is **10,000 USDC**. At a **1x** copy ratio, your position would be scaled proportionally to your own capital, so your copied trade would be **1,000 USDC**. The full comparison would look like this:
+
+| Copy Ratio | Trader Opens 10% Position ($10,000) | You Open |
+|------------|-------------------------------------|----------|
+| 0.5x | $10,000 | $500 |
+| 1x | $10,000 | $1000 |
+| 2x | $10,000 | $2000 |
+
+<Note>
+  Copy trading fundamentally replicates trading actions, not PnL with 100% precision. Because markets are complex and can move quickly, Owly can only do its best to keep your performance as close to the trader's as possible.
+</Note>
 
 <Warning>
   Higher copy ratios amplify both profits AND losses. Use with caution.
@@ -105,5 +111,5 @@ On your Portfolio page, you can see:
 </Steps>
 
 <Note>
-  Stopping copy trading does not automatically close your open positions. You may need to close them manually.
+  When you stop copy trading, you can choose whether to close all open positions at the same time.
 </Note>
