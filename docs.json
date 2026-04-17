@@ -10,10 +10,10 @@
     "light": "#EBFF88",
     "dark": "#5C7A00"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/docs/favicon.svg",
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg",
+    "light": "/docs/logo/light.svg",
+    "dark": "/docs/logo/dark.svg",
     "href": "https://owly.fi"
   },
   "navigation": {
