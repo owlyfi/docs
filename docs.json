@@ -123,7 +123,6 @@
             "pages": [
               "zh/guide/concepts",
               "zh/guide/quick-start",
-              "zh/guide/regular-user-guide",
               "zh/guide/asset-management",
               "zh/guide/copy-trading",
               "zh/guide/grid-bot",

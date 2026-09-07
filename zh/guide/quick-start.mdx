@@ -1,98 +1,402 @@
 ---
 title: "快速入门"
-description: "几分钟内开始使用 Owly 跟单交易"
+description: "使用 OKX Web3 钱包和 Hyperliquid API 钱包完成 Owly 快速入门设置"
 icon: "rocket"
 ---
 
+本手册适用于使用 **OKX Web3 钱包浏览器插件**、独立 Hyperliquid 交易账户和 API 钱包的普通 Owly 用户。
 
-按照以下步骤在 Owly 上开始跟单交易。
+---
 
-## 前提条件
+## 开始前先理解三个账户
 
-开始之前，请确保您有：
+| 本手册名称 | 实际类型 | 主要用途 | 是否充值 |
+|:--|:--|:--|:--:|
+| **Owly 主账户** | OKX Web3 钱包账号 1 | 注册、登录 Owly，管理跟单 | **不需要** |
+| **交易账户** | OKX Web3 钱包账号 2，也是独立的 Hyperliquid 主账户 | 持有交易资金、应用 Hyperliquid 推荐码、授权 API 钱包 | **需要** |
+| **API 钱包** | Hyperliquid 为交易账户生成的代理钱包 | 代表交易账户签名交易 | **不要充值** |
 
-<Check>加密货币钱包（MetaMask、Rabby 或类似产品）</Check>
-<Check>Arbitrum 网络上的 USDC</Check>
-<Check>对永续合约交易的基本了解（[阅读核心概念](/zh/guide/concepts)）</Check>
+<Info>
+Hyperliquid API 钱包只是交易签名代理，不是资金账户，也不是 OKX Web3 钱包中的第三个账号。Owly 查询余额、持仓和盈亏时使用的是 **交易账户地址**，不是 API 钱包地址。
+</Info>
 
-## 第一步：连接钱包
+账户关系如下：
 
-<Steps>
-  <Step title="访问 Owly">
-    前往 [app.owly.fi](https://app.owly.fi)
-  </Step>
-  <Step title="点击连接">
-    点击右上角的"连接钱包"按钮。
-  </Step>
-  <Step title="选择钱包">
-    选择您的钱包提供商并批准连接。
-  </Step>
-  <Step title="签名验证">
-    签署认证消息以验证所有权。
-  </Step>
-</Steps>
+```text
+同一个 OKX Web3 钱包
+├── 账号 1：Owly 主账户 ── 登录 Owly，不充值
+└── 账号 2：交易账户 ───── 连接 Hyperliquid，需要充值，应用推荐码
+                         └── 授权 API 钱包，只签名、不充值
+```
 
-## 第二步：创建子账户
+<Note>
+两个 OKX 派生账号共享同一套助记词。这样便于管理，但不等于密钥隔离；任何人获得助记词后都可能控制两个账号。
+</Note>
 
-您的跟单交易资金将存放在专用的 Hyperliquid 子账户中。[了解关于账户的更多信息](/zh/guide/concepts#账户类型)。
+---
 
-<Steps>
-  <Step title="进入投资组合">
-    点击导航菜单中的"我的投资组合"。
-  </Step>
-  <Step title="创建子账户">
-    点击"创建子账户"并按提示操作。
-  </Step>
-  <Step title="命名账户">
-    为您的子账户起一个描述性名称（例如"跟单账户1"）。
-  </Step>
-</Steps>
+## 操作流程概览
 
-## 第三步：存入资金
+```text
+安装 OKX Web3 钱包
+  → 创建并命名两个账号
+  → 用账号 2 连接 Hyperliquid 并充值
+  → 保持 Hyperliquid 连接账号 2
+  → 用账号 1 登录 Owly，将推荐码应用到账号 2
+  → 切回账号 2，为其创建 API 钱包
+  → 将账号 2 和 API 钱包导入 Owly
+  → 临时切换账号 2，完成授权并创建账户
+  → 切回账号 1 管理跟单
+  → 配置并运行跟单
+```
 
-<Steps>
-  <Step title="获取存款地址">
-    在子账户卡片上点击"存款"。
-  </Step>
-  <Step title="转入 USDC">
-    从您的钱包将 USDC 发送到 Arbitrum 上显示的地址。
-  </Step>
-  <Step title="确认到账">
-    等待交易确认（通常需要1-2分钟）。
-  </Step>
-</Steps>
+---
 
-## 第四步：开始跟单
+## 步骤 1：安装并初始化 OKX Web3 钱包
 
-<Steps>
-  <Step title="浏览交易员">
-    前往"发现"页面探索可用的交易员。
-  </Step>
-  <Step title="分析业绩">
-    查看交易员统计数据、ROI 和风险指标。
-  </Step>
-  <Step title="点击跟单">
-    选择交易员并点击"开始跟单"。
-  </Step>
-  <Step title="配置设置">
-    设置您的跟单比例和风险参数，包括新的**投资组合止盈/止损 (Portfolio SL/TP)**。
-  </Step>
-  <Step title="确认">
-    检查并确认以开始跟单。
-  </Step>
-</Steps>
+1. 从 [OKX 官方页面](https://web3.okx.com/zh-hans/help/how-do-i-manage-my-wallet-web) 安装 OKX Web3 钱包浏览器插件。
+2. 打开插件，选择 **创建钱包**。
+3. 设置插件密码。
+4. 按插件提示备份并验证助记词。
 
-<Tip>
-  从小额开始测试系统，然后再投入更多资金。
-</Tip>
+<Warning>
+- 助记词和私钥必须离线保存，不能发送给 Owly、客服或任何第三方。
+- 不要截取或上传包含助记词、私钥、二维码备份或插件密码的图片。
+- 本手册后续截图只保留必要界面，地址和余额会打码。
+</Warning>
 
-## 下一步
+### 1.1 创建两个账号
 
-<CardGroup cols={2}>
-  <Card title="资产管理" href="/zh/guide/asset-management" icon="wallet">
-    了解如何管理存款和提款。
-  </Card>
-  <Card title="仪表盘指南" href="/zh/guide/dashboard" icon="chart-line">
-    了解您的投资组合和业绩指标。
-  </Card>
-</CardGroup>
+1. 在 OKX Web3 钱包插件首页点击当前账号名称。
+2. 选择 **添加账户**。
+3. 将两个账号重命名为容易辨认的名称：
+   - `Owly 主账户`
+   - `Owly 交易账户`
+4. 分别复制两个账号的公开地址，在安全位置记录“名称 ↔ 地址”的对应关系。
+
+<img
+  src="/images/regular-user-guide/02-okx-wallet-two-accounts.png"
+  alt="OKX Web3 钱包中已创建并命名的两个账号，余额已遮挡"
+  style={{ width: "360px", maxWidth: "100%", display: "block", margin: "0 auto" }}
+/>
+
+*图 1：两个账号位于同一个 OKX Web3 钱包下；截图中的余额已遮挡。截图内的英文账户名称是自定义名称，使用中文名称也不影响操作。*
+
+<Warning>
+后续每次连接网站或签名之前，都先核对 OKX Web3 钱包当前选中的账号。账号选错会导致登录身份、充值归属或授权对象不一致。
+</Warning>
+
+### 检查点 A：钱包准备完成
+
+- [ ] 插件已安装，助记词已离线备份
+- [ ] `Owly 主账户` 已创建并记录地址
+- [ ] `Owly 交易账户` 已创建并记录地址
+- [ ] 两个地址不同，名称与地址的对应关系已复核
+
+---
+
+## 步骤 2：使用交易账户连接 Hyperliquid
+
+1. 在 OKX Web3 钱包中切换到 **Owly 交易账户**。
+2. 打开 [Hyperliquid](https://app.hyperliquid.xyz/trade)。
+3. 点击 **连接**，选择 OKX Web3 钱包支持的连接方式。
+4. 在插件中确认当前地址属于交易账户，再批准连接。
+5. 如果页面要求启用交易或建立连接，按页面提示完成签名。
+6. 核对 Hyperliquid 右上角显示的地址与账号 2 一致。
+
+<Info>
+本步骤连接的是独立的 Hyperliquid 主账户，不要在 Hyperliquid 的子账户页面创建原生子账户。
+</Info>
+
+<Note>
+这里不使用 Hyperliquid 原生子账户，是因为 Hyperliquid 当前要求账户累计交易量达到 **100,000 美元** 后才能创建子账户；普通新用户通常尚未满足该条件。因此，本手册使用一个独立的 Hyperliquid 主账户作为交易账户，再为它授权 API 钱包。该门槛可能调整，请以 [Hyperliquid 官方子账户文档](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts) 为准。
+</Note>
+
+---
+
+## 步骤 3：为交易账户充值
+
+本手册采用 Hyperliquid 官方的 **Arbitrum USDC** 充值流程。
+
+### 3.1 准备 Arbitrum 资产
+
+1. 复制 **Owly 交易账户（账号 2）** 的地址。
+2. 向该地址准备：
+   - Arbitrum 网络上的原生 USDC；
+   - 少量 Arbitrum ETH，用于支付充值交易的网络手续费。
+3. 转账前逐字核对网络、币种和收款地址，建议先进行小额测试。
+
+<Warning>
+- 充值对象是交易账户，不是 Owly 主账户，也不是 API 钱包。
+- 通过 Arbitrum 原生桥充值时，官方当前要求单笔至少 **5 USDC**；低于最低额度可能不会到账。实际操作以 Hyperliquid 充值弹窗当时显示的规则为准。
+- 不要把 USDT、其他网络上的 USDC 或不受支持的资产当作 Arbitrum USDC 发送。
+</Warning>
+
+<img
+  src="/images/regular-user-guide/05-okx-trading-account-arbitrum-assets.png"
+  alt="Owly 交易账户已准备 USDC 和 ETH，具体金额已遮挡"
+  style={{ width: "360px", maxWidth: "100%", display: "block", margin: "0 auto" }}
+/>
+
+*图 2：交易账户已准备 USDC 和 ETH。截图不显示网络；实际操作仍须在资产详情或转账记录中确认两项资产位于 Arbitrum。*
+
+### 3.2 在 Hyperliquid 发起充值
+
+1. 确认 Hyperliquid 当前连接的仍是 **Owly 交易账户**。
+2. 点击 **充值**。
+3. 选择 USDC 与 Arbitrum 网络，阅读页面显示的最低额度和到账说明。
+4. 输入充值金额并再次核对当前账户地址。
+5. 在 OKX Web3 钱包中确认交易详情并提交。
+6. 等待 Hyperliquid 余额更新，不要因短暂延迟连续重复充值。
+
+<img
+  src="/images/regular-user-guide/06-hyperliquid-deposit-review.png"
+  alt="Hyperliquid 的 Arbitrum USDC 充值界面，可用余额已遮挡"
+  style={{ width: "520px", maxWidth: "100%", display: "block", margin: "0 auto" }}
+/>
+
+*图 3：充值弹窗应同时显示 `USDC` 和 `Arbitrum`。手续费等规则可能变化，以实际弹窗为准。*
+
+<img
+  src="/images/regular-user-guide/06b-okx-deposit-confirm.png"
+  alt="OKX Web3 钱包的充值交易确认界面，地址和金额已遮挡"
+  style={{ width: "360px", maxWidth: "100%", display: "block", margin: "0 auto" }}
+/>
+
+*图 4：最终确认前，再核对来源为交易账户、网络为 Arbitrum、来源网站为 `app.hyperliquid.xyz`。*
+
+![Hyperliquid 充值到账后的余额页面，地址和金额已遮挡](/images/regular-user-guide/07-hyperliquid-funded-balance.png)
+
+*图 5：余额列表中出现 USDC，且可用余额不再为空，表示交易资金已经到账。*
+
+### 检查点 B：充值完成
+
+- [ ] Hyperliquid 当前地址等于交易账户地址
+- [ ] 充值交易已成功，而不是仅在钱包中提交
+- [ ] Hyperliquid 可用余额已经更新
+- [ ] Owly 主账户和 API 钱包均未被当作充值目标
+
+<Note>
+如果以后确实需要给 Owly 主账户充值，技术流程与账号 2 相同，只是收款地址不同。但本使用场景没有该需求；给账号 1 充值也不会让 Owly 导入的账号 2 自动获得余额。
+</Note>
+
+---
+
+## 步骤 4：登录 Owly，并将推荐码应用到交易账户
+
+### 4.1 保持 Hyperliquid 使用交易账户
+
+1. 不要关闭前面使用的 Hyperliquid 标签页。
+2. 核对 Hyperliquid 右上角地址仍然属于 **Owly 交易账户**。
+3. Hyperliquid 默认会自动连接上一次使用的钱包，因此按本手册顺序操作时通常已经连接交易账户；但仍须人工核对，不能只依赖自动连接。
+4. 如果地址不一致，先在 OKX Web3 钱包中切换到 Owly 交易账户，再重新连接 Hyperliquid。
+
+<Info>
+Owly 的推荐码必须应用到真正进行交易的 Hyperliquid 账户，也就是交易账户。不要把推荐码应用到只负责登录 Owly 的主账户。
+</Info>
+
+### 4.2 使用 Owly 主账户登录 Owly
+
+1. 新开一个浏览器标签页，在 OKX Web3 钱包中切换到 **Owly 主账户**。
+2. 打开 [Owly 账户管理](https://app.owly.fi/accounts)。
+3. 点击连接钱包，选择 **OKX Web3 钱包**。
+4. 在插件中核对当前地址属于 Owly 主账户，然后连接并完成登录签名。
+5. 首次登录时，阅读 Owly 的服务条款和隐私政策后，由你本人决定是否勾选同意。
+6. 如果希望使用 Owly 推荐码，保留对应选项；当 Owly 触发或引导 Hyperliquid 推荐码设置时，必须回到 Hyperliquid 标签页确认连接地址属于 **Owly 交易账户**，并由该账户完成页面要求的确认。
+7. 完成后回到 Owly，确认 Owly 页面显示的登录地址属于账号 1。
+
+![Owly 主账户首次登录后的快速设置页面，地址已遮挡](/images/regular-user-guide/03-owly-master-connected.png)
+
+*图 6：出现注册成功提示，表示 Owly 主账户登录成功；条款和推荐码选项应由用户本人阅读并选择。推荐码对应的 Hyperliquid 账户必须是交易账户。*
+
+<Note>
+两个标签页可以同时打开，但切换 OKX Web3 钱包当前账号可能影响已打开网站的连接状态。每次回到 Owly 或 Hyperliquid 标签页，都要重新核对页面显示的地址。
+</Note>
+
+---
+
+## 步骤 5：为交易账户创建 API 钱包
+
+1. 在 OKX Web3 钱包中切回 **Owly 交易账户**。
+2. 回到 Hyperliquid 标签页，核对右上角显示的地址属于交易账户；如果连接状态已变化，使用该账号重新连接。
+3. 在 Hyperliquid 打开 **更多 → API**，或访问 [API 页面](https://app.hyperliquid.xyz/API)。
+4. 输入容易识别的名称，例如 `owly-api`。
+5. 点击 **生成**。
+6. 立即将新生成的 API 钱包私钥保存到可信的密码管理器；该私钥通常只完整显示一次。
+7. 点击 **授权 API 钱包**，设置有效期，并使用交易账户完成授权签名。
+8. 记录 API 钱包名称和公开地址，以便日后核对或撤销。
+
+![Hyperliquid API 钱包创建页面，已有地址和有效期已遮挡](/images/regular-user-guide/08-hyperliquid-api-wallet-form.png)
+
+*图 7：填写名称后先生成全新的 API 钱包，再由交易账户授权。*
+
+<img
+  src="/images/regular-user-guide/09a-hyperliquid-api-wallet-authorization.png"
+  alt="使用示例地址打开的 API 钱包授权设置"
+  style={{ width: "520px", maxWidth: "100%", display: "block", margin: "0 auto" }}
+/>
+
+*图 8：核对 API 钱包名称、地址和有效期。图中 `0x1111...1111` 仅为演示地址，演示操作在最终签名前已取消，绝不能照抄用于真实授权。*
+
+<img
+  src="/images/regular-user-guide/09b-okx-api-wallet-signature.png"
+  alt="OKX Web3 钱包的 API 钱包最终授权签名界面，地址已缩短"
+  style={{ width: "360px", maxWidth: "100%", display: "block", margin: "0 auto" }}
+/>
+
+*图 9：实际授权时，最终签名前应确认来源为 `app.hyperliquid.xyz`、网络为 Arbitrum、签名钱包为 Owly 交易账户。*
+
+![Hyperliquid 中已经授权的 owly-api，地址和有效期已遮挡](/images/regular-user-guide/09-hyperliquid-api-wallet-authorized.png)
+
+*图 10：授权完成后，`owly-api` 会出现在 API 钱包列表中。*
+
+<Warning>
+- 不要截图、粘贴到聊天或提交到 Git 的内容：API 钱包私钥、Owly 交易账户私钥、助记词。
+- 不要把 API 钱包私钥导入 OKX Web3 钱包；它不是日常使用的第三个钱包账号。
+- API 钱包无需也不应充值。资金始终属于交易账户。
+- 如果 API 钱包私钥疑似泄露，应立即在 Hyperliquid 撤销，生成全新的 API 钱包，并在 Owly 更新配置。
+</Warning>
+
+---
+
+## 步骤 6：将交易账户导入 Owly
+
+### 6.1 导入 API 钱包
+
+1. 在 OKX Web3 钱包中切回 **Owly 主账户**，并确认 Owly 当前仍以账号 1 登录。
+2. 进入 Owly 的账户管理页面。
+3. 点击 **创建子账户**。
+4. 在 **选择账户类型** 中选择 **API 钱包**，然后点击 **下一步**。
+5. 进入 **导入 API 钱包** 后填写：
+   - **账户名称**：自定义显示名称，例如 `我的 Hyperliquid 账户`；
+   - **API 钱包主账户**：填写 **交易账户（账号 2）地址**；
+   - **API 钱包私钥**：填写步骤 5 生成的 API 钱包私钥。
+
+   如果浏览器把私钥误认为登录密码并询问是否保存，请选择 **不保存**；不要让浏览器在该站点自动填充 API 钱包私钥。
+
+6. 点击 **下一步**。
+7. 在 **授权 API 交易** 页面检查账户名称和地址。
+8. 若页面提示钱包地址不匹配，在 OKX Web3 钱包中临时切换到 **Owly 交易账户**，并把该账号连接到 `app.owly.fi`。
+9. 等待页面显示地址匹配，再次核对账户名称和地址。
+10. 点击 **授权并创建**，在 OKX Web3 钱包中使用 **Owly 交易账户** 完成授权签名。
+11. 创建完成后，切回 **Owly 主账户**，检查账户列表中的地址是否等于交易账户地址。
+
+<img
+  src="/images/regular-user-guide/11-owly-import-api-wallet.png"
+  alt="Owly 的 API 钱包导入表单，所有字段均为空"
+  style={{ width: "420px", maxWidth: "100%", display: "block", margin: "0 auto" }}
+/>
+
+*图 11：填写交易账户地址和真实 API 钱包私钥；截图中的私钥输入框为空，任何文档截图都不能显示真实私钥。*
+
+<img
+  src="/images/regular-user-guide/11b-owly-authorize-api-trading.png"
+  alt="Owly 的 API 交易授权核对页，交易账户地址已遮挡"
+  style={{ width: "520px", maxWidth: "100%", display: "block", margin: "0 auto" }}
+/>
+
+*图 12：只有页面显示地址匹配时才能继续；最终点击前应再次核对账户名称和地址。*
+
+<img
+  src="/images/regular-user-guide/11c-okx-owly-authorization-signature.png"
+  alt="OKX Web3 钱包的 Owly 最终授权签名页，地址已遮挡"
+  style={{ width: "360px", maxWidth: "100%", display: "block", margin: "0 auto" }}
+/>
+
+*图 13：最终签名前核对来源为 `app.owly.fi`、网络为 Arbitrum、签名账号为 Owly 交易账户。*
+
+![Owly 账户管理页中的 API 钱包交易账户，地址和余额已遮挡](/images/regular-user-guide/12-owly-imported-trading-account.png)
+
+*图 14：导入成功后，账户列表会显示 Owly 交易账户、API 钱包和空闲状态；此时可继续配置跟单。*
+
+<Warning>
+API 钱包主账户必须填账号 2。若误填 API 钱包地址，通常会看到余额不一致或无法正确获取账户数据。最终授权也必须由账号 2 签名；账号 1 只负责 Owly 登录和日常管理。
+</Warning>
+
+---
+
+## 步骤 7：配置和管理跟单
+
+1. 在 Owly 中打开刚导入的交易账户。
+2. 选择要跟随的交易员或策略。
+3. 逐项检查投入金额、仓位比例、杠杆、止损和其他风险参数。
+4. 确认资金账户显示为交易账户后，再启动机器人。
+5. 启动后检查机器人状态、首笔委托和 Hyperliquid 持仓是否一致。
+
+### 日常管理
+
+- 定期检查持仓、盈亏、保证金和机器人状态。
+- 不再跟随时，先停止机器人，并确认没有新的委托继续产生。
+- 如需完全撤销交易权限，在 Hyperliquid 的 API 页面撤销对应 API 钱包。
+- 撤销或更换 API 钱包后，应同步更新或停止 Owly 中的对应账户配置。
+
+<Info>
+API 钱包只允许 Owly 代为签署交易操作。Owly 不能替交易账户转账或提现；资金操作必须由用户使用交易账户在 Hyperliquid 完成。
+</Info>
+
+---
+
+## 充值与权限速查
+
+| 操作 | Owly 主账户 | 交易账户 | API 钱包 |
+|:--|:--:|:--:|:--:|
+| 登录 Owly | ✅ | ❌ | ❌ |
+| 在 Hyperliquid 持有资金 | 本流程不需要 | ✅ | ❌ |
+| 为 Hyperliquid 充值 | 本流程不需要 | ✅ | ❌ |
+| 应用 Hyperliquid 推荐码 | ❌ | ✅ | ❌ |
+| 授权 API 钱包 | ❌ | ✅ | 不适用 |
+| 代表交易账户进行交易签名 | ❌ | 负责授权 | ✅ |
+| 资金转账或提现 | ❌ | 用户在 Hyperliquid 使用交易账户操作 | ❌ |
+
+<Info>
+本表针对普通用户的 API 钱包模式。Owly 不能替交易账户转账或提现；Owly 只能直接操作 **Owly 托管子账户** 的托管资金功能。
+</Info>
+
+---
+
+## 常见问题
+
+### 应该把资金充到哪个地址？
+
+只充到 **Owly 交易账户（账号 2）**。不要充到 Owly 主账户，也不要充到 Hyperliquid API 钱包地址。
+
+### 没有 ETH 或 USDC 怎么办？
+
+可以在支持提币到 Arbitrum 的合规交易所购买 ETH 和 USDC，再分别提现到 **Owly 交易账户（账号 2）**。提现前确认交易所支持所选币种通过 Arbitrum 网络提币，并逐项核对币种、网络、收款地址、手续费和最低提现额。建议首次先进行小额测试，确认到账后再转入其余金额。
+
+USDC 用作 Hyperliquid 交易资金，ETH 用于支付 Arbitrum 网络手续费。应先把资产提到 OKX Web3 钱包中的交易账户，不要直接提到陌生地址或未经核实的合约地址。
+
+### 如果误充到 Owly 主账户怎么办？
+
+资产会归账号 1 所有，不会自动出现在账号 2。应停止后续操作，确认网络和余额，再由你本人通过受支持的转账或提现流程把资金迁移到账号 2；不要通过陌生人提供的“找回服务”处理。
+
+### Hyperliquid 中看不到充值余额怎么办？
+
+依次核对：当前连接地址是否为账号 2、网络是否为 Arbitrum、资产是否为原生 USDC、金额是否达到页面显示的最低值，以及链上交易是否成功。不要在原因未确认前重复充值。
+
+### Owly 子账户余额与 Hyperliquid 余额不一致怎么办？
+
+分别查看 Owly 子账户显示的地址，以及 Hyperliquid 当前连接账户右上角显示的地址，并逐字符核对。两边必须显示同一个 **Owly 交易账户（账号 2）地址**。
+
+如果地址不一致，应检查 Owly 导入时填写的 API 钱包主账户地址，并使用正确的交易账户地址重新导入；不要填写或比较 API 钱包地址。如果地址一致但余额仍不一致，先刷新两个页面并等待同步；仍未恢复时，联系 Owly 支持并只提供公开地址和问题发生时间，不要提供私钥或助记词。
+
+### 如何从交易账户提现？
+
+在 OKX Web3 钱包中切换到 **Owly 交易账户**，用该账户连接 Hyperliquid，并在 Hyperliquid 的提现页面由你本人核对和确认。不要把 API 钱包当作提现钱包，也不要依赖 Owly 账户页面替交易账户完成转账或提现。
+
+### 两个 OKX 账号的充值流程是否相同？
+
+流程相同，区别是最终归属地址不同。本场景只需要给账号 2 充值；充到账号 1 的资产不会自动同步给账号 2。
+
+### API 钱包私钥丢失或泄露怎么办？
+
+立即在 Hyperliquid API 页面撤销旧 API 钱包，创建一个使用全新地址的新 API 钱包，再更新 Owly 配置。不要重复使用已经撤销的 API 钱包地址。
+
+---
+
+## 官方参考
+
+- [Hyperliquid：如何开始交易和充值](https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/how-to-start-trading)
+- [Hyperliquid：API 钱包与交易序号](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/nonces-and-api-wallets)
+- [Hyperliquid：Arbitrum USDC 跨链桥](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/bridge2)
+- [OKX：管理 Web3 钱包浏览器插件](https://web3.okx.com/zh-hans/help/how-do-i-manage-my-wallet-web)
