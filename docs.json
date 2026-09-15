@@ -45,6 +45,7 @@
             "icon": "map",
             "pages": [
               "guide/concepts",
+              "guide/account-types",
               "guide/quick-start",
               "guide/asset-management",
               "guide/copy-trading",
@@ -122,6 +123,7 @@
             "icon": "map",
             "pages": [
               "zh/guide/concepts",
+              "zh/guide/account-types",
               "zh/guide/quick-start",
               "zh/guide/asset-management",
               "zh/guide/copy-trading",

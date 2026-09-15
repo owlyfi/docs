@@ -48,7 +48,7 @@ If the fund manager is not registered, the assignment will fail.
 ### 2.1 Prerequisites
 
 <Note>
-Creating a Sub Account requires your main account to have reached **100,000 USDC trading volume**.
+Creating a native sub-account requires meeting [Hyperliquid's current eligibility rules](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts). Existing sub-accounts can be imported below.
 </Note>
 
 ### 2.2 Create Sub Account
@@ -85,28 +85,14 @@ Creating a Sub Account requires your main account to have reached **100,000 USDC
 <Warning>
 **Each Sub Account must have its own API Key!**
 
-While one API Key can technically operate all Sub Accounts, due to Nonce mechanism limitations, **one API Key cannot operate multiple Sub Accounts simultaneously**, otherwise trading conflicts will occur.
+An API Wallet signing for several accounts shares its nonce state, which can cause conflicts. Owly requires separate API Wallets; this does not restrict a key to one sub-account at the protocol level. See [Choose an Account Type](/guide/account-types).
 
 Owly requires: **One Sub Account = One dedicated API Key**.
 </Warning>
 
-### 2.4 Set Up Builder Fee
+### 2.4 Complete authorizations during import
 
-<Steps>
-  <Step title="Visit Settings Page">
-    Go to [Owly Builder Fee Settings](https://owly.fi/app/builder-test)
-  </Step>
-  <Step title="Connect Wallet">
-    Connect your main wallet
-  </Step>
-  <Step title="Complete Authorization">
-    Follow the on-page instructions to complete Builder Fee authorization
-  </Step>
-</Steps>
-
-<Warning>
-If Builder Fee is not set, import validation will fail.
-</Warning>
+You do not need the old authorization test page. The Owly import form checks existing authorizations and guides any additional signatures; completed authorizations do not need repeating. Use the sub-account's master wallet and review the address, site, and requested authorization. See [Choose an Account Type](/guide/account-types).
 
 ## Step 3: Import Sub Account to Owly
 
@@ -114,13 +100,13 @@ If Builder Fee is not set, import validation will fail.
 
 <Steps>
   <Step title="Login to Owly">
-    Login to Owly with your main wallet
+    Sign in to Owly with the Hyperliquid master wallet that owns this sub-account
   </Step>
   <Step title="Go to Sub Account Management">
     Navigate to **Sub Account Management**
   </Step>
   <Step title="Add Sub Account">
-    Click **Add Sub Account**
+    Click **Create Sub-Account**, choose the appropriate guidance option, then select **Hyperliquid Sub-account**
   </Step>
 </Steps>
 
@@ -132,7 +118,7 @@ Owly will automatically fetch your Sub Account list. Select the Sub Account you 
 
 <Steps>
   <Step title="Enter Private Key">
-    Enter the API private key you created on Hyperliquid
+    Enter the authorized API Wallet private key only in the dedicated **API Wallet Private Key** form, never in the Assistant. Native sub-accounts have no private key of their own; do not enter your master wallet private key or seed phrase
   </Step>
   <Step title="Set Display Name">
     Set a display name for this account
@@ -141,11 +127,7 @@ Owly will automatically fetch your Sub Account list. Select the Sub Account you 
 
 ### 3.4 Confirm Import
 
-Owly will verify:
-- API Key validity
-- Builder Fee setup status
-
-Once verified, import is complete.
+Owly checks API Wallet validity and existing authorizations. Complete any required authorization shown by the form, verify the account, and finish import. Creation may finish directly when the required authorizations already exist.
 
 ## Step 4: Assign to Fund Manager
 
@@ -229,21 +211,12 @@ To completely revoke an API Key:
 |:-----------|:------------|
 | **Scope** | API Key can sign operations for main account and all Sub Accounts |
 | **Nonce Mechanism** | Each API Key uses an independent Nonce sequence |
-| **Concurrency Limit** | One API Key cannot operate multiple Sub Accounts simultaneously (Nonce conflict) |
+| **Shared Signing Risk** | Accounts using one API Wallet share nonce state, which can cause conflicts |
 | **Owly Requirement** | Each Sub Account must use a dedicated API Key |
 
-### API Key Permissions
+### API Wallets and funding actions
 
-| Permission | Description |
-|:-----------|:------------|
-| ✅ Trading | Open, close, place, cancel orders |
-| ✅ Leverage Adjustment | Modify leverage multiplier |
-| ❌ Internal Transfer | Requires asset owner's private key signature |
-| ❌ Withdrawal | Requires asset owner's private key signature |
-
-<Note>
-**API Key can only perform trading operations, cannot transfer or withdraw funds**. All operations involving fund movements require the asset owner's private key signature. API Key leakage will not result in funds being transferred away.
-</Note>
+API Wallets sign authorized trading actions. Asset owners should review and complete transfers or withdrawals themselves through supported Hyperliquid flows. A leaked API Wallet can enable malicious trading and losses; lack of withdrawal permission does not make funds risk-free. See [Choose an Account Type](/guide/account-types) for account roles and secret-input boundaries.
 
 ### Fund Manager Permissions
 
@@ -260,7 +233,7 @@ After assignment, fund managers can:
 ### Security Recommendations
 
 <Warning>
-1. **Safely store API private key** - never share with anyone
+1. **Keep API private keys secure**: enter them only in Owly's dedicated import or update form, never in the Assistant, support, or chat. Never enter master wallet private keys or seed phrases in those forms
 2. **Use dedicated API Key for each Sub Account**
 3. **Only assign to trusted fund managers**
 4. **Regularly check trading records** - stop Bot immediately if anomalies detected
@@ -280,10 +253,10 @@ After assignment, fund managers can:
 
 <AccordionGroup>
   <Accordion title="Cannot create Sub Account">
-    Main account must reach 100,000 USDC trading volume
+    Check [Hyperliquid's current eligibility rules](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts). The ordinary API Wallet route does not require first creating a native sub-account
   </Accordion>
   <Accordion title="Import fails with 'Builder Fee not set'">
-    Please set Builder Fee on [Owly](https://owly.fi/app/builder-test) first
+    Return to the import form and complete any required authorization with the sub-account's master wallet. Do not use the old authorization test page
   </Accordion>
   <Accordion title="Cannot find my Sub Account">
     Confirm you're using the main wallet that created the Sub Account
@@ -295,7 +268,7 @@ After assignment, fund managers can:
     No, API Key has no withdrawal permissions
   </Accordion>
   <Accordion title="Why does each Sub Account need a separate API?">
-    Nonce mechanism limitation - sharing causes trading conflicts
+    A shared API Wallet shares nonce state and may cause conflicts. Owly requires a dedicated API Wallet for each imported sub-account
   </Accordion>
 </AccordionGroup>
 

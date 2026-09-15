@@ -6,39 +6,9 @@ icon: "book"
 
 ## Account Types
 
-Understanding the three types of copy trading accounts supported by Owly is crucial for choosing the best option for you.
+A Hyperliquid **API Wallet** is an authorized signing agent, not a new funded master account. In Owly, the **API Wallet** account type connects a separate Hyperliquid master/EVM address through that agent; **Hyperliquid Sub-account** imports a native sub-account; **Owly Managed** uses a trading wallet created and managed by Owly. Your Owly main account handles login and management, while your trading account holds trading funds. These roles can use the same wallet address or separate addresses. Owly permits up to 10 active trading accounts at a time across the three types; Hyperliquid's native sub-account creation threshold and quotas are separate.
 
-### 1. API Wallet (API Agent Wallet)
-This is the advanced method recommended by Owly.
-- **Mechanism**: Uses Hyperliquid's Agent Wallet API for trading.
-- **Nature**: **Non-custodial**. You have full control over your funds.
-- **Features**: Each sub-account is essentially an independent Hyperliquid trading account managed via API authorization.
-- **Pros**: No high trading volume requirement to create, suitable for most users.
-
-### 2. Hyperliquid Sub-account
-Directly imports existing sub-accounts using Hyperliquid's native sub-account feature.
-- **Mechanism**: Links directly to your existing Hyperliquid sub-account.
-- **Nature**: **Non-custodial**.
-- **Features**: Funds are managed and transferred within a single Hyperliquid master account.
-- **Pros**: Unified fund management.
-- **Cons**: Volume requirement; Hyperliquid requires the master account to have **100,000 USDC** trading volume on Hyperliquid to create sub-accounts.
-
-### 3. Owly Managed
-- **Mechanism**: Accounts created and managed for you by Owly.
-- **Nature**: **Custodial**.
-- **Features**: Extremely simple operation, generated with just a few clicks.
-- **Cons**: Users do not hold the private keys; security depends on the platform.
-- **Recommendation**: We strongly recommend the first two non-custodial options to ensure absolute asset security.
-
-### Comparison Table
-
-| Feature | API Wallet (Agent) | Hyperliquid Sub-account | Owly Managed |
-|---------|-------------------|------------------------|--------------|
-| **Type** | Non-custodial (Recommended) | Non-custodial | Custodial |
-| **Fund Control** | User Full Control | User Full Control | Platform Managed |
-| **Prerequisites** | No volume req | Hyperliquid Volume (>100k) | None |
-| **Complexity** | Medium | Medium | Low |
-| **Best For** | Most Users | Whales / Pro Traders | Beginners / Small Amounts |
+Read [Choose an Account Type](/guide/account-types) for prerequisites, tradeoffs, and security boundaries. Follow [Quick Start](/guide/quick-start) to add your first account.
 
 ## Key Indicators
 

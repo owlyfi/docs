@@ -48,7 +48,7 @@ icon: "user-shield"
 ### 2.1 前置条件
 
 <Note>
-创建 Sub Account 需要您的主账户达到 **100,000 USDC 交易量**。
+新建原生子账户需满足 [Hyperliquid 当前创建条件](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts)。已有子账户可直接按下方流程导入。
 </Note>
 
 ### 2.2 创建 Sub Account
@@ -85,28 +85,14 @@ icon: "user-shield"
 <Warning>
 **每个 Sub Account 必须创建独立的 API Key！**
 
-虽然一个 API Key 技术上可以操作所有 Sub Account，但由于 Nonce 机制限制，**一个 API Key 不能同时操作多个 Sub Account**，否则会导致交易冲突失败。
+同一 API 钱包为多个账户签名时共享 Nonce（交易序号）状态，可能发生冲突。Owly 要求分别配置 API 钱包；这不是协议层只允许操作某一个子账户的权限隔离。详见[账户类型指南](/zh/guide/account-types)。
 
 Owly 要求：**一个 Sub Account 对应一个独立的 API Key**。
 </Warning>
 
-### 2.4 设置 Builder Fee
+### 2.4 在导入流程中完成授权
 
-<Steps>
-  <Step title="访问设置页面">
-    前往 [Owly Builder Fee 设置页面](https://owly.fi/app/builder-test)
-  </Step>
-  <Step title="连接钱包">
-    连接您的主钱包
-  </Step>
-  <Step title="完成授权">
-    按页面指引完成 Builder Fee 授权
-  </Step>
-</Steps>
-
-<Warning>
-如未设置 Builder Fee，导入时将验证失败。
-</Warning>
+无需另开旧版授权测试页面。Owly 导入表单会检查现有授权，并引导需要补充的签名；已完成的授权无需重复。请使用子账户所属的主钱包，核对钱包弹窗中的地址、网站和授权内容。详见[账户类型指南](/zh/guide/account-types)。
 
 ## 步骤 3: 导入 Sub Account 到 Owly
 
@@ -114,13 +100,13 @@ Owly 要求：**一个 Sub Account 对应一个独立的 API Key**。
 
 <Steps>
   <Step title="登录 Owly">
-    使用您的主钱包登录 Owly
+    使用拥有该 Hyperliquid 子账户的主钱包登录 Owly
   </Step>
   <Step title="进入子账户管理">
     在导航中找到 **子账户管理**
   </Step>
   <Step title="添加 Sub Account">
-    点击 **添加 Sub Account**
+    点击 **创建子账户**，在引导入口选择适合你的方式，然后选择 **Hyperliquid 子账户**
   </Step>
 </Steps>
 
@@ -132,7 +118,7 @@ Owly 会自动获取您的 Sub Account 列表，选择要导入的 Sub Account�
 
 <Steps>
   <Step title="输入私钥">
-    输入您在 Hyperliquid 创建的 API 私钥
+    仅在 **API 钱包私钥**专用表单中输入已授权的 API 钱包私钥；不要将它发送给 Assistant。原生子账户没有自己的私钥，也不要输入主钱包私钥或助记词
   </Step>
   <Step title="设置名称">
     为此账户设置一个显示名称
@@ -141,11 +127,7 @@ Owly 会自动获取您的 Sub Account 列表，选择要导入的 Sub Account�
 
 ### 3.4 确认导入
 
-Owly 会验证:
-- API Key 有效性
-- Builder Fee 是否已设置
-
-验证通过后，导入成功。
+Owly 会检查 API 钱包有效性和当前授权状态。按页面提示补充必要授权，核对账户后完成导入；已有相应授权时，可直接创建成功。
 
 ## 步骤 4: 分配给基金经理
 
@@ -229,21 +211,12 @@ Owly 会验证:
 |:-----|:-----|
 | **权限范围** | API Key 可签名操作主账户及所有 Sub Account |
 | **Nonce 机制** | 每个 API Key 使用独立的 Nonce 序列 |
-| **并发限制** | 一个 API Key 不能同时操作多个 Sub Account（Nonce 冲突） |
+| **共享签名风险** | 多个账户共用 API 钱包会共享交易序号状态，可能发生冲突 |
 | **Owly 要求** | 每个 Sub Account 必须使用独立的 API Key |
 
-### API Key 权限范围
+### API 钱包与资金操作
 
-| 权限 | 说明 |
-|:-----|:-----|
-| ✅ 下单 | 开仓、平仓、挂单、撤单 |
-| ✅ 杠杆调整 | 修改杠杆倍数 |
-| ❌ 内部转账 | 需要资产所有者私钥签名 |
-| ❌ 提现 | 需要资产所有者私钥签名 |
-
-<Note>
-**API Key 只能进行交易操作，无法进行转账和提现**。所有涉及资金变动的操作都需要资产所有者的私钥签名，API Key 泄露不会导致资金被转走。
-</Note>
+API 钱包用于已授权的交易签名。资金转账或提现应由资产所有者在 Hyperliquid 的受支持流程中本人核对并完成。API 钱包泄露可能导致恶意交易和资金亏损；不能把无提现权限理解为资金绝对安全。密钥输入边界与账户区别见[账户类型指南](/zh/guide/account-types)。
 
 ### 基金经理权限
 
@@ -260,7 +233,7 @@ Owly 会验证:
 ### 安全建议
 
 <Warning>
-1. **妥善保管 API 私钥**，切勿分享给任何人
+1. **妥善保管 API 私钥**，只在 Owly 专用导入或更新表单中填写，不发送给 Assistant、客服或聊天；主钱包私钥和助记词不得填入这些表单
 2. **每个 Sub Account 使用独立 API Key**
 3. **只分配给您信任的基金经理**
 4. **定期检查交易记录**，发现异常及时停止 Bot
@@ -280,10 +253,10 @@ Owly 会验证:
 
 <AccordionGroup>
   <Accordion title="无法创建 Sub Account">
-    主账户需达到 100,000 USDC 交易量
+    检查 [Hyperliquid 当前创建条件](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts)；若只是添加普通 API 钱包账户，无需先创建原生子账户
   </Accordion>
   <Accordion title="导入失败提示 Builder Fee 未设置">
-    请先在 [Owly](https://owly.fi/app/builder-test) 设置 Builder Fee
+    回到导入表单，使用子账户所属主钱包按页面提示完成必要授权；不要使用旧版授权测试页面
   </Accordion>
   <Accordion title="找不到我的 Sub Account">
     确认使用的是创建 Sub Account 的主钱包
@@ -295,7 +268,7 @@ Owly 会验证:
     不能，API Key 无提现权限
   </Accordion>
   <Accordion title="为什么每个 Sub Account 要单独的 API">
-    Nonce 机制限制，共用会导致交易冲突
+    共享 API 钱包会共享交易序号状态，可能冲突；Owly 要求每个导入子账户单独配置 API 钱包
   </Accordion>
 </AccordionGroup>
 

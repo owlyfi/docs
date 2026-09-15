@@ -1,98 +1,131 @@
 ---
 title: "Quick Start"
-description: "Get started with Owly copy trading in minutes"
+description: "Use an API Wallet to add your Hyperliquid trading account to Owly, with the same or a separate login address"
 icon: "rocket"
 ---
 
+This guide uses the **OKX Web3 browser wallet** and an **API Wallet** to add a Hyperliquid trading account to Owly. For the other options, read [Choose an Account Type](/guide/account-types).
 
-Follow these steps to start copy trading on Owly.
+If you are already signed in or have prepared your wallet, funded it, or authorized an API Wallet, skip those completed steps. From a trader detail page, open **Copy Trade** and choose **Add Account** to begin the account setup flow below.
 
-## Prerequisites
+## Choose your account relationship
 
-Before you begin, make sure you have:
+**Your Owly main account and trading account can be the same account or separate accounts.** Decide which public address will hold your trading funds before you continue.
 
-<Check>A cryptocurrency wallet (MetaMask, Rabby, or similar)</Check>
-<Check>USDC on Arbitrum network</Check>
-<Check>Basic understanding of perpetual futures trading ([Read Core Concepts](/guide/concepts))</Check>
+| Choice | Owly login | Trading funds and API Wallet authorization | What changes |
+|:--|:--|:--|:--|
+| **Use the same account** | One wallet address | The same address | No second wallet account or account switching required |
+| **Use a separate trading account** | Your Owly main account address | A different trading account address | Check and switch accounts when the login or signing flow requires it |
 
-## Step 1: Connect Your Wallet
+The **Owly main account** is your login and management identity. The **trading account** holds funds and positions on Hyperliquid. The **API Wallet** is an authorized signing agent, not a separate funded account or deposit destination. Creating an API Wallet does not create another Hyperliquid master account. Deposits require the funding wallet; withdrawals require the master wallet, not the API signer. See [account types and permissions](/guide/account-types).
 
-<Steps>
-  <Step title="Visit Owly">
-    Go to [app.owly.fi](https://app.owly.fi)
-  </Step>
-  <Step title="Click Connect">
-    Click the "Connect Wallet" button in the top right corner.
-  </Step>
-  <Step title="Select Wallet">
-    Choose your wallet provider and approve the connection.
-  </Step>
-  <Step title="Sign Message">
-    Sign the authentication message to verify ownership.
-  </Step>
-</Steps>
+```text
+Same account: one address → Owly login and Hyperliquid trading account → authorized API Wallet
+Separate accounts: address A → Owly login; address B → Hyperliquid trading account → authorized API Wallet
+```
 
-## Step 2: Create a Sub-Account
+<Note>
+Two derived wallet accounts may share one seed phrase. Separate addresses do not by themselves provide seed-phrase isolation. The screenshots in the [Chinese walkthrough](/zh/guide/quick-start) illustrate the optional separate-account path.
+</Note>
 
-Your copy trading funds will be held in a dedicated Hyperliquid sub-account. [Learn more about accounts](/guide/concepts#account-types).
+## Step 1: Prepare your wallet
 
-<Steps>
-  <Step title="Navigate to Portfolio">
-    Click on "My Portfolio" in the navigation menu.
-  </Step>
-  <Step title="Create Sub-Account">
-    Click "Create Sub-Account" and follow the prompts.
-  </Step>
-  <Step title="Name Your Account">
-    Give your sub-account a descriptive name (e.g., "Copy Trading 1").
-  </Step>
-</Steps>
+1. Install the browser extension from [OKX's official wallet guide](https://web3.okx.com/help/how-do-i-manage-my-wallet-web).
+2. Create a wallet and follow its backup instructions.
+3. For the same-account path, record your current public address as both your Owly main account and trading account.
+4. For separate accounts, add another account, give both recognizable names, and record which public address belongs to each role.
 
-## Step 3: Deposit Funds
+<Warning>
+Keep your seed phrase and main wallet private keys private. Never send them to the Assistant, support, or anyone else. Do not upload screenshots containing secrets or wallet backups.
+</Warning>
 
-<Steps>
-  <Step title="Get Deposit Address">
-    Click "Deposit" on your sub-account card.
-  </Step>
-  <Step title="Transfer USDC">
-    Send USDC from your wallet to the displayed address on Arbitrum.
-  </Step>
-  <Step title="Confirm Deposit">
-    Wait for the transaction to confirm (usually 1-2 minutes).
-  </Step>
-</Steps>
+## Step 2: Connect the trading account to Hyperliquid
 
-## Step 4: Start Copy Trading
+1. Select your chosen **trading account** in the wallet. Keep the current account if you chose the same-account path.
+2. Open [Hyperliquid](https://app.hyperliquid.xyz/trade), connect the wallet, and complete any requested enable-trading signature after review.
+3. Verify that Hyperliquid shows your chosen trading address.
 
-<Steps>
-  <Step title="Browse Traders">
-    Go to the "Discovery" page to explore available traders.
-  </Step>
-  <Step title="Analyze Performance">
-    Review trader statistics, ROI, and risk metrics.
-  </Step>
-  <Step title="Click Copy">
-    Select a trader and click "Start Copy Trading".
-  </Step>
-  <Step title="Configure Settings">
-    Set your copy ratio and risk parameters, including the new **Portfolio Stop Loss/Take Profit**.
-  </Step>
-  <Step title="Confirm">
-    Review and confirm to start copying.
-  </Step>
-</Steps>
+This route uses a Hyperliquid master account with its own EVM funding address and an authorized API Wallet. Each trading account of this type uses a different master address; one can be your Owly login address. It does not require creating a native Hyperliquid sub-account or meeting its trading-volume threshold. For native sub-account eligibility and quotas, see the [account type guide](/guide/account-types).
 
-<Tip>
-  Start with a small amount to test the system before committing larger capital.
-</Tip>
+## Step 3: Fund the trading account
 
-## Next Steps
+This walkthrough uses **USDC on Arbitrum**. Prepare supported USDC and enough Arbitrum ETH for the deposit transaction in your selected trading wallet, then follow [Hyperliquid's deposit instructions](https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/how-to-start-trading).
+
+1. Check the trading address, asset, and network before transferring funds into the wallet.
+2. With that trading account connected to Hyperliquid, open **Deposit** and select the supported asset and network.
+3. Follow the minimum amount and rules displayed in the deposit form, review the transaction in your wallet, and confirm it yourself.
+4. Wait for Hyperliquid to show the credited balance. A wallet submission alone does not prove the deposit arrived.
+
+<Warning>
+Fund the selected trading account. If it also serves as your Owly main account, this is the same address. With separate accounts, funding the login address will not fund the other account. Never deposit into the API Wallet. A deposit below the supported minimum may not be credited; see [Hyperliquid's deposit support page](https://hyperliquid.gitbook.io/hyperliquid-docs/support/faq/deposit-or-transfer-issues-missing-lost/deposited-via-arbitrum-network-usdc).
+</Warning>
+
+## Step 4: Sign in to Owly
+
+1. Open [Owly Account Management](https://app.owly.fi/accounts) in another tab.
+2. Connect your **Owly main account** and review the login signature. With the same-account path, keep the selected address. With separate accounts, use the login address.
+3. Read the terms and privacy policy and decide yourself whether to accept them.
+4. If you choose a Hyperliquid referral code, apply it to the account that will actually trade. Verify the address in the Hyperliquid tab before confirming.
+
+Changing the active account in your extension can affect connected sites. Check the displayed address whenever you return to Owly or Hyperliquid.
+
+## Step 5: Create and authorize an API Wallet
+
+1. Connect your selected **trading account** to Hyperliquid. Switch only if using separate accounts.
+2. Open [Hyperliquid's API page](https://app.hyperliquid.xyz/API), choose a recognizable name, and generate a new API Wallet.
+3. Store its private key securely when shown. Review its name, public address, and authorization period, then authorize it using the trading account.
+4. Keep the API Wallet's name and public address so you can identify its authorization later.
+
+<Warning>
+The API Wallet private key is sensitive. Do not send it to the Assistant, paste it into chat, or include it in screenshots. Use it only in the dedicated Owly import form in the next step. Do not import it into your normal wallet or fund its address.
+</Warning>
+
+## Step 6: Add the trading account to Owly
+
+Each Owly main account can have up to **10 active trading accounts at a time across all three types**. This limit is separate from Hyperliquid's native sub-account quota.
+
+1. Verify that Owly is signed in with your **Owly main account**.
+2. In account management, click **Create Sub-Account**. If you entered from a trader's **Copy Trade** dialog, choose **Add Account**.
+3. Choose a starting option in **Set Up Your Copy Account**:
+   - **I'm new to copy trading** opens the Assistant while keeping the account dialog available, so you can read and fill in the form together.
+   - **I know how this works** goes directly to account type selection.
+
+   Choose **API Wallet** and continue. Each type also has an explanation entry for the Assistant. If guidance is unavailable, you can still select a type and follow this guide.
+4. In **Import API Wallet**, enter an account name, the selected **trading account's public address** in **API Wallet Master Account**, and the authorized **API Wallet private key** in its dedicated field. The master account address can equal your Owly login address.
+5. Continue and review any required authorization. If the signing address does not match, select and connect the trading account. Review each wallet request before signing.
+6. After creation, confirm that the account shown in Owly uses the trading address. With separate accounts, return to your Owly main account for management.
+
+If the required authorizations already exist, creation may finish without another signing step. If your browser offers to save the API Wallet private key as a login password, decline it.
+
+<Warning>
+Do not put an API Wallet address in the master account field. Do not enter your seed phrase or trading wallet private key in the API Wallet private key field. The Assistant can explain these fields, but it does not receive or enter secrets for you.
+</Warning>
+
+## Step 7: Configure and manage copy trading
+
+Return to the **trader detail** page for the trader you want to follow, open **Copy Trade**, and select the account you just added. Review the amount, copy ratio, leverage, and risk settings; the Assistant can continue explaining them while the dialog remains available. Check the trader, selected account, and configuration, then confirm copy trading yourself. After starting, monitor orders, positions, and bot status.
+
+For transfers or withdrawals, use the account that owns the funds and review the supported Hyperliquid flow yourself. If an API Wallet is compromised or expired, handle its old authorization on Hyperliquid and configure a newly generated API Wallet in Owly.
+
+## Common questions
+
+### Do I need two wallet accounts?
+
+No. One account can handle both Owly login and trading. Separate accounts are an option for keeping the two roles under different addresses.
+
+### Is funding my Owly main account a mistake?
+
+If it is also your selected trading account, the address is correct; still verify the network, asset, and credited balance. With separate accounts, funds do not move automatically from your login address to the trading address.
+
+### Why do Owly and Hyperliquid show different balances?
+
+Compare the trading account addresses shown in both apps. Do not compare with the API Wallet address. If addresses match, refresh and allow synchronization. If the problem remains, provide support only the public address and issue time, never private keys or a seed phrase.
 
 <CardGroup cols={2}>
-  <Card title="Asset Management" href="/guide/asset-management" icon="wallet">
-    Learn how to manage deposits and withdrawals.
+  <Card title="Choose an Account Type" href="/guide/account-types" icon="wallet">
+    Compare all three supported account types.
   </Card>
-  <Card title="Dashboard Guide" href="/guide/dashboard" icon="chart-line">
-    Understand your portfolio and performance metrics.
+  <Card title="Asset Management" href="/guide/asset-management" icon="wallet">
+    Continue with the funding controls available for your account.
   </Card>
 </CardGroup>
