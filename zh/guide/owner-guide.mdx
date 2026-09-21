@@ -8,11 +8,11 @@ icon: "user-shield"
 
 ## 操作流程概览
 
-1. [准备工作](#步骤-1:-准备工作)
-2. [创建 Sub Account](#步骤-2:-在-hyperliquid-创建-sub-account-和-api)
-3. [导入 Owly](#步骤-3:-导入-sub-account-到-owly)
-4. [分配基金经理](#步骤-4:-分配给基金经理)
-5. [日常管理](#步骤-5:-日常管理)
+1. [准备工作](#步骤-1-准备工作)
+2. [准备 Hyperliquid 子账户](#步骤-2-准备-hyperliquid-子账户)
+3. [导入 Owly](#步骤-3-导入-sub-account-到-owly)
+4. [分配基金经理](#步骤-4-分配给基金经理)
+5. [日常管理](#步骤-5-日常管理)
 6. [权限与安全](#权限与安全说明)
 
 ## 步骤 1: 准备工作
@@ -43,7 +43,7 @@ icon: "user-shield"
 如基金经理未注册，分配将失败。
 </Warning>
 
-## 步骤 2: 在 Hyperliquid 创建 Sub Account 和 API
+## 步骤 2: 准备 Hyperliquid 子账户
 
 ### 2.1 前置条件
 
@@ -68,31 +68,13 @@ icon: "user-shield"
   </Step>
 </Steps>
 
-### 2.3 为 Sub Account 创建 API Key
+### 2.3 由 Owly 自动生成 API 钱包
 
-<Steps>
-  <Step title="进入 Sub Account">
-    选择刚创建的 Sub Account
-  </Step>
-  <Step title="创建 API Key">
-    点击 API，创建新的 API Key
-  </Step>
-  <Step title="保存私钥">
-    **重要**: 安全保存私钥，只显示一次
-  </Step>
-</Steps>
+导入前无需去 Hyperliquid 创建 API 钱包或保存私钥。Owly 会为每个导入的子账户自动生成并安全保存专用 API 钱包，再由所属主钱包在下一步签名授权。
 
-<Warning>
-**每个 Sub Account 必须创建独立的 API Key！**
-
-同一 API 钱包为多个账户签名时共享 Nonce（交易序号）状态，可能发生冲突。Owly 要求分别配置 API 钱包；这不是协议层只允许操作某一个子账户的权限隔离。详见[账户类型指南](/zh/guide/account-types)。
-
-Owly 要求：**一个 Sub Account 对应一个独立的 API Key**。
-</Warning>
-
-### 2.4 在导入流程中完成授权
-
-无需另开旧版授权测试页面。Owly 导入表单会检查现有授权，并引导需要补充的签名；已完成的授权无需重复。请使用子账户所属的主钱包，核对钱包弹窗中的地址、网站和授权内容。详见[账户类型指南](/zh/guide/account-types)。
+<Note>
+独立 API 钱包可减少共享 Nonce（交易序号）造成的冲突，但不等于在协议层将 API 钱包限制为只能操作一个子账户。详见[账户类型指南](/zh/guide/account-types)。
+</Note>
 
 ## 步骤 3: 导入 Sub Account 到 Owly
 
@@ -106,7 +88,7 @@ Owly 要求：**一个 Sub Account 对应一个独立的 API Key**。
     在导航中找到 **子账户管理**
   </Step>
   <Step title="添加 Sub Account">
-    点击 **创建子账户**，在引导入口选择适合你的方式，然后选择 **Hyperliquid 子账户**
+    点击 **新建跟单账户**，然后选择 **Hyperliquid 子账户**
   </Step>
 </Steps>
 
@@ -114,20 +96,15 @@ Owly 要求：**一个 Sub Account 对应一个独立的 API Key**。
 
 Owly 会自动获取您的 Sub Account 列表，选择要导入的 Sub Account。
 
-### 3.3 输入 API Key
+### 3.3 设置名称并生成 API 钱包
 
-<Steps>
-  <Step title="输入私钥">
-    仅在 **API 钱包私钥**专用表单中输入已授权的 API 钱包私钥；不要将它发送给 Assistant。原生子账户没有自己的私钥，也不要输入主钱包私钥或助记词
-  </Step>
-  <Step title="设置名称">
-    为此账户设置一个显示名称
-  </Step>
-</Steps>
+填写账户名称并继续。如果主账户尚未启用统一账户（Unified Account），先核对并签署 Owly 的启用请求。随后 Owly 自动生成并保存专用 API 钱包，无需输入私钥。
 
-### 3.4 确认导入
+### 3.4 授权并确认导入
 
-Owly 会检查 API 钱包有效性和当前授权状态。按页面提示补充必要授权，核对账户后完成导入；已有相应授权时，可直接创建成功。
+核对生成的 API 钱包公开地址和当前连接的主钱包，由 **所属主钱包**签署 API 钱包授权及必要的 Builder 费用授权。已确认的授权会被跳过。等待导入成功，再检查所选子账户地址。
+
+原生子账户没有自己的私钥，不要在此流程输入主钱包私钥或助记词。
 
 ## 步骤 4: 分配给基金经理
 
@@ -233,8 +210,8 @@ API 钱包用于已授权的交易签名。资金转账或提现应由资产所�
 ### 安全建议
 
 <Warning>
-1. **妥善保管 API 私钥**，只在 Owly 专用导入或更新表单中填写，不发送给 Assistant、客服或聊天；主钱包私钥和助记词不得填入这些表单
-2. **每个 Sub Account 使用独立 API Key**
+1. **核对钱包授权**：导入时由 Owly 自动生成并保管 API 钱包；任何私钥或助记词都不要发送给 Assistant、客服或聊天
+2. **每个 Sub Account 使用独立 API 钱包**，导入时由 Owly 自动创建
 3. **只分配给您信任的基金经理**
 4. **定期检查交易记录**，发现异常及时停止 Bot
 5. **如怀疑 API 泄露**，立即在 Hyperliquid 撤销

@@ -1,6 +1,6 @@
 ---
 title: "账户类型"
-description: "先了解 Hyperliquid API 钱包，再比较 Owly 的三种交易账户及各自限制"
+description: "先了解 Hyperliquid API 钱包，再比较 Owly 的四种交易账户，包含 Alpha 阶段的链上借贷"
 icon: "wallet"
 ---
 
@@ -16,7 +16,7 @@ API 钱包泄露仍可能导致恶意交易和资金亏损。不要向 API 钱�
 
 ## 再区分 Owly 登录身份与交易账户
 
-Owly 的“子账户”是用于管理交易账户的统称，创建页面提供 **API 钱包**、**Hyperliquid 子账户**和 **Owly 托管**三种类型。只有第二种使用 Hyperliquid 原生子账户。
+Owly 的“子账户”是用于管理交易账户的统称，创建页面提供 **API 钱包**、**Hyperliquid 子账户**、**链上借贷（Alpha）** 和 **Owly 托管**四种类型。默认展示前两种，展开 **更多选项**可查看其余类型。其中 Hyperliquid 子账户类型导入原生子账户，链上借贷则接入 LeverAcc 协议账户。
 
 - **Owly 主账户**：用于登录 Owly 和管理账户。
 - **交易账户**：实际持有 Hyperliquid 交易资金和仓位的账户。
@@ -24,40 +24,67 @@ Owly 的“子账户”是用于管理交易账户的统称，创建页面提供
 
 **Owly 主账户和交易账户可以是同一个钱包地址。** 如果希望分开管理，也可以用一个地址登录 Owly，再添加另一个地址作为交易账户。采用独立地址时，要分别核对登录地址、资金账户地址和签名地址；同一地址时无需为了添加账户另建第二个钱包账号。
 
-**同一个 Owly 主账户同时最多可有 10 个有效交易账户，三种类型合计计算。** 这是 Owly 的账户数量限制，与下文 Hyperliquid 原生子账户的创建资格和数量额度分开计算。
+**新增 API 钱包、Hyperliquid 子账户或 Owly 托管账户时，Owly 会统计当前 Owly 主账户下所有有效交易账户，包括已关联且有效的链上借贷账户。总数达到 10 个后，无法继续新增这三种类型的账户。** 例如，9 个上述类型的账户加上 1 个有效的链上借贷账户，就已达到这一上限。链上借贷目前使用 Alpha 接入流程，以页面的开放状态和校验提示为准。下文 Hyperliquid 原生子账户的创建资格和数量额度另行计算。
 
-## 三种类型怎么选
+## 四种类型怎么选
 
 | 类型 | 适合的情况 | 添加前准备 | 需要注意 |
 |:--|:--|:--|:--|
-| **API 钱包** | 希望使用自己控制的 Hyperliquid 主账户交易；适合大多数新用户 | 交易账户公开地址、该账户已授权的 API 钱包私钥 | 每个交易账户对应独立的 Hyperliquid 主账户地址；它可以与 Owly 登录地址相同 |
-| **Hyperliquid 子账户** | 已有 Hyperliquid 原生子账户，希望在其主账户下统一管理 | 拥有子账户的主钱包、已有子账户、为其单独准备的 API 钱包 | 先满足 Hyperliquid 的创建条件；Owly 此流程导入已有子账户 |
+| **API 钱包** | 希望使用自己控制的 Hyperliquid 主账户交易；适合大多数新用户 | 用于交易的钱包，在 Owly 中连接并签名授权 | 每个交易账户对应独立的 Hyperliquid 主账户地址；它可以与 Owly 登录地址相同 |
+| **Hyperliquid 子账户** | 已有 Hyperliquid 原生子账户，希望在其主账户下统一管理 | 拥有子账户的主钱包、已有子账户；专用 API 钱包由 Owly 自动生成 | 先满足 Hyperliquid 的创建条件；Owly 此流程导入已有子账户 |
+| **链上借贷（Alpha）** | 希望通过 LeverAcc 抵押资产借入 USDC 后用于跟单 | 已在 LeverAcc 创建并激活的交易账号、对应资金钱包及用于 HyperEVM Gas 的 HYPE | 处于 Alpha 阶段；关联账户、借款与启动交易是分开的步骤 |
 | **Owly 托管** | 希望由 Owly 创建和管理交易钱包 | 账户名称 | 交易钱包私钥不由你直接持有，需要接受托管方式 |
+
+## API 钱包数量限制与清理
+
+每个 Hyperliquid 主账户默认最多可授权 **3 个有名称的 API 钱包**，使用该主账户的不同应用共用这些名额。Hyperliquid 另外允许 1 个未命名 API 钱包，每个原生子账户还会增加 2 个有名称的 API 钱包名额。参见 [Hyperliquid API 钱包数量规则](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#approve-an-api-wallet)。这一授权数量限制与上文 Owly 的交易账户数量限制分开计算。
+
+如果新增或更新 API 钱包时提示数量已达上限：
+
+1. 前往 [Hyperliquid API 页面](https://app.hyperliquid.xyz/API)，连接拥有该授权的主钱包。Hyperliquid 子账户应使用其所属主钱包。
+2. 核对 API 钱包的名称和地址，删除或撤销不再需要的授权。不要删除 Owly 或其他应用仍在使用的 API 钱包，否则对应应用将无法继续使用该授权交易。
+3. 确认已释放名额后，返回 Owly 重试创建 API 钱包或更新授权。
+
+## API 钱包有效期与更新
+
+Hyperliquid 官方规定，API 钱包授权的有效期**最长为 180 天**。这是授权的有效期，不是交易账户的使用期限。参见 [Hyperliquid API 钱包授权规则](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#approve-an-api-wallet)。
+
+Owly 默认使用以下有效期：
+
+| 账户类型 | API 钱包默认有效期 |
+|:--|:--|
+| API 钱包 | **180 天** |
+| Hyperliquid 子账户 | **180 天** |
+| 链上借贷（LeverAcc，Alpha） | **90 天** |
+
+<Warning>
+**到期前 10 分钟仍未完成授权更新，Owly 会自动停止该账户上正在运行的跟单。** 请在这一时间点之前，通过账户管理完成授权更新，并确认页面已显示新的到期时间，不要等到授权过期才处理。
+</Warning>
 
 ## Owly 的 API 钱包类型
 
 这一类型使用的是**独立的 Hyperliquid 主账户，即一个 EVM 资金地址**，不是 Hyperliquid 原生子账户。若要添加多个这类交易账户，应分别准备不同的主账户地址，而不是给同一个主账户多建几个 API 钱包。这些交易账户中的一个可以直接使用 Owly 登录地址；“独立”并不要求它与登录地址不同。
 
-选择 **API 钱包**后，在 **导入 API 钱包**表单填写账户名称、API 钱包所属的 Hyperliquid 主账户地址，以及已授权的 API 钱包私钥。这里的“所属主账号”指交易账户，不一定是登录 Owly 的地址。授权 API 钱包负责代为交易；充值和提现仍按上文资金钱包的签名流程完成。
+选择 **API 钱包**后，填写账户名称，点击 **连接**并选择你的 Hyperliquid 交易钱包。核对页面显示的地址；它可以与 Owly 登录地址相同。此设置流程不再要求填写 API 钱包私钥。
+
+Owly 会检查交易账户是否启用 **统一账户（Unified Account）**，未启用时先请求签名启用。随后 Owly 自动生成并安全保存 API 钱包，展示其公开地址，再由当前连接的交易钱包签名授权。若还需要 **Builder 费用授权**，核对费率上限后完成签名。已经确认的授权会被跳过。
 
 <Info>
-余额、持仓和盈亏对应的是交易账户地址。不要在主账户地址栏填写 API 钱包地址，也不要向 API 钱包充值。
+生成的 API 交易密钥由 Owly 管理，主钱包仍由你控制。余额、持仓和盈亏对应交易账户地址，不要向 API 钱包充值。新增账户无需先去 Hyperliquid API 页面手动创建钱包，也无需复制或导入 API 钱包私钥。
 </Info>
 
-Owly 会检查 API 钱包是否有效，并按账户状态引导必要授权。需要签名时，应使用该 API 钱包所属的交易账户，核对钱包弹窗中的网站、地址和授权内容。如果页面直接创建成功，说明无需重复完成相应授权步骤。
-
-第一次使用时，按照[快速入门](/zh/guide/quick-start)完成准备、充值、API 钱包授权和导入。
+第一次使用时，按照[快速入门](/zh/guide/quick-start)完成准备、充值、连接钱包和签名授权。
 
 ## Hyperliquid 子账户
 
-这是 Hyperliquid 主账户名下的**原生子账户**，与上面的独立主账户不同。根据 [Hyperliquid 官方规则](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts)，主账户达到 **100,000 美元交易量**后，可创建最多 **10 个**子账户；之后每增加 **100,000,000 美元交易量**可增加 1 个，最高 **50 个**。因此，10 个是基础额度，不是 Hyperliquid 的最终硬上限。即使 Hyperliquid 额度更高，Owly 仍适用三种类型同时合计最多 10 个有效交易账户的限制。
+这是 Hyperliquid 主账户名下的**原生子账户**，与上面的独立主账户不同。根据 [Hyperliquid 官方规则](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts)，主账户达到 **100,000 美元交易量**后，可创建最多 **10 个**子账户；之后每增加 **100,000,000 美元交易量**可增加 1 个，最高 **50 个**。因此，10 个是基础额度，不是 Hyperliquid 的最终硬上限。这一额度与上文 Owly 的账户数量限制分开计算。
 
-先使用拥有原生子账户的 Hyperliquid 主钱包登录 Owly，再选择 **Hyperliquid 子账户**。Owly 会读取该登录主钱包下的子账户列表。选择要导入的已有子账户，填写名称和为它单独准备的 API 钱包私钥，再按页面提示完成验证和授权。已添加的子账户不能重复选择。
+先使用拥有原生子账户的 Hyperliquid 主钱包登录 Owly，再选择 **Hyperliquid 子账户**。Owly 会读取该登录主钱包下的子账户列表。选择要导入的已有子账户并填写名称。Owly 检查主账户的统一账户模式，按需请求启用签名，再自动生成并保存本次导入专用的 API 钱包。核对生成的 API 钱包地址，由 **所属主钱包**完成 API 钱包授权及必要的 Builder 费用授权。无需去 Hyperliquid 手动创建 API 钱包，也不需要填写私钥。已添加的子账户不能重复选择。
 
 如果列表为空，先核对当前主钱包，再到 [Hyperliquid 子账户页面](https://app.hyperliquid.xyz/subAccounts)检查；未创建时需先满足上述条件，并以 Hyperliquid 当时显示的资格为准。
 
 <Warning>
-Hyperliquid 原生子账户没有自己的私钥；不要寻找或填写“子账户钱包私钥”。API 钱包由所属主账户授权。Owly 要求每个导入子账户使用独立 API 钱包，以减少共享交易序号造成的冲突；这不等于该 API 钱包在协议层被限制只能操作这个子账户。参见 [Hyperliquid 子账户签名说明](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#subaccounts-and-vaults)和 [API 钱包说明](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/nonces-and-api-wallets#api-wallets)。
+Hyperliquid 原生子账户没有自己的私钥；不要寻找或填写“子账户钱包私钥”。API 钱包由所属主账户授权。Owly 会为每个导入子账户自动创建独立 API 钱包，以减少共享交易序号造成的冲突；这不等于该 API 钱包在协议层被限制只能操作这个子账户。参见 [Hyperliquid 子账户签名说明](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#subaccounts-and-vaults)和 [API 钱包说明](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/nonces-and-api-wallets#api-wallets)。
 </Warning>
 
 需要委托基金经理时，继续阅读[资产所有者指南](/zh/guide/owner-guide)。
@@ -68,12 +95,28 @@ Hyperliquid 原生子账户没有自己的私钥；不要寻找或填写“子�
 
 这种方式配置较少，但交易钱包私钥不由你直接持有。创建成功后，先核对页面显示的账户信息，再按实际提供的资金管理入口操作。
 
+## 链上借贷（Alpha）
+
+**链上借贷**通过 LeverAcc 抵押资产借入 USDC，用于跟单交易。在账户类型选择中展开 **更多选项 → 链上借贷**即可进入。
+
+<Warning>
+该类型目前处于 **Alpha 阶段**。关联账户不代表已启动跟单：当前实现会让新关联账户保持暂停，也不会把它加入普通“跟单交易”的账户选择器，跟单启动尚未开放。不要因为账户添加成功就假定借款后可以立即开始交易。
+</Warning>
+
+1. 点击 **前往 LeverAcc 借贷**，先在 LeverAcc 完成配置，并创建、激活 **交易账号**。确认交易账号已激活后，再返回 Owly 添加账户。账户创建与激活、抵押充值、借款、还款和提现均在 LeverAcc 完成。**添加到 Owly 前不要求先完成借款。**
+2. 返回 Owly，填写账户名称，点击 **连接资金钱包**。资金钱包可以与 Owly 登录钱包不同；Owly 会从 LeverAcc 自动读取关联的交易账号，无需填写私钥或手动输入交易合约地址。
+3. 核对资金账号和交易账号，点击下一步查看 **关联项目**。如果项目不匹配，点击 **关联到 Owly**，核对钱包签名和合约交易。更换项目要求账户没有未偿债务及阻断风险状态，并会停用原执行钱包。
+4. 继续使用资金钱包签署执行授权并确认合约交易。准备少量 **HYPE** 支付 Gas。等待 Owly 核验授权并提示账户已添加。
+5. 如果仍在等待确认或取消了钱包请求，恢复原绑定流程或刷新状态，继续核验原操作。添加账户、借款和交易设置仍需分别完成。
+
+即使无法启动交易，借款仍可能产生利息。暂停交易不代表仓位已平，平仓也不代表债务已清偿；借贷资金操作仍需在 LeverAcc 完成。Alpha 阶段的开放状态和可用交易功能以当前页面提示为准。
+
 ## 填写信息的安全边界
 
-- 钱包助记词、Owly 登录钱包私钥和交易账户主钱包私钥，均不能发送给 Assistant、客服或第三方，也不能填入 API 钱包私钥栏。
-- API 钱包私钥只在 Owly 既有的 **API 钱包私钥**表单中填写；不要粘贴到 Assistant、聊天消息、文档或截图。
-- Assistant 可以根据账户类型、是否已有账户及公开地址说明步骤；实际连接、授权、充值、转账和交易由你在对应页面核对后完成。
-- API 钱包泄露可能导致恶意交易和资金亏损。怀疑泄露或授权过期时，在 Hyperliquid 处理旧授权，再为 Owly 配置全新的 API 钱包。
+- 钱包助记词、Owly 登录钱包私钥和交易账户主钱包私钥，均不能发送给 Assistant、客服或第三方。
+- 新增 API 钱包和 Hyperliquid 子账户时，API 交易密钥由 Owly 自动生成并保管，无需手动创建、复制或导入。
+- Assistant 可以根据账户类型和公开地址说明步骤；实际连接、授权、充值、转账和交易由你在对应页面核对后完成。
+- API 钱包泄露可能导致恶意交易和资金亏损。怀疑泄露时，停止对应机器人并在 Hyperliquid 撤销授权；授权过期或需要更换时，按 Owly 账户管理的更新提示处理。
 
 <Card title="快速入门" href="/zh/guide/quick-start" icon="rocket">
 从同一账号或独立交易账号中选择一条路径，逐步完成添加。

@@ -4,6 +4,15 @@ description: 'Latest updates to Owly platform'
 icon: 'list'
 ---
 
+## 2026.09.21
+### New
+- **On-chain Lending Sub-account (Alpha)**: Added a LeverAcc account type for copy trading with USDC borrowed against collateral. Complete setup and create and activate a trading account on LeverAcc before adding it to Owly. This type is in Alpha: account linking is supported, but starting copy trading is not yet available.
+
+### Improvements
+- **Sub-account Setup**: Owly now automatically creates and stores API Wallets for both API Wallet and Hyperliquid Sub-account setup. Connect the trading wallet or the sub-account's master wallet and sign the authorizations, without manually creating an API Wallet on Hyperliquid or copying and importing its private key.
+- **Authorization Guidance**: Setup checks Unified Account mode and guides you through enabling it when needed, followed by API Wallet and Builder fee authorizations. Confirmed authorizations are skipped.
+- **Documentation**: Updated [Quick Start](/guide/quick-start) and [Account Type](/guide/account-types) with prerequisites for all four account types, API Wallet quotas, validity periods, and the copy trading stop rule before expiry.
+
 ## 2026.05.29
 ### Fixes
 - OKX Wallet iOS App Adaption

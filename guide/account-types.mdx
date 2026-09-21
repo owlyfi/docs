@@ -1,6 +1,6 @@
 ---
 title: "Account Type"
-description: "Understand Hyperliquid API Wallets, then compare Owly's three trading account types and their limits"
+description: "Understand Hyperliquid API Wallets, then compare Owly's four trading account types, including On-chain Lending (Alpha)"
 icon: "wallet"
 ---
 
@@ -16,7 +16,7 @@ A leaked API Wallet can still enable malicious trading and losses. Do not fund i
 
 ## Then separate Owly login from trading accounts
 
-Owly uses “sub-account” as a general label for the trading accounts you manage. The creation page offers **API Wallet**, **Hyperliquid Sub-account**, and **Owly Managed**. Only the second option uses a native Hyperliquid sub-account.
+Owly uses “sub-account” as a general label for the trading accounts you manage. The creation page offers four types: **API Wallet**, **Hyperliquid Sub-account**, **On-chain Lending (Alpha)**, and **Owly Managed**. The first two appear by default; expand **More options** to see the others. The Hyperliquid Sub-account option imports a native Hyperliquid sub-account; On-chain Lending connects a LeverAcc protocol account.
 
 - **Owly main account**: the wallet used to sign in to Owly and manage accounts.
 - **Trading account**: the account that holds your Hyperliquid trading funds and positions.
@@ -24,40 +24,67 @@ Owly uses “sub-account” as a general label for the trading accounts you mana
 
 **Your Owly main account and trading account can use the same wallet address.** You can also sign in with one address and add another as a separate trading account. With separate addresses, check the login, funding, and signing addresses individually. Using one address does not require creating a second wallet account.
 
-**Each Owly main account can have up to 10 active trading accounts at a time, counted across all three types.** This is Owly's account limit, separate from Hyperliquid's native sub-account eligibility and quota below.
+**When adding an API Wallet, Hyperliquid Sub-account, or Owly Managed account, Owly counts all active trading accounts under your Owly main account, including linked On-chain Lending accounts. If that total is already 10 or more, you cannot add another account of these three types.** For example, 9 accounts of these types plus 1 active On-chain Lending account reach this limit. On-chain Lending uses an Alpha onboarding flow; follow its availability and validation prompts. Hyperliquid's native sub-account eligibility and quota below are separate.
 
-## Compare the three options
+## Compare the four options
 
 | Type | When it fits | What to prepare | What to consider |
 |:--|:--|:--|:--|
-| **API Wallet** | You want to trade with a Hyperliquid main account you control; suitable for most new users | Trading account public address and its authorized API Wallet private key | Each trading account uses a separate Hyperliquid master address; it can match your Owly login address |
-| **Hyperliquid Sub-account** | You already have a native Hyperliquid sub-account and want management under its master account | The master wallet, an existing sub-account, and a dedicated API Wallet | Hyperliquid's creation requirements apply; this Owly flow imports an existing sub-account |
+| **API Wallet** | You want to trade with a Hyperliquid main account you control; suitable for most new users | The trading wallet, connected in Owly to sign authorizations | Each trading account uses a separate Hyperliquid master address; it can match your Owly login address |
+| **Hyperliquid Sub-account** | You already have a native Hyperliquid sub-account and want management under its master account | The master wallet and an existing sub-account; Owly generates the dedicated API Wallet | Hyperliquid's creation requirements apply; this Owly flow imports an existing sub-account |
+| **On-chain Lending (Alpha)** | You want to use collateral to borrow USDC through LeverAcc for copy trading | A trading account created and activated on LeverAcc, its funding wallet, and HYPE for HyperEVM gas | Alpha; account linking, borrowing, and trading activation are separate steps |
 | **Owly Managed** | You want Owly to create and manage the trading wallet | An account name | You do not directly hold the trading wallet private key and must be comfortable with custody by Owly |
+
+## API Wallet limits and removing unused authorizations
+
+A Hyperliquid master account can approve **up to 3 named API Wallets by default**. These slots are shared across applications using that master account. Hyperliquid also allows 1 unnamed API Wallet, and each native sub-account adds 2 named API Wallet slots. See [Hyperliquid's official API Wallet limits](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#approve-an-api-wallet). This authorization quota is separate from Owly's trading account limit above.
+
+If creating or updating an API Wallet fails because the quota is full:
+
+1. Open the [Hyperliquid API page](https://app.hyperliquid.xyz/API) and connect the master wallet that owns the authorization. For a Hyperliquid sub-account, use its master wallet.
+2. Check the API Wallet names and addresses, then delete or revoke authorizations you no longer need. Do not remove an API Wallet still used by Owly or another application; revoking it prevents that application from continuing to trade with it.
+3. After confirming that a slot is available, return to Owly and retry API Wallet creation or the authorization update.
+
+## API Wallet validity and renewal
+
+Hyperliquid limits an API Wallet authorization to **a maximum of 180 days**. This is the authorization's validity period, not the lifetime of your trading account. See [Hyperliquid's official API Wallet authorization rules](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#approve-an-api-wallet).
+
+Owly uses the following default validity periods:
+
+| Account type | Default API Wallet validity |
+|:--|:--|
+| API Wallet | **180 days** |
+| Hyperliquid Sub-account | **180 days** |
+| On-chain Lending via LeverAcc (Alpha) | **90 days** |
+
+<Warning>
+**If the authorization has not been updated by 10 minutes before expiry, Owly automatically stops running copy trading on that account.** Complete the authorization update in account management before this cutoff, and confirm that the new expiry time is shown. Do not wait until the authorization expires.
+</Warning>
 
 ## Owly's API Wallet account type
 
 This type uses **a separate Hyperliquid master account—an EVM address holding the funds**. It is not a native Hyperliquid sub-account. To add multiple trading accounts of this type, prepare different master addresses, rather than creating several API Wallets for one master. One of these trading accounts can use your Owly login address; “separate” does not require a different address from your login.
 
-Choose **API Wallet**, then enter an account name, the API Wallet's Hyperliquid master account address, and its authorized private key in the import form. “API Wallet Master Account” means the trading account; it does not necessarily mean your Owly login address. The authorized API Wallet signs trading actions; funding and withdrawals use the wallet signing flows explained above.
+Choose **API Wallet**, enter an account name, and **Connect** the wallet for your Hyperliquid trading account. Verify the displayed address; it can equal your Owly login address. There is no API Wallet private key field in this setup flow.
+
+Owly checks whether the trading account uses **Unified Account** mode and asks you to enable it by signing if needed. It then generates and securely stores an API Wallet, displays its public address, and asks the connected trading wallet to authorize it. Complete any required **Builder fee authorization** after reviewing the fee limit. Confirmed authorizations are skipped.
 
 <Info>
-Balances, positions, and profit or loss belong to the trading account address. Do not put the API Wallet address in the master account field or deposit into the API Wallet.
+Owly manages the generated API trading key; you control the master wallet. Balances, positions, and profit or loss belong to the trading account address. Do not deposit into the API Wallet. You no longer need to visit Hyperliquid's API page to manually create a wallet or copy its private key for setup.
 </Info>
 
-Owly checks the API Wallet and guides any required authorizations based on account state. When a signature is needed, use the trading account that authorized the API Wallet and review the site, address, and authorization in your wallet. Creation may finish directly when the relevant authorizations are already complete.
-
-For your first account, follow [Quick Start](/guide/quick-start) to prepare, fund, authorize, and import it.
+For your first account, follow [Quick Start](/guide/quick-start) to prepare, fund, connect, and authorize it.
 
 ## Hyperliquid Sub-account
 
-This is a **native sub-account** under a Hyperliquid master, distinct from the separate master accounts above. Under [Hyperliquid's rules](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts), reaching **$100,000 in trading volume** unlocks up to **10** sub-accounts. Every additional **$100,000,000 in volume** adds one, up to **50**. Ten is therefore the base quota, not Hyperliquid's final hard cap. Even with a higher Hyperliquid quota, Owly's combined limit remains 10 active trading accounts at a time across all three types.
+This is a **native sub-account** under a Hyperliquid master, distinct from the separate master accounts above. Under [Hyperliquid's rules](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts), reaching **$100,000 in trading volume** unlocks up to **10** sub-accounts. Every additional **$100,000,000 in volume** adds one, up to **50**. Ten is therefore the base quota, not Hyperliquid's final hard cap. This quota is separate from Owly's account limit described above.
 
-Sign in to Owly with the Hyperliquid master wallet that owns the sub-account, then choose **Hyperliquid Sub-account** to load that wallet's sub-accounts. Select an existing sub-account, enter a name and its dedicated API Wallet private key, then follow validation and authorization prompts. An already added sub-account cannot be selected again.
+Sign in to Owly with the Hyperliquid master wallet that owns the sub-account, then choose **Hyperliquid Sub-account** to load that wallet's sub-accounts. Select an existing sub-account and enter a name. Owly checks the master account's Unified Account mode, requests an enablement signature if needed, and generates and stores a dedicated API Wallet for this import. Review the generated API Wallet address, then use the **master wallet** to complete the API Wallet authorization and any required Builder fee authorization. You do not need to create an API Wallet on Hyperliquid or enter its private key. An already added sub-account cannot be selected again.
 
 If the list is empty, check the master wallet and visit [Hyperliquid Sub-accounts](https://app.hyperliquid.xyz/subAccounts). If you have not created one, first meet the requirements above and check the eligibility currently shown by Hyperliquid.
 
 <Warning>
-A native Hyperliquid sub-account has no private key of its own. Its master account authorizes the API Wallet. Owly requires a separate API Wallet for each imported sub-account to reduce shared-nonce conflicts; this does not restrict that API Wallet to one sub-account at the protocol level. See [sub-account signing](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#subaccounts-and-vaults) and [API Wallets](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/nonces-and-api-wallets#api-wallets).
+A native Hyperliquid sub-account has no private key of its own. Its master account authorizes the API Wallet. Owly automatically creates a separate API Wallet for each imported sub-account to reduce shared-nonce conflicts; this does not restrict that API Wallet to one sub-account at the protocol level. See [sub-account signing](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#subaccounts-and-vaults) and [API Wallets](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/nonces-and-api-wallets#api-wallets).
 </Warning>
 
 To delegate management, continue with the [Asset Owner Guide](/guide/owner-guide).
@@ -68,12 +95,28 @@ Choose **Owly Managed**, enter a name, and create the account. Owly generates an
 
 Setup requires fewer steps, but you do not directly hold the trading wallet private key. After creation, check the displayed account details and use the funding controls actually available for that account.
 
+## On-chain Lending (Alpha)
+
+**On-chain Lending** connects a LeverAcc account for copy trading using USDC borrowed against collateral. Choose **More options → On-chain Lending** in the account selector.
+
+<Warning>
+This account type is in **Alpha**. Account linking does not start copy trading. The current implementation keeps newly linked accounts paused and excludes them from the ordinary Copy Trade account selector; starting copy trading is not currently available. Do not borrow on the assumption that linking an account will immediately start trading.
+</Warning>
+
+1. Use **Open LeverAcc Borrow** to complete setup and create and activate a **trading account** on LeverAcc. Confirm that the trading account is activated before returning to Owly to add it. Account creation and activation, collateral deposits, borrowing, repayment, and withdrawals are handled on LeverAcc. **You do not need to borrow before adding the account to Owly.**
+2. Return to Owly, enter an account name, and **Connect Funding Wallet**. This wallet may differ from your Owly login wallet. Owly reads the associated trading account from LeverAcc; you do not paste a private key or manually enter the trading contract address.
+3. Check the funding and trading account addresses, then continue to **Link project**. If the project does not match, choose **Link to Owly** and review the wallet signature and contract transaction. Changing projects requires no outstanding debt or blocking protocol risk and disables the previous execution wallet.
+4. Continue with the funding wallet to sign the execution authorization and confirm the contract transaction. Keep a small amount of **HYPE** for gas. Wait for Owly to verify the authorization and report that the account was added.
+5. If confirmation is pending or you cancelled a wallet request, resume the original linking flow or refresh its status. Account creation, borrowing, and trading setup remain separate actions.
+
+Borrowing may accrue interest even when trading cannot start. Pausing trading does not close positions, and closing positions does not repay debt; manage the loan on LeverAcc. Alpha availability and supported trading functions remain subject to the current page's status.
+
 ## Where sensitive information belongs
 
-- Never send your seed phrase, Owly login wallet private key, or trading master wallet private key to the Assistant, support, or a third party. Do not enter them in the API Wallet private key field.
-- Enter the API Wallet private key only in Owly's existing **API Wallet Private Key** form. Do not paste it into the Assistant, messages, documents, or screenshots.
-- The Assistant can explain steps using the account type, whether an account already exists, and public addresses. Review and complete connections, authorizations, deposits, transfers, and trades yourself on the relevant page.
-- A leaked API Wallet can enable malicious trading and losses. If compromised or expired, handle the old authorization on Hyperliquid and configure a newly generated API Wallet for Owly.
+- Never send your seed phrase, Owly login wallet private key, or trading master wallet private key to the Assistant, support, or a third party.
+- New API Wallet and Hyperliquid Sub-account setup generates and stores the API trading key in Owly. No manual key creation, copying, or import is required.
+- The Assistant can explain steps using the account type and public addresses. Review connections, authorizations, deposits, transfers, and trades yourself.
+- A leaked API Wallet can enable malicious trading and losses. If compromised, stop the associated bot and revoke the authorization on Hyperliquid. For expiry or replacement, follow Owly's account-management update prompts.
 
 <Card title="Quick Start" href="/guide/quick-start" icon="rocket">
 Choose the same-address or separate-trading-address path and add your account step by step.

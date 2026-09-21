@@ -8,12 +8,12 @@ This guide walks you through managing Hyperliquid Sub Accounts on Owly and deleg
 
 ## Workflow Overview
 
-1. [Preparation](#step-1:-preparation)
-2. [Create Sub Account](#step-2:-create-sub-account-and-api-on-hyperliquid)
-3. [Import to Owly](#step-3:-import-sub-account-to-owly)
-4. [Assign Manager](#step-4:-assign-to-fund-manager)
-5. [Daily Management](#step-5:-daily-management)
-6. [Permissions & Security](#permissions--security)
+1. [Preparation](#step-1-preparation)
+2. [Prepare a Hyperliquid Sub-account](#step-2-prepare-a-hyperliquid-sub-account)
+3. [Import to Owly](#step-3-import-sub-account-to-owly)
+4. [Assign Manager](#step-4-assign-to-fund-manager)
+5. [Daily Management](#step-5-daily-management)
+6. [Permissions & Security](#permissions-%26-security)
 
 ## Step 1: Preparation
 
@@ -43,7 +43,7 @@ This guide walks you through managing Hyperliquid Sub Accounts on Owly and deleg
 If the fund manager is not registered, the assignment will fail.
 </Warning>
 
-## Step 2: Create Sub Account and API on Hyperliquid
+## Step 2: Prepare a Hyperliquid Sub-account
 
 ### 2.1 Prerequisites
 
@@ -68,31 +68,13 @@ Creating a native sub-account requires meeting [Hyperliquid's current eligibilit
   </Step>
 </Steps>
 
-### 2.3 Create API Key for Sub Account
+### 2.3 Let Owly generate the API Wallet
 
-<Steps>
-  <Step title="Enter Sub Account">
-    Select the Sub Account you just created
-  </Step>
-  <Step title="Create API Key">
-    Click API, create a new API Key
-  </Step>
-  <Step title="Save Private Key">
-    **Important**: Securely save the private key - it's only shown once
-  </Step>
-</Steps>
+You do not need to create an API Wallet on Hyperliquid or save its private key before importing. Owly automatically generates and securely stores a dedicated API Wallet for each imported sub-account. Its master wallet signs the authorization in the next step.
 
-<Warning>
-**Each Sub Account must have its own API Key!**
-
-An API Wallet signing for several accounts shares its nonce state, which can cause conflicts. Owly requires separate API Wallets; this does not restrict a key to one sub-account at the protocol level. See [Account Type](/guide/account-types).
-
-Owly requires: **One Sub Account = One dedicated API Key**.
-</Warning>
-
-### 2.4 Complete authorizations during import
-
-You do not need the old authorization test page. The Owly import form checks existing authorizations and guides any additional signatures; completed authorizations do not need repeating. Use the sub-account's master wallet and review the address, site, and requested authorization. See [Account Type](/guide/account-types).
+<Note>
+Separate API Wallets reduce shared-nonce conflicts. They do not restrict an API Wallet to one sub-account at the protocol level. See [Account Type](/guide/account-types).
+</Note>
 
 ## Step 3: Import Sub Account to Owly
 
@@ -106,7 +88,7 @@ You do not need the old authorization test page. The Owly import form checks exi
     Navigate to **Sub Account Management**
   </Step>
   <Step title="Add Sub Account">
-    Click **Create Sub-Account**, choose the appropriate guidance option, then select **Hyperliquid Sub-account**
+    Click **Create Sub-Account**, then select **Hyperliquid Sub-account**
   </Step>
 </Steps>
 
@@ -114,20 +96,15 @@ You do not need the old authorization test page. The Owly import form checks exi
 
 Owly will automatically fetch your Sub Account list. Select the Sub Account you want to import.
 
-### 3.3 Enter API Key
+### 3.3 Name the account and generate its API Wallet
 
-<Steps>
-  <Step title="Enter Private Key">
-    Enter the authorized API Wallet private key only in the dedicated **API Wallet Private Key** form, never in the Assistant. Native sub-accounts have no private key of their own; do not enter your master wallet private key or seed phrase
-  </Step>
-  <Step title="Set Display Name">
-    Set a display name for this account
-  </Step>
-</Steps>
+Enter an account name and continue. If the master account is not a Unified Account, review and sign Owly's request to enable that mode. Owly then generates and stores the dedicated API Wallet; you do not enter a private key.
 
-### 3.4 Confirm Import
+### 3.4 Authorize and confirm import
 
-Owly checks API Wallet validity and existing authorizations. Complete any required authorization shown by the form, verify the account, and finish import. Creation may finish directly when the required authorizations already exist.
+Verify the generated API Wallet public address and the connected master wallet. Sign the API Wallet authorization and any required Builder fee authorization with the **master wallet**. Owly checks confirmed authorizations and skips those already complete. Wait for import to succeed, then verify the selected sub-account address.
+
+Native sub-accounts have no private key of their own. Never enter a master wallet private key or seed phrase in this flow.
 
 ## Step 4: Assign to Fund Manager
 
@@ -233,8 +210,8 @@ After assignment, fund managers can:
 ### Security Recommendations
 
 <Warning>
-1. **Keep API private keys secure**: enter them only in Owly's dedicated import or update form, never in the Assistant, support, or chat. Never enter master wallet private keys or seed phrases in those forms
-2. **Use dedicated API Key for each Sub Account**
+1. **Review wallet authorizations**: Owly generates and stores the API Wallet during import. Never send private keys or seed phrases to the Assistant, support, or chat
+2. **Keep a dedicated API Wallet for each Sub Account**; Owly creates it automatically during import
 3. **Only assign to trusted fund managers**
 4. **Regularly check trading records** - stop Bot immediately if anomalies detected
 5. **If API leak suspected** - immediately revoke on Hyperliquid
