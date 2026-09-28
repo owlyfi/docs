@@ -1,6 +1,6 @@
 ---
 title: "Account Type"
-description: "Understand Hyperliquid API Wallets, then compare Owly's four trading account types, including On-chain Lending (Alpha)"
+description: "Understand Hyperliquid API Wallets, then compare Owly's three trading account types, including On-chain Lending (Alpha)"
 icon: "wallet"
 ---
 
@@ -16,7 +16,7 @@ A leaked API Wallet can still enable malicious trading and losses. Do not fund i
 
 ## Then separate Owly login from trading accounts
 
-Owly uses “sub-account” as a general label for the trading accounts you manage. The creation page offers four types: **API Wallet**, **Hyperliquid Sub-account**, **On-chain Lending (Alpha)**, and **Owly Managed**. The first two appear by default; expand **More options** to see the others. The Hyperliquid Sub-account option imports a native Hyperliquid sub-account; On-chain Lending connects a LeverAcc protocol account.
+Owly uses “sub-account” as a general label for the trading accounts you manage. The creation page offers three types: **API Wallet**, **Hyperliquid Sub-account**, and **On-chain Lending (Alpha)**. The first two appear by default; expand **More options** to see On-chain Lending. The Hyperliquid Sub-account option imports a native Hyperliquid sub-account; On-chain Lending connects a LeverAcc protocol account.
 
 - **Owly main account**: the wallet used to sign in to Owly and manage accounts.
 - **Trading account**: the account that holds your Hyperliquid trading funds and positions.
@@ -24,16 +24,15 @@ Owly uses “sub-account” as a general label for the trading accounts you mana
 
 **Your Owly main account and trading account can use the same wallet address.** You can also sign in with one address and add another as a separate trading account. With separate addresses, check the login, funding, and signing addresses individually. Using one address does not require creating a second wallet account.
 
-**When adding an API Wallet, Hyperliquid Sub-account, or Owly Managed account, Owly counts all active trading accounts under your Owly main account, including linked On-chain Lending accounts. If that total is already 10 or more, you cannot add another account of these three types.** For example, 9 accounts of these types plus 1 active On-chain Lending account reach this limit. On-chain Lending uses an Alpha onboarding flow; follow its availability and validation prompts. Hyperliquid's native sub-account eligibility and quota below are separate.
+**When adding an API Wallet or Hyperliquid Sub-account, Owly counts all active trading accounts under your Owly main account, including linked On-chain Lending accounts. If that total is already 10 or more, you cannot add another account of these two types.** For example, 9 accounts across the API Wallet and Hyperliquid Sub-account types plus 1 active On-chain Lending account reach this limit. On-chain Lending uses an Alpha onboarding flow; follow its availability and validation prompts. Hyperliquid's native sub-account eligibility and quota below are separate.
 
-## Compare the four options
+## Compare the three options
 
 | Type | When it fits | What to prepare | What to consider |
 |:--|:--|:--|:--|
 | **API Wallet** | You want to trade with a Hyperliquid main account you control; suitable for most new users | The trading wallet, connected in Owly to sign authorizations | Each trading account uses a separate Hyperliquid master address; it can match your Owly login address |
 | **Hyperliquid Sub-account** | You already have a native Hyperliquid sub-account and want management under its master account | The master wallet and an existing sub-account; Owly generates the dedicated API Wallet | Hyperliquid's creation requirements apply; this Owly flow imports an existing sub-account |
 | **On-chain Lending (Alpha)** | You want to use collateral to borrow USDC through LeverAcc for copy trading | A trading account created and activated on LeverAcc, its funding wallet, and HYPE for HyperEVM gas | Alpha; account linking, borrowing, and trading activation are separate steps |
-| **Owly Managed** | You want Owly to create and manage the trading wallet | An account name | You do not directly hold the trading wallet private key and must be comfortable with custody by Owly |
 
 ## API Wallet limits and removing unused authorizations
 
@@ -88,12 +87,6 @@ A native Hyperliquid sub-account has no private key of its own. Its master accou
 </Warning>
 
 To delegate management, continue with the [Asset Owner Guide](/guide/owner-guide).
-
-## Owly Managed: a wallet created by Owly
-
-Choose **Owly Managed**, enter a name, and create the account. Owly generates and manages its trading wallet. This creation path does not ask you to import your wallet private key or an API Wallet private key.
-
-Setup requires fewer steps, but you do not directly hold the trading wallet private key. After creation, check the displayed account details and use the funding controls actually available for that account.
 
 ## On-chain Lending (Alpha)
 

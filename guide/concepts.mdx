@@ -6,11 +6,11 @@ icon: "book"
 
 ## Account Types
 
-A Hyperliquid **API Wallet** is an authorized signing agent, not a new funded master account. In Owly, the **API Wallet** account type connects a separate Hyperliquid master/EVM address through that agent; **Hyperliquid Sub-account** imports a native sub-account; **On-chain Lending (Alpha)** connects a LeverAcc account to use collateral-backed USDC borrowing for copy trading; **Owly Managed** uses a trading wallet created and managed by Owly.
+A Hyperliquid **API Wallet** is an authorized signing agent, not a new funded master account. In Owly, the **API Wallet** account type connects a separate Hyperliquid master/EVM address through that agent; **Hyperliquid Sub-account** imports a native sub-account; **On-chain Lending (Alpha)** connects a LeverAcc account to use collateral-backed USDC borrowing for copy trading.
 
 Your Owly main account handles login and management, while your trading account holds trading funds. These roles can use the same wallet address or separate addresses.
 
-Owly automatically generates and stores API Wallets for the first two types, with authorization signed by the trading wallet or sub-account master wallet. When adding an API Wallet, Hyperliquid Sub-account, or Owly Managed account, Owly counts all active trading accounts under your Owly main account, including linked On-chain Lending accounts; you cannot add another account of these three types if the total is already 10 or more. On-chain Lending is in Alpha and does not start trading upon linking. Hyperliquid's native sub-account creation threshold and quotas are separate.
+Owly automatically generates and stores API Wallets for the first two types, with authorization signed by the trading wallet or sub-account master wallet. When adding an API Wallet or Hyperliquid Sub-account, Owly counts all active trading accounts under your Owly main account, including linked On-chain Lending accounts; you cannot add another account of these two types if the total is already 10 or more. On-chain Lending is in Alpha and does not start trading upon linking. Hyperliquid's native sub-account creation threshold and quotas are separate.
 
 Read [Account Type](/guide/account-types) for prerequisites, tradeoffs, and security boundaries. Follow [Quick Start](/guide/quick-start) to add your first account.
 
