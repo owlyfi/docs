@@ -10,7 +10,7 @@
     "light": "#EBFF88",
     "dark": "#5C7A00"
   },
-  "favicon": "https://owly.fi/docs/favicon.svg",
+  "favicon": "/favicon.svg",
   "logo": {
     "light": "https://owly.fi/docs/logo/light.svg",
     "dark": "https://owly.fi/docs/logo/dark.svg",
@@ -48,6 +48,7 @@
               "guide/account-types",
               "guide/quick-start",
               "guide/asset-management",
+              "guide/trading-terminal",
               "guide/copy-trading",
               "guide/grid-bot",
               "guide/dashboard",
@@ -126,6 +127,7 @@
               "zh/guide/account-types",
               "zh/guide/quick-start",
               "zh/guide/asset-management",
+              "zh/guide/trading-terminal",
               "zh/guide/copy-trading",
               "zh/guide/grid-bot",
               "zh/guide/dashboard",

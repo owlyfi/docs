@@ -1,93 +1,73 @@
 ---
-title: "Dashboard"
-description: "Understanding your portfolio and performance metrics"
+title: "Portfolio Overview"
+description: "Read copy trading account value, PnL, NAV ROI, and strategy status"
 icon: "chart-line"
 ---
 
+Open **Copy Trading → Portfolio** to view your copy trading accounts together. Account management is available separately under **Accounts**, and Grid strategies have their own page under **Trading Bots**.
 
-Learn how to read and use your Owly dashboard effectively.
+## Portfolio Summary
 
-## Portfolio Overview
-
-Your main dashboard displays:
+The overview displays four summary metrics for the covered copy trading accounts:
 
 <CardGroup cols={2}>
   <Card title="Total Value" icon="dollar-sign">
-    Sum of all sub-account balances and open positions.
+    Current account value for the covered accounts. This is not simply available USDC, and open-position value must not be added again to an equity balance that already includes it.
   </Card>
   <Card title="Total PnL" icon="trending-up">
-    Overall profit/loss across all copy trading activities.
+    Aggregated perpetual PnL for the selected period. It is distinct from a change in total account value caused by deposits or withdrawals.
   </Card>
-  <Card title="Active Copies" icon="copy">
-    Number of traders you're currently copying.
+  <Card title="ROI" icon="percent">
+    Return calculated using NAV share accounting and recorded capital flows, with valuation scope determined by each account's mode.
   </Card>
-  <Card title="Open Positions" icon="list">
-    Current positions across all sub-accounts.
+  <Card title="Active Copy Accounts" icon="copy">
+    Number of copy trading accounts currently marked active. Several accounts copying the same trader still count separately.
   </Card>
 </CardGroup>
 
+Balances, strategy status, history, and return calculations can load separately. If a resource is unavailable or incomplete, the interface can show a loading state, an unavailable value, or a previous successful snapshot with a refresh notice. A missing value does not mean zero.
+
 ## Performance Charts
 
-### PnL Over Time
+Switch between **PnL** and **Account Value**. The selected series determines what the line represents; the PnL line is not an equity curve.
 
-The performance chart shows your returns over different periods:
-- **1D**: Last 24 hours
-- **7D**: Last 7 days
-- **30D**: Last 30 days
-- **All**: Since account creation
+Available periods are **1D, 7D, 30D, 60D, 90D, and All**. The 60D and 90D views are derived from available longer history. **All** uses the available account history, which is not necessarily the time since Owly registration.
 
-### Reading the Chart
+The chart's gain/loss color follows the displayed PnL state. It does not mark each section of an account-value curve as an independently profitable or losing period.
 
-- **Green areas**: Cumulative profit periods
-- **Red areas**: Cumulative loss periods
-- **Line**: Running equity curve
+## Copy Trading Account Cards
 
-## Sub-Account Cards
+Each card combines the account's balance, saved copy configuration, trader information, and strategy status. Expand the available details to inspect metrics and the copied trader. Depending on status and permissions, actions include settings, starting or stopping copying, and closing positions.
 
-Each sub-account card displays:
+| Item | How to Read It |
+| :--- | :--- |
+| **Account value / assets** | Account valuation, not necessarily the amount immediately available to withdraw |
+| **PnL and performance details** | Read the metric's selected period and tooltip; account-card and overview periods can differ |
+| **Copied trader** | Source address for this account's copy strategy |
+| **Status** | Whether copying is active or idle; an idle strategy can still have positions |
+| **Saved settings** | The account's current copy configuration, including any configured SL/TP thresholds |
 
-| Field | Description |
-|-------|-------------|
-| **Balance** | Available USDC in the account |
-| **Equity** | Total value including open positions |
-| **PnL** | Profit/loss for the selected period |
-| **ROI** | Return on investment percentage |
-| **Status** | Active/Idle copy trading status |
+The cards' short-period Return metrics can compare perpetual PnL with capital adjusted for recorded cash flows. Their calculation and capital scope differ from the overview's NAV ROI; compare the tooltip and data warnings as well as the displayed percentage.
 
-## Position Details
+Stopping copying and closing positions are separate operations. Check the stop dialog's **close positions** option and verify the resulting account status and positions.
 
-Click on a sub-account to see:
+## Understanding Portfolio ROI
 
-<AccordionGroup>
-  <Accordion title="Open Positions" icon="list">
-    Current positions with entry price, size, PnL, and liquidation level.
-  </Accordion>
-  <Accordion title="Trade History" icon="clock-rotate-left">
-    Complete history of all executed trades.
-  </Accordion>
-  <Accordion title="Copy Trading Status" icon="copy">
-    Which trader you're copying and current settings.
-  </Accordion>
-</AccordionGroup>
+The overview uses NAV share accounting to separate external capital changes from returns:
 
-## Interpreting Metrics
-
-### ROI (Return on Investment)
-
-```
-ROI = (Current Value - Initial Value) / Initial Value × 100%
+```text
+NAV = Account value / Shares
+ROI = (Ending NAV / Starting NAV - 1) × 100%
 ```
 
-### Win Rate
+Deposits and withdrawals add or remove shares using the tracked NAV. For unified and portfolio margin accounts, the valuation scope includes perpetual, spot, Vault, and staking assets. Other supported modes use perpetual account value. A portfolio can therefore combine account scopes, while its displayed PnL remains perpetual PnL.
 
-```
-Win Rate = Profitable Trades / Total Trades × 100%
-```
+ROI is unavailable when required account history, account mode, or ledger information cannot be established, or when a relevant cash flow cannot be classified. Do not substitute a simple balance-change formula for that unavailable value.
 
-### Max Drawdown
+## Portfolio SL/TP
 
-The largest peak-to-trough decline in your portfolio value.
+Use the portfolio strategy control to configure loss, take-profit, and drawdown-from-high thresholds for the covered copy trading accounts. Review the covered accounts, baselines, current trigger values, and check interval. Saving, disabling, and recalibrating are separate actions.
 
 <Tip>
-  Focus on risk-adjusted returns rather than absolute PnL. A trader with 50% returns and 10% max drawdown is often better than one with 100% returns and 50% drawdown.
+Compare PnL and ROI over the same period, then check fees, funding, and the covered account scope. See [Core Concepts](/guide/concepts) and [Risk Management](/advantages/risk-management) for the calculation and control boundaries.
 </Tip>

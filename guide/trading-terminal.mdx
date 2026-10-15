@@ -1,0 +1,73 @@
+---
+title: "Trading Terminal"
+description: "Trade with your login wallet, manage funding, and inspect public accounts in read-only mode"
+icon: "chart-candlestick"
+---
+
+Open **Trade** at [app.owly.fi/trade](https://app.owly.fi/trade) to view market charts, the order book, recent trades, and account information. Select a market from the terminal's available perpetual and spot markets.
+
+## Which account is trading?
+
+In your own Trade session, the trading address is your **authenticated Owly login wallet**. The terminal does not use the copy-trading account selector. Connecting a separate account in a copy-trading setup dialog does not switch the terminal's trading identity.
+
+Owly uses Privy for external wallet connection. The current login supports wallets; it does not create an embedded wallet or offer email or social login. Check the displayed address and network before each funding or trading action.
+
+## Set up trading authorization
+
+Trade checks account activation, Unified Account mode, Builder authorization, and its API Wallet connection. Complete the steps shown in **Trading Settings** and review each wallet request.
+
+1. If the wallet is not activated on Hyperliquid, complete the deposit flow and wait for confirmed arrival.
+2. Enable Unified Account mode when requested.
+3. Review and complete Builder authorization. Existing confirmed settings can be reused; the page reports unavailable or unconfirmed steps.
+4. Authorize the API Wallet used by this terminal. If its authorization has expired or changed, use the recovery action shown in settings.
+
+After authorization, the terminal may use the authorized agent to attempt optional Hyperliquid referral setup for an account without a referrer. An existing referrer is preserved; failure of this optional step does not block trading readiness.
+
+The terminal stores its authorized API trading key in this device's browser for later visits. The current Trade interface requires that persistent local connection and does not expose a session-only option. This device storage is separate from the API Wallet generated and managed by Owly for a copy-trading account. A replacement authorization can require other browsers or devices to authorize again.
+
+<Warning>
+Use the trading terminal only on a device you control. An API Wallet can sign trading actions and a compromised key can cause trading losses. Never enter your main wallet private key or seed phrase in Owly, the Assistant, or support chat.
+</Warning>
+
+## Deposit from Arbitrum
+
+The integrated funding flow supports **Arbitrum One mainnet only**. It uses the selected wallet's **USDC or USDT on Arbitrum**, then deposits USDC to that wallet's Hyperliquid account through CCTP.
+
+- USDT must first be exchanged for USDC.
+- If USDC funding lacks enough ETH for gas, the flow can offer a USDC-to-ETH swap when a supported quote and the required service are available.
+- Review each swap and deposit separately. A swap completing does not mean the Hyperliquid deposit has arrived.
+- Agent Wallet, vault, and native sub-account addresses cannot be funded as owning wallets through this flow. Follow the account-specific prompt instead.
+
+The initial source-wallet balance check requires at least **1 unit of the selected token** for an activated account or **2 units** for an unactivated address. These are balance checks, not a guaranteed minimum accepted deposit. The final deposit amount must exceed the **current CCTP fee plus any account activation fee**; swaps and gas also require sufficient funds. Use the fee quote and estimated receipt displayed before signing.
+
+The same funding component can appear while creating an API Wallet copy-trading account. In that setup, it funds the **trading wallet explicitly selected in the dialog**, which may differ from your login wallet. See [Quick Start](/guide/quick-start).
+
+## Withdraw to Arbitrum
+
+Trade withdrawals send **USDC to the same connected wallet address on Arbitrum One**. This form does not provide an arbitrary recipient field.
+
+The wallet must be an activated Hyperliquid user in Unified Account mode. The requested amount must:
+
+- be **greater than 0.2 USDC**;
+- exceed the current protocol withdrawal fee;
+- fit within the currently available amount after the required withdrawal gas reserve.
+
+The effective minimum therefore depends on the live fee and account state. Review the fee and estimated received amount. Submission alone is not completion: the flow checks the transaction and destination receipt before presenting verified completion. If the status remains pending or uncertain, return with the same wallet and check the original operation before submitting another one. Confirm completion to return to the terminal's **Transfer** history tab.
+
+## Orders and account history
+
+The terminal provides Market, Limit, and TWAP order entry. The Grid choice in its order menu is currently a preview with submission disabled; use [Trading Bots → Grid Trading](/guide/grid-bot) for the separate grid bot.
+
+Select the market, direction, price or duration, size, and any available risk settings, then review the confirmation. Market-specific precision, margin, order minimums, and current market data can block an action. Account panels include balances, positions, open orders, TWAP, trade history, funding history, order history, and transfers. Selecting a market does not mean every account-history row belongs to that market; action availability is checked separately.
+
+## Inspect another address with Ghost mode
+
+From a trader's detail page, use the address link to open the terminal for that public account. The URL has this shape:
+
+```text
+https://app.owly.fi/trade?ghost=0x1111111111111111111111111111111111111111
+```
+
+Replace the example with a valid 42-character EVM address. Ghost mode is **read-only**: you can browse markets and the address's available public balances, positions, orders, and history. It does not enable trading, cancelling, deposits, or withdrawals for that address. The Copy Trading action opens the trader's copy-trading flow, where you must select your own account and confirm separately.
+
+Use the Ghost exit control to return to your own terminal. An invalid Ghost address displays an error instead of switching to a different account.

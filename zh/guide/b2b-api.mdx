@@ -15,8 +15,8 @@ icon: "code"
 推荐按下面的顺序完成接入：
 
 1. 为目标地址创建或获取 API Wallet。
-2. 将返回的 `public_key` 设置为 Hyperliquid API Agent。
-3. 启动 Owly 策略实例。
+2. 将返回的 `public_key` 设置为 Hyperliquid API Agent，并完成有效的 Builder 费用授权。
+3. 跟单前可调用 `source-check` 预检交易员，再启动 Owly 策略实例。
 4. 保存返回的 Bot 标识，后续用于状态查询和生命周期管理。
 5. 如果配置了 webhook，接收 Owly 主动推送的事件通知。
 
@@ -33,7 +33,7 @@ sequenceDiagram
     Partner->>Owly: POST /api/tp/b2b/api-wallet
     Owly-->>Partner: public_key, created
 
-    Partner->>HL: 将 public_key 设置为 API Agent
+    Partner->>HL: 授权 API Agent 及实际生效的 Builder 费用
 
     Partner->>Owly: POST /api/tp/b2b/copycat/start
     Owly-->>Partner: name, state
@@ -49,7 +49,7 @@ sequenceDiagram
     Owly-->>Partner: stopped
 
     Partner->>Owly: PUT /api/tp/b2b/copycat/{bot_name}/close
-    Owly-->>Partner: closed
+    Owly-->>Partner: state, runtime_state, cleanup_state
 ```
 
 ## Base URL
@@ -73,7 +73,7 @@ Content-Type: application/json
 | --- | --- | --- |
 | `X-Owly-Tenant-Id` | 是 | Owly 分配的租户标识 |
 | `X-Owly-Tenant-Key` | 是 | Owly 分配的租户密钥 |
-| `Content-Type` | 是 | 固定为 `application/json` |
+| `Content-Type` | JSON 请求必填 | `application/json`；GET 请求无需请求体 |
 
 ## 通用响应格式
 
@@ -88,11 +88,13 @@ Content-Type: application/json
 }
 ```
 
-错误响应格式为：
+错误响应的 `detail` 可以是字符串、包含 `code` / `message` 等字段的对象，或参数校验错误列表。启动失败还可能在顶层返回 `bot_name`，便于后续查询。不要只按固定英文错误文案判断结果。例如，协议专用账户不能通过普通 B2B 钱包流程添加：
 
 ```json
 {
-  "detail": "Error message description"
+  "detail": {
+    "code": "leveracc_dedicated_flow_required"
+  }
 }
 ```
 
@@ -105,7 +107,9 @@ Content-Type: application/json
 | `403` | 租户或目标账户当前不可用 |
 | `404` | 资源不存在 |
 | `409` | 资源状态冲突 |
-| `500` | 服务内部错误 |
+| `422` | 请求体或字段校验失败 |
+| `500` | 服务内部错误或执行失败 |
+| `503` | 账户或授权校验等依赖暂不可用 |
 
 ## Step 1：创建或获取 API Wallet
 
@@ -125,7 +129,9 @@ POST /api/tp/b2b/api-wallet
 
 | 字段 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `target` | string | 是 | 将要运行策略的目标地址 |
+| `target` | string | 是 | 将要运行策略的 EVM 地址 |
+| `created` | boolean | 否 | 默认 `false`，优先复用已有钱包；`true` 请求生成替换钱包 |
+| `idempotency_key` | string | `created=true` 时必填 | 1–128 个字符；同一次换新重试必须使用同一个值 |
 
 ### 成功响应示例
 
@@ -154,16 +160,62 @@ POST /api/tp/b2b/api-wallet
 API Wallet 的私钥由 Owly 安全保管，不会返回给合作方。
 </Tip>
 
+目标账户当前必须使用 `unifiedAccount` 或 `dexAbstraction` 模式；无法确认模式时会拒绝继续。此接口不会替目标账户切换模式。
+
 这里还有几个关键行为需要注意：
 
 - 同一租户重复请求同一个 `target` 时，Owly 会尽量返回已有的钱包。
 - 如果 `target` 已被其他租户或其他不兼容流程占用，接口会返回 `409`。
+- 换新后必须重新授权返回的 `public_key`，再检查策略状态。生成替换钱包本身不会完成 Hyperliquid 授权。
+- `created=true` 的同一幂等键重试返回同一次换新的钱包，避免重复生成。响应 `created` 表示此次调用是否创建了钱包，含义与请求参数不同。
+
+换新请求示例：
+
+```json
+{
+  "target": "0x1111111111111111111111111111111111111111",
+  "created": true,
+  "idempotency_key": "wallet-rotation-001"
+}
+```
 
 ## Step 2：在 Hyperliquid 设置 API Agent
 
 使用 Step 1 返回的 `public_key`，在 Hyperliquid 中将其设置为目标地址对应的 API Agent。
 
-这一步需要由合作方在 Hyperliquid 侧自行完成，Owly 不会替你执行链上或 Hyperliquid 侧配置。
+这些授权由合作方在 Hyperliquid 侧完成。除 API Agent 外，还需授权实际生效的 Builder 地址及费率；启动时会核对 Builder 授权，不能只完成 Agent 授权。Builder 配置可能来自账户、已有策略或租户配置，应按接入约定确认，不能把某个费率写死为所有租户的要求。
+
+## 跟单交易员预检
+
+```http
+POST /api/tp/b2b/copycat/source-check
+```
+
+使用相同租户请求头，提交 1–20 个 EVM 地址：
+
+```json
+{
+  "sources": ["0x2222222222222222222222222222222222222222"]
+}
+```
+
+成功响应的 `data` 示例：
+
+```json
+{
+  "results": [
+    {
+      "address": "0x2222222222222222222222222222222222222222",
+      "eligible": true,
+      "account_mode": "unifiedAccount",
+      "rejection_reason": null,
+      "order_risk_metrics": null
+    }
+  ]
+}
+```
+
+此预检要求交易员使用 `unifiedAccount`，并在启用订单行为风控时检查历史订单。拒绝原因包括 `account_mode_not_unified`、`high_risk_order_behavior` 或校验数据暂不可用；风险指标可能为空。结果不是授权或执行保证，启动时仍会重新校验。
 
 ## Step 3：启动策略实例
 
@@ -184,24 +236,34 @@ POST /api/tp/b2b/copycat/start
     "copy_ratio": 1.0,
     "included_coins": [],
     "excluded_coins": [],
-    "included_dexs": [""]
-  },
-  "webhook": "https://partner.example.com/owly/callback"
+    "included_dexs": [""],
+    "alerts": {
+      "enable": true,
+      "webhook": "https://partner.example.com/owly/callback"
+    }
+  }
 }
 ```
 
 | 字段 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `config` | object | 是 | 策略配置，当前沿用 Owly 对外暴露的 `BotConfig` 结构 |
-| `webhook` | string \| null | 否 | 事件回调地址，支持覆盖、清空或走默认值 |
+| `config` | object | 是 | `copytrading` 或 `grid` 策略配置；公开接口只支持 Hyperliquid 目标账户 |
+| `config.alerts` | object | 否 | 通知设置；示例显式启用通知并指定 webhook |
+| `config.alerts.webhook` | string \| null | 否 | 推荐使用的回调地址字段；显式 `null` 清空 |
+| `webhook` | string \| null | 否 | 已弃用的顶层兼容字段；迁移到 `config.alerts.webhook` |
 
-### `webhook` 语义
+普通跟单需要 `source`；`grid` 需要有效的 `grid` 配置。永续网格的 `grid.total_invest` 必填且大于零，服务端据此计算单笔数量，详见[网格机器人](/zh/guide/grid-bot)。不要在请求中提交主钱包或 API 钱包私钥。
+
+### Webhook 优先级
 
 | 传参方式 | 行为 |
 | --- | --- |
-| 省略 `webhook` | 使用租户默认 webhook；如果租户也没有默认值，则保留 bot 当前已有的 webhook |
-| `webhook = "https://..."` | 覆盖为新的 webhook |
-| `webhook = null` | 显式清空 webhook |
+| 显式设置 `config.alerts.webhook` | 优先于顶层 `webhook` 和租户默认值；显式 `null` 清空 |
+| 未设置嵌套字段，但设置顶层 `webhook` | 使用兼容字段；显式 `null` 清空 |
+| 两个字段均省略，租户有默认值 | 使用租户默认 webhook |
+| 两个字段均省略，租户无默认值 | 保留已有策略的 webhook |
+
+仅设置 `config.alerts=null` 不等于显式设置 `config.alerts.webhook=null`。通知是否发送还取决于通知开关和事件配置。
 
 ### 成功响应示例
 
@@ -212,7 +274,12 @@ POST /api/tp/b2b/copycat/start
   "timestamp": 1763471390,
   "data": {
     "name": "bot_abc123",
-    "state": "running"
+    "state": "running",
+    "runtime_state": "active",
+    "cleanup_state": "none",
+    "start_time": null,
+    "uptime": null,
+    "err_msg": null
   }
 }
 ```
@@ -223,7 +290,7 @@ POST /api/tp/b2b/copycat/start
 
 ## Webhook 通知
 
-如果配置了 webhook，Owly 会主动向合作方的回调地址推送策略事件。
+启用通知并配置有效 webhook 后，Owly 可向合作方的回调地址推送已配置的策略通知。
 
 常见通知类型包括：
 
@@ -246,7 +313,7 @@ POST /api/tp/b2b/copycat/start
 GET /api/tp/b2b/copycat/{bot_name}/status
 ```
 
-成功响应示例：
+状态响应示例：
 
 ```json
 {
@@ -255,10 +322,28 @@ GET /api/tp/b2b/copycat/{bot_name}/status
   "timestamp": 1763471391,
   "data": {
     "name": "bot_abc123",
-    "state": "running"
+    "state": "running",
+    "runtime_state": "active",
+    "cleanup_state": "none",
+    "start_time": null,
+    "uptime": null,
+    "err_msg": null
   }
 }
 ```
+
+`data` 使用策略状态结构，启动、停止和关闭的成功响应也返回此结构：
+
+| 字段 | 含义 |
+| --- | --- |
+| `name` | 后续请求使用的 `bot_name` |
+| `state` | 生命周期状态，如 `running`、`stopped`、`terminated`、`error` |
+| `runtime_state` | 执行状态，如 `active`、`idle`、`degraded`、`risk_exit_in_progress`、`risk_exit_failed` |
+| `cleanup_state` | 清理状态：`none`、`in_progress`、`completed` 或 `failed` |
+| `start_time` / `uptime` | 启动时间及运行秒数，可能为空 |
+| `err_msg` | 可选错误信息 |
+
+应同时核对执行状态、清理状态和错误信息；`state=running` 本身不能说明策略当前正在正常下单。
 
 ### 停止策略实例
 
@@ -266,7 +351,7 @@ GET /api/tp/b2b/copycat/{bot_name}/status
 PUT /api/tp/b2b/copycat/{bot_name}/stop
 ```
 
-成功响应示例：
+`stop` 停止策略自动执行，不执行平仓清理。已有持仓和订单应单独检查。下面是已停止状态的示例：
 
 ```json
 {
@@ -275,7 +360,12 @@ PUT /api/tp/b2b/copycat/{bot_name}/stop
   "timestamp": 1763471392,
   "data": {
     "name": "bot_abc123",
-    "state": "stopped"
+    "state": "stopped",
+    "runtime_state": "stopped",
+    "cleanup_state": "none",
+    "start_time": null,
+    "uptime": null,
+    "err_msg": null
   }
 }
 ```
@@ -286,31 +376,40 @@ PUT /api/tp/b2b/copycat/{bot_name}/stop
 PUT /api/tp/b2b/copycat/{bot_name}/close
 ```
 
-`close` 表示结束该策略实例的生命周期。关闭后，该策略实例不会继续运行。
+`close` 请求终止策略并执行相应清理，包含尝试平仓及清理相关订单。它不是提现或偿还借款操作。检查 `cleanup_state` 与 `err_msg`，并核对实际持仓和订单；超时或清理失败时先查询当前状态再决定后续处理。
 
-成功响应示例：
+以下仅展示清理完成时的响应形状，不代表每次请求都能完成清理：
 
 ```json
 {
   "code": 0,
   "msg": "success",
   "timestamp": 1763471393,
-  "data": null
+  "data": {
+    "name": "bot_abc123",
+    "state": "terminated",
+    "runtime_state": "terminated",
+    "cleanup_state": "completed",
+    "start_time": null,
+    "uptime": null,
+    "err_msg": null
+  }
 }
 ```
 
 ## 常见错误
 
-| 状态码 | `detail` | 含义 |
+| 状态码 | 场景 | 处理方向 |
 | --- | --- | --- |
-| `401` | `Invalid tenant key` | 租户 ID 或租户 Key 错误 |
-| `403` | `Tenant is inactive` | 当前租户已被停用 |
-| `403` | `Sub account is not active` | 目标账户当前不可用 |
-| `404` | `Bot not found` | 对应策略实例不存在 |
-| `409` | `Target is already managed by another tenant` | 目标地址已被其他租户占用 |
-| `409` | `Target is already registered outside tenant flow` | 目标地址已被非 B2B 流程占用 |
-| `409` | `Target is initialized with incompatible account state` | 目标地址已有不兼容状态 |
-| `500` | `Startup failed` | 策略实例启动失败 |
+| `400` | 目标账户模式不支持、Agent 或 Builder 授权不完整 | 检查账户模式及实际生效的授权配置 |
+| `401` | 租户凭证错误 | 检查两个租户请求头 |
+| `403` | 租户停用或账户不可用 | 确认租户和账户状态 |
+| `404` | 目标账户或策略不存在 | 检查所属租户与 `bot_name` |
+| `409` | 地址归属冲突、生命周期操作并发或状态不兼容 | 先查询状态，再处理冲突 |
+| `422` | 地址、幂等键或策略字段无效 | 按当前请求结构修正参数 |
+| `500` / `503` | 执行失败或校验依赖暂不可用 | 保留 `bot_name` 和错误详情，查询当前状态 |
+
+错误可能返回结构化业务码或字符串。不要把超时直接视为没有启动；先用已知的 `bot_name` 查询状态，避免重复操作。
 
 ## 最小 cURL 示例
 
@@ -341,9 +440,12 @@ curl -X POST "https://dev-app.owly.fi/api/tp/b2b/copycat/start" \
       "copy_ratio": 1.0,
       "included_coins": [],
       "excluded_coins": [],
-      "included_dexs": [""]
-    },
-    "webhook": "https://partner.example.com/owly/callback"
+      "included_dexs": [""],
+      "alerts": {
+        "enable": true,
+        "webhook": "https://partner.example.com/owly/callback"
+      }
+    }
   }'
 ```
 
@@ -357,9 +459,9 @@ curl -X GET "https://dev-app.owly.fi/api/tp/b2b/copycat/bot_abc123/status" \
 
 ## 接入建议
 
-- 始终按 `api-wallet -> 在 Hyperliquid 设置 API Agent -> start` 的顺序执行。
+- 按 `api-wallet -> Hyperliquid Agent + Builder 授权 -> 可选 source-check -> start` 顺序执行。
 - 拿到返回的 `bot_name` 后立刻做持久化保存。
 - webhook 接收端建议实现幂等和重试保护。
 - 把 webhook 事件视为 Owly 的业务通知，不要依赖 Owly 内部实现细节。
-- 如果 `created = false`，直接复用返回的 `public_key`。
-- 如果启动失败，优先检查租户鉴权、Hyperliquid API Agent 设置、目标地址归属，以及 `config` 是否满足当前 `BotConfig` 要求。
+- 默认复用 API Wallet；需要换新时显式传 `created=true`，同一次换新重试复用幂等键。
+- 如果启动失败，检查租户鉴权、账户模式、Agent 与 Builder 授权、地址归属及策略参数；结合运行和清理状态处理结果。

@@ -1,126 +1,51 @@
 ---
 title: "Troubleshooting"
-description: "Common issues and how to resolve them"
+description: "Resolve account setup, funding, authorization, and strategy issues"
 icon: "wrench"
 ---
 
+## Wallet and setup
 
-Solutions to common issues you might encounter on Owly.
+| Symptom | What to check |
+| --- | --- |
+| Wallet cannot connect | Unlock the wallet, check site permissions and competing extensions, and retry with the intended address |
+| Wrong signing wallet | Compare the Owly login, trading owner, and funding addresses. They can differ; return to the wallet requested by the current step |
+| API Wallet setup asks for funding | The owning address is not yet activated on Hyperliquid. Complete the embedded deposit and wait for activation before Unified Account and API authorization |
+| Address rejected as owner | Use the owning Hyperliquid user wallet, rather than an agent, vault, or native sub-account address |
+| No native sub-account available | Check the logged-in master, refresh the list, and use the create option only when eligibility and capacity checks pass |
+| Account limit reached | All three supported types share the limit of 10 active Owly trading accounts |
+| API Wallet authorization fails | Review its expiry and available Hyperliquid API Wallet slots, then complete the pending authorization with the correct master |
 
-## Connection Issues
+An expired Owly login session and an expired Hyperliquid trading authorization are different problems. Reconnect and sign in for the former; update the account's trading authorization for the latter.
 
-<AccordionGroup>
-  <Accordion title="Wallet won't connect" icon="plug">
-    **Solutions:**
-    1. Refresh the page and try again
-    2. Clear browser cache and cookies
-    3. Disable conflicting browser extensions
-    4. Try a different browser (Chrome/Brave recommended)
-    5. Ensure your wallet is on Arbitrum network
-  </Accordion>
-  
-  <Accordion title="Transaction stuck pending" icon="clock">
-    **Solutions:**
-    1. Wait a few minutes - network may be congested
-    2. Check transaction status on Arbiscan
-    3. If stuck, try speeding up or canceling in your wallet
-    4. Ensure you have enough ETH for gas
-  </Accordion>
-  
-  <Accordion title="Session expired" icon="right-from-bracket">
-    **Solutions:**
-    1. Refresh the page
-    2. Disconnect and reconnect wallet
-    3. Sign the authentication message again
-  </Accordion>
-</AccordionGroup>
+## Deposits, swaps, and withdrawals
 
-## Deposit Issues
+- **Use the correct entry point.** Trade funds the logged-in owning wallet; Accounts links API Wallet and native sub-account users to Hyperliquid. LeverAcc buttons open its embedded interface. See [Asset Management](/guide/asset-management).
+- **Wrong network or asset:** the integrated Trade flow uses Arbitrum One mainnet and deposits USDC, with an optional USDT-to-USDC preparation. LeverAcc HYPE belongs on HyperEVM. Verify the transaction's actual network and token.
+- **Swap unavailable:** gasless swaps depend on provider configuration, supported approval methods, balances, and a fresh quote. Prepare the required asset yourself if no supported quote is offered.
+- **ETH prepared but HYPE still missing:** LeverAcc checks them independently. Complete the remaining preparation and recheck balances.
+- **Pending or unknown submission:** resume the original operation and check status. Use its source transaction hash when prompted; do not send another transaction until the result is known.
+- **Withdrawal rejected:** check owning-wallet identity, Unified Account mode, withdrawable balance, and live fees. The Trade amount must exceed both 0.2 USDC and the applicable fee.
+- **Deposit not visible:** compare the funded account address, source transaction, and destination balance. A successful wallet submission does not prove credit on Hyperliquid.
 
-<AccordionGroup>
-  <Accordion title="Deposit not showing" icon="eye-slash">
-    **Solutions:**
-    1. Wait 5-10 minutes for confirmation
-    2. Verify transaction was successful on Arbiscan
-    3. Confirm you sent to the correct address
-    4. Ensure you sent USDC on Arbitrum (not other networks)
-    5. Contact support if still not showing after 30 minutes
-  </Accordion>
-  
-  <Accordion title="Wrong network" icon="triangle-exclamation">
-    If you sent tokens on the wrong network:
-    - **Arbitrum tokens to Arbitrum address**: Will work
-    - **Other network tokens**: May be irrecoverable
-    
-    Contact support immediately for assistance.
-  </Accordion>
-</AccordionGroup>
+## Strategies and account access
 
-## Copy Trading Issues
+| Symptom | What to check |
+| --- | --- |
+| Legacy managed account cannot start a bot | This account type is retired for start/restart/configuration updates; stop or close remaining automation and use its supported withdrawal route |
+| LeverAcc cannot start copying | Confirm project binding, execution-wallet authorization, funding, and current availability; pending-order copying is unsupported |
+| LeverAcc missing from Grid | The current Grid Bot account selector excludes LeverAcc accounts |
+| Trades not copied | Check bot state, authorization validity, available collateral, enabled markets, coin filters, minimum sizes, and source activity |
+| Different position sizes or entry prices | Copy ratio, market movement, rounding, configured filters, and margin availability can change execution |
+| Manager removed but bot still running | Removing management access does not stop bots. The owner must stop or close the bot separately |
+| Grid trailing controls disabled | Trailing is currently unavailable in the user interface; saved backend fields do not enable it here |
 
-<AccordionGroup>
-  <Accordion title="Trades not being copied" icon="copy">
-    **Check the following:**
-    1. Copy trading is active (not paused)
-    2. Sufficient balance in sub-account
-    3. Position limits not reached
-    4. Trader is actively trading
-    5. Check if asset is in your excluded list
-  </Accordion>
-  
-  <Accordion title="Different entry prices" icon="arrows-up-down">
-    Some slippage is normal due to:
-    - Network latency
-    - Market volatility
-    - Order book depth
-    
-    Significant differences may indicate high volatility periods.
-  </Accordion>
-  
-  <Accordion title="Position size differs" icon="not-equal">
-    This can happen when:
-    - Copy ratio is not 1:1
-    - Rounding due to minimum position sizes
-    - Insufficient margin for full size
-  </Accordion>
-</AccordionGroup>
+SL/TP thresholds are not automatically populated protective defaults. Check the saved settings and [Risk Management](/advantages/risk-management).
 
-## Display Issues
+## Balances and charts
 
-<AccordionGroup>
-  <Accordion title="Balance shows incorrectly" icon="rotate">
-    **Solutions:**
-    1. Hard refresh the page (Ctrl+Shift+R)
-    2. Wait for data to sync (may take 1-2 minutes)
-    3. Check if positions are affecting displayed balance
-  </Accordion>
-  
-  <Accordion title="Page not loading" icon="circle-xmark">
-    **Solutions:**
-    1. Check your internet connection
-    2. Try clearing browser cache
-    3. Disable ad blockers or VPN
-    4. Try incognito/private mode
-  </Accordion>
-</AccordionGroup>
+Compare the same trading account address and time period. Account value is not withdrawable balance. ROI can be unavailable when valuation scope or cash-flow history cannot be established; it should not be read as zero. Refresh and check [Portfolio & Navigation](/guide/dashboard) for metric definitions.
 
-## Still Need Help?
+## Support
 
-If your issue isn't resolved:
-
-<CardGroup cols={2}>
-  <Card title="Telegram Support" icon="telegram" href="https://t.me/owlyfi_support">
-    Get help from our support team on Telegram.
-  </Card>
-  <Card title="Email Support" icon="envelope" href="mailto:support@owly.fi">
-    For account-specific issues.
-  </Card>
-</CardGroup>
-
-<Note>
-  When contacting support, please include:
-  - Your wallet address
-  - Description of the issue
-  - Screenshots if applicable
-  - Transaction hashes if relevant
-</Note>
+Contact [Telegram support](https://t.me/owlyfi_support) or [support@owly.fi](mailto:support@owly.fi). Include public account addresses, issue time, network, transaction hashes, and redacted screenshots. Never send private keys, seed phrases, session tokens, or wallet backups.

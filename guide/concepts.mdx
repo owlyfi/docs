@@ -1,56 +1,72 @@
 ---
 title: "Core Concepts"
-description: "Understand key terms and concepts in Owly and Hyperliquid"
+description: "Understand accounts, performance metrics, and copy trading controls"
 icon: "book"
 ---
 
 ## Account Types
 
-A Hyperliquid **API Wallet** is an authorized signing agent, not a new funded master account. In Owly, the **API Wallet** account type connects a separate Hyperliquid master/EVM address through that agent; **Hyperliquid Sub-account** imports a native sub-account; **On-chain Lending (Alpha)** connects a LeverAcc account to use collateral-backed USDC borrowing for copy trading.
+A Hyperliquid **API Wallet** is an authorized signing agent, not a new funded master account. Owly supports three trading account types:
 
-Your Owly main account handles login and management, while your trading account holds trading funds. These roles can use the same wallet address or separate addresses.
+- **API Wallet**: connects a Hyperliquid master/EVM address through an authorized agent. Funds stay at that trading address.
+- **Hyperliquid Sub-account**: connects a native sub-account. You can select an existing sub-account or create one in the supported onboarding flow when the master wallet meets Hyperliquid's requirements.
+- **On-chain Lending (Alpha)**: connects a LeverAcc account, which uses collateral-backed USDC borrowing. Linking the account does not start trading; it can subsequently be configured for copy trading. The current Grid account selector excludes this type.
 
-Owly automatically generates and stores API Wallets for the first two types, with authorization signed by the trading wallet or sub-account master wallet. When adding an API Wallet or Hyperliquid Sub-account, Owly counts all active trading accounts under your Owly main account, including linked On-chain Lending accounts; you cannot add another account of these two types if the total is already 10 or more. On-chain Lending is in Alpha and does not start trading upon linking. Hyperliquid's native sub-account creation threshold and quotas are separate.
+Your Owly main account handles login and management. A trading account holds or accesses the capital used by its strategy. These roles may use the same address or different addresses; adding an independent address does not automatically move funds from your login wallet.
 
-Read [Account Type](/guide/account-types) for prerequisites, tradeoffs, and security boundaries. Follow [Quick Start](/guide/quick-start) to add your first account.
+Owly generates and stores the API Wallet signing agents used for the first two account types. Authorization comes from the trading wallet or the native sub-account's master wallet. All three account types share a limit of **10 active trading accounts per Owly main account**. Hyperliquid's own native sub-account eligibility and quotas are separate.
+
+Read [Account Type](/guide/account-types) for prerequisites and security boundaries, or follow [Quick Start](/guide/quick-start).
 
 ## Key Indicators
 
-Refer to these indicators when selecting traders.
+Compare metrics over the same time window and account scope. A value shown for perpetual trading is not necessarily a return on every asset held by the account.
 
-### ROI (Return on Investment)
-`ROI = (Current Value - Initial Value) / Initial Value × 100%`
-Measures the profitability of a strategy. We typically display 7-day, 30-day, or Total ROI.
+### ROI and Return
+
+Deposits and withdrawals are capital movements, not trading profit. A simple change in account value divided by its initial balance can therefore misstate performance.
+
+The copy trading **portfolio overview** uses NAV share accounting. External capital flows add or remove shares, and account value per share determines NAV:
+
+```text
+NAV = Account value / Shares
+ROI = (Ending NAV / Starting NAV - 1) × 100%
+```
+
+For unified and portfolio margin accounts, this calculation uses Combined account valuation, including perpetual, spot, Vault, and staking value. Other supported account modes use perpetual account valuation. Portfolio ROI can consequently have a different scope from the perpetual PnL displayed alongside it.
+
+Other surfaces, including trader statistics and performance reports, can use different periods and return calculations. For example, backend performance reports adjust capital for the timing of cash flows using Modified Dietz. Read the metric tooltip and selected scope instead of assuming that every ROI label uses one formula. Missing account history, ledger data, or unsupported cash flows can make a return unavailable.
 
 ### Sharpe Ratio
-Measures the excess return per unit of risk taken.
-- **> 1**: Good
-- **> 2**: Excellent
-- **> 3**: Exceptional
-A higher Sharpe Ratio indicates better returns for the same level of risk.
+
+Sharpe ratio measures excess return per unit of return volatility. A higher value generally indicates a better historical return for that volatility, but comparisons depend on the sampling period and methodology. It does not guarantee future performance.
 
 ### Max Drawdown
-The maximum observed loss from a peak to a trough of a portfolio.
-- **Significance**: Represents the potential loss in a worst-case scenario. Lower drawdown indicates a more robust strategy.
+
+The largest observed decline from a peak to a subsequent trough over the measured history. It describes a historical loss, not a ceiling on future losses. Compare drawdown together with the return curve and selected period.
 
 ### Win Rate
-`Win Rate = Winning Trades / Total Trades`
-- **Note**: A high win rate does not necessarily mean high profits (if individual losses are large). It should be considered alongside the Profit/Loss ratio.
+
+```text
+Win rate = Winning trades / Trades included in the metric × 100%
+```
+
+Check whether the view measures completed trades, closing fills, or current positions. A high win rate alone does not establish profitability: a small number of large losses can outweigh many winning trades.
 
 ### Volatility
-Measures the degree of variation in returns. Lower volatility means a smoother equity curve.
+
+Volatility measures variation in returns. Lower historical volatility indicates a smoother return series over that period, without eliminating market risk.
 
 ## Copy Trading Logic
 
-### Multi-Dimensional Ranking System
-Owly moves beyond single-factor ROI ranking, using a multi-dimensional scoring system to find "Smart Money":
-- **Profitability**: ROI, Absolute Profit
-- **Risk Control**: Drawdown Control, Sharpe Ratio
-- **Stability**: Trading Frequency, Capacity
-We algorithmically synthesize these metrics to recommend traders with the best overall performance.
+### Evaluating Traders
 
-### Portfolio SL/TP (Stop Loss/Take Profit)
-Unlike traditional single-order stop-loss, Owly provides portfolio-level risk control.
-- **Mechanism**: The system monitors the net equity of the entire sub-account.
-- **Trigger**: When the total equity of the sub-account reaches your set Take Profit or Stop Loss level, the system automatically closes all positions and stops copy trading.
-- **Advantage**: Effectively prevents a single "black swan" event from wiping out the entire account, protecting your principal.
+Use the available filters, sorting, trader history, and risk analysis together. Useful dimensions include profitability, drawdown, trading frequency, position concentration, and execution constraints. A ranking or historical score does not guarantee that the same results can be copied with a different account size or fee level.
+
+### Account and Portfolio SL/TP
+
+Individual copy strategies can have stop loss, take profit, and drawdown-from-high thresholds. The portfolio overview also offers a **Portfolio SL/TP** configuration covering a group of copy trading accounts.
+
+Portfolio SL/TP tracks configured initial-capital and profit baselines, with separate loss, take-profit, and drawdown thresholds. Review the covered accounts, check interval, and trigger values when saving or recalibrating it. It is broader than a stop order on one position.
+
+These controls can initiate protective closing when their conditions are detected. Polling intervals, data availability, liquidity, and execution affect the final result; a configured threshold does not guarantee an exact exit price or preserve principal. See [Risk Management](/advantages/risk-management).

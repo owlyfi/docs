@@ -1,51 +1,58 @@
 ---
 title: "Asset Management"
-description: "How to deposit, withdraw, and manage your funds"
+description: "Choose the correct deposit, withdrawal, and transfer flow for your account"
 icon: "wallet"
 ---
 
+Check the **account address**, **network**, and **asset** before moving funds. An API Wallet is a trading signer, not a funded account or deposit destination.
 
-Learn how to manage your funds on Owly.
+## Choose the correct entry point
 
-## Asset Management
+| Account or entry point | Current funding flow |
+| --- | --- |
+| **Trade terminal** | **Deposit** and **Withdraw** operate on the logged-in wallet's own Hyperliquid account |
+| **API Wallet setup** | An inactive trading wallet can use the embedded deposit flow to activate its Hyperliquid account before authorization |
+| **API Wallet account in Accounts** | Funding controls direct you to Hyperliquid; connect the actual trading wallet |
+| **Hyperliquid Sub-account in Accounts** | Follow the Hyperliquid funding/transfer flow using its master wallet |
+| **On-chain Lending (Alpha)** | **Deposit**, **Repay**, **Withdraw**, **Borrow**, and **Fund transfer** open the embedded LeverAcc interface |
+| **Legacy Owly managed account** | New deposits and general internal transfers are retired; use the supported withdrawal back to its owner |
 
-Owly provides flexible options for managing your funds depending on your account type.
+The Trade terminal does not switch to an arbitrary copy trading account. If the account you want to fund has a different address from your login, use that account's supported flow. See [Account Type](/guide/account-types).
 
-### 1. Managed Accounts
-*Accounts created directly within Owly.*
+## Deposit through the Trade terminal
 
-*   **Operation**: You can Deposit and Withdraw funds directly through the **Owly Interface**.
-*   **Convenience**: Seamlessly integrated for the best user experience.
+1. Open **Trade → Deposit** and verify the connected owning wallet.
+2. Select **USDC** or **USDT** on **Arbitrum One mainnet**. The transfer to Hyperliquid uses USDC. USDT must first be swapped to USDC through the offered preparation step.
+3. Prepare the source-wallet balance shown by the form. If ETH is insufficient, a USDC-to-ETH swap may be offered when the gasless provider is configured and a supported quote is available.
+4. Review each quote, token allowance, network fee, CCTP fee, and estimated amount received. A new Hyperliquid address also requires the displayed **1 USDC activation fee**. The deposit amount must exceed the applicable fees; the source-wallet readiness threshold is not a universal minimum deposit.
+5. Sign each requested step yourself. Wait for destination confirmation and a credited Hyperliquid balance before trading.
 
-### 2. Self-Managed Accounts
-*Includes API Wallets and imported Hyperliquid Sub-accounts.*
+The same embedded deposit flow can appear during API Wallet setup for an inactive trading wallet, including when that trading wallet differs from your Owly login.
 
-*   **Operation**: Please manage your funds (Deposit/Withdraw) directly on the [Hyperliquid](https://hyperliquid.xyz) platform.
-*   **Control**: You retain full operational control over these accounts. Owly connects only for trading execution.
+<Note>
+Swaps spend your own assets: USDT-to-USDC uses USDT, while ETH preparation uses USDC. “Gasless” does not mean a free gas grant. Quoted spend limits and token approval limits are separate; a quote can request an unlimited token allowance even when swap spending is capped.
+</Note>
 
-## Fees
+## Withdraw through the Trade terminal
 
-*   **Owly Fees**: **None**. Owly does not charge any fees for deposits, withdrawals, or transfers.
-*   **Network Fees**: Standard gas fees (Arbitrum) or bridge fees imposed by the Hyperliquid network still apply.
+**Withdraw** sends **USDC to the connected owning wallet on Arbitrum One**. The account must be an activated Hyperliquid user in Unified Account mode. The amount must be **greater than 0.2 USDC**, exceed the current withdrawal fee, and fit the available withdrawable balance. This does not mean every amount above 0.2 USDC is withdrawable.
 
-## Internal Transfers
+Review the recipient, network, amount, fees, and expected receipt before signing with the owning wallet. The API trading signer does not replace the owner's withdrawal signature. Wait for the receiving balance to be verified; submitting a request is not proof of arrival.
 
-You can transfer funds between your sub-accounts without fees.
+## Pending or interrupted transfers
 
-| Transfer Type | Fee | Time |
-|---------------|-----|------|
-| Deposit (External) | Network gas only | 1-2 min |
-| Withdrawal | Network gas only | 1-2 min |
-| Internal Transfer | Free | Instant |
+Keep the original wallet and network selected. Use **Check status** or resume the existing operation. When available, **Find transaction** lets the flow verify an existing source transaction. Do not repeat a transfer while its outcome is unknown. If the quote expired before submission, obtain and review a fresh quote.
 
-## Balance Overview
+Keep browser storage available for pending-operation recovery. For support, provide the public address, network, issue time, and transaction hash; never provide a seed phrase or private key.
 
-Your dashboard shows:
-- **Available Balance**: Funds available for trading or withdrawal
-- **Position Value**: Current value of open positions
-- **Unrealized PnL**: Profit/loss from open positions
-- **Total Equity**: Sum of all assets
+## LeverAcc funds and debt
 
-<Tip>
-  Keep some available balance as margin buffer to avoid liquidations during volatile markets.
-</Tip>
+LeverAcc account creation checks **Arbitrum USDC and ETH** and **HyperEVM HYPE** as required by the current setup. ETH and HYPE preparation have separate USDC budgets shown by the page. Follow the embedded interface's collateral, borrowing, repayment, and withdrawal rules.
+
+Stopping copy trading does not repay a loan. Closing positions does not itself release all collateral or clear debt. Confirm the debt and repayment status separately before withdrawing or changing project bindings.
+
+## Fees and balances
+
+Funding can incur gas, swap, bridge/CCTP, activation, and protocol charges. Check the live quote; neither a fixed arrival time nor a network-gas-only fee model applies to every route. See [Fee Structure](/faq/fees).
+
+**Account value** and **withdrawable balance** are different. Positions, margin requirements, spot collateral, and borrowing can affect how much you can withdraw. Compare the same funded account address in Owly and Hyperliquid, rather than the API Wallet address.

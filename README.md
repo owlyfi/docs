@@ -1,43 +1,28 @@
-# Mintlify Starter Kit
+# Owly documentation
 
-Use the starter kit to get your docs deployed and ready to customize.
+Bilingual Mintlify documentation for Owly. English pages live at the repository root; Chinese counterparts live under `zh/`. Navigation and site settings are in `docs.json`.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+## Implementation references
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+The 2026-10-15 documentation sync was checked against these local source revisions:
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+| Repository | Revision | Scope |
+| --- | --- | --- |
+| `TraderFi-FE` | `c43d71f5` | Routes, account setup, funding, terminal, strategy settings, and portfolio UI |
+| `owly-be` | `d887f0ce` | Account guards, manager permissions, funding services, referral settlement, and B2B contracts |
 
-## Development
+Use current call sites and backend validation together. A backend field does not prove the UI exposes a feature. Runtime fee, referral, provider, and Alpha configuration can vary by environment; do not infer production availability from a local checkout.
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
+When behavior changes, update both languages, related FAQ pages, and navigation as needed. Preserve public page paths and historical changelog entries. Keep source evidence and validation results in the task archive under `.agent/`.
 
-```
-npm i -g mint
-```
+## Preview and validation
 
-Run the following command at the root of your documentation, where your `docs.json` is located:
+With the Mintlify CLI installed, run from this directory:
 
-```
+```sh
 mint dev
 ```
 
-View your local preview at `http://localhost:3000`.
+Before publishing, validate MDX/frontmatter, `docs.json` page targets, local links and assets, paired language coverage, and `git diff --check`. API request examples should also be checked against the backend's current schemas.
 
-## Publishing changes
-
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
-
-## Need help?
-
-### Troubleshooting
-
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
-
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+Preview changes before pushing. Publication follows the repository's configured Mintlify deployment integration.

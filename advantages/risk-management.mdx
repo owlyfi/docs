@@ -1,55 +1,69 @@
 ---
 title: "Risk Management"
-description: "Built-in safeguards to protect your capital"
+description: "Configure copy trading filters, synchronization, and protective thresholds"
 icon: "shield"
 ---
 
-
-Owly provides multiple layers of protection to help you manage risk while copy trading.
+Owly provides controls for selecting what to copy, synchronizing positions, and responding to configured loss or profit thresholds. Their effect depends on the account and strategy configuration.
 
 ## Risk Control Features
 
 <CardGroup cols={2}>
-  <Card title="Stop Loss" icon="hand">
-    Automatically close positions when losses reach your threshold.
+  <Card title="Stop Loss and Take Profit" icon="hand">
+    Configure strategy loss, take-profit, and drawdown-from-high thresholds. Leaving a threshold blank does not establish a protective percentage.
   </Card>
-  <Card title="Position Limits" icon="gauge">
-    Set maximum position sizes as a percentage of your portfolio.
+  <Card title="Copy Scope" icon="filter">
+    Select perpetual or spot copying, included exchanges, and coin inclusion or exclusion rules.
   </Card>
-  <Card title="Leverage Caps" icon="sliders">
-    Limit the maximum leverage used regardless of the trader's strategy.
+  <Card title="Position Catch-up Filter" icon="gauge">
+    An ROE threshold can exclude source positions from catch-up synchronization to reduce chasing positions that have already moved.
   </Card>
-  <Card title="Asset Isolation" icon="cube">
-    Each sub-account is isolated from your main trading account.
+  <Card title="Liquidity Filter" icon="sliders">
+    Optionally skip perpetual markets below the system's minimum open interest or daily trading volume requirements.
   </Card>
 </CardGroup>
 
-## Configurable Parameters
+## Current Copy Settings
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| Max Position Size | Maximum % of portfolio per position | 10% |
-| Max Leverage | Maximum allowed leverage multiplier | 5x |
-| Stop Loss | Auto-close threshold | 20% |
-| Daily Loss Limit | Maximum daily drawdown before pausing | 10% |
+These are the starting values of the standard advanced-settings form. Existing accounts retain their saved configuration, and a guided setup can change the proposed settings before confirmation.
 
-## How It Works
+| Setting | Starting Value | Meaning |
+| :--- | :--- | :--- |
+| Copy multiplier | **1×** | Scales the copy ratio; it is not a guarantee of equal position sizes or returns |
+| Stop loss / take profit / drawdown stop | **Not set** | Enter the protective thresholds you want to use |
+| ROE catch-up filter | **Enabled, 10%** | Filters source positions for catch-up synchronization; it does not stop copying subsequent new orders or fills |
+| PE Ratio Cap | **30%** | Caps effective copy capital relative to source account value; this is not a maximum percentage per position |
+| Leverage synchronization | **Enabled, 83 seconds** | Follows the source trader's leverage settings; this is not a fixed maximum leverage cap |
+| Position synchronization | **61 seconds** | Periodic synchronization when perpetual copying is enabled |
+| Skip low-liquidity markets | **Off** | When enabled, applies system-owned market eligibility thresholds |
+
+## Portfolio SL/TP
+
+The [portfolio overview](/guide/dashboard) offers a separate strategy covering a group of copy trading accounts. It has loss, take-profit, and drawdown-from-high thresholds, along with tracked baselines and a configurable check interval. Review the covered accounts and trigger values when saving or recalibrating it.
+
+A portfolio trigger is different from a stop order attached to one position. The portfolio control and the individual account's thresholds should be reviewed together.
+
+## How to Use the Controls
 
 <Steps>
-  <Step title="Set Your Limits">
-    Configure risk parameters when setting up copy trading.
+  <Step title="Review the Account and Source">
+    Confirm the funded trading account, source trader, copy multiplier, markets, and any setup risk messages.
   </Step>
-  <Step title="Real-Time Monitoring">
-    Our system continuously monitors all positions against your limits.
+  <Step title="Set Explicit Thresholds">
+    Enter the stop-loss and take-profit values you need, then review the confirmation. Empty fields are not default protection.
   </Step>
-  <Step title="Automatic Protection">
-    If limits are breached, positions are automatically adjusted or closed.
+  <Step title="Monitor the Saved Strategy">
+    Check strategy status, positions, account value, and configured check intervals. A position or order filter can also mean that some source activity is not copied.
   </Step>
-  <Step title="Notifications">
-    Get alerts when risk thresholds are approached.
+  <Step title="Verify Protective Actions">
+    After a trigger or manual stop, inspect the account's actual status and remaining positions. Stopping copying and closing positions are separate actions.
   </Step>
 </Steps>
 
+<Note>
+Risk controls depend on data and execution. Market gaps, liquidity, outages, and check intervals can cause exits beyond a threshold. They do not guarantee principal protection or a specific maximum loss.
+</Note>
+
 <Tip>
-  Start with conservative settings and adjust as you become more comfortable with a trader's strategy.
+Begin with a smaller allocation, inspect the difference between your fills and the source trader's fills, and adjust only after understanding the account's behavior.
 </Tip>

@@ -1,70 +1,36 @@
 ---
 title: "Speed & Execution"
-description: "How Owly achieves ultra-low latency copy trading"
+description: "Understand asynchronous copying, fills, and execution limits"
 icon: "bolt"
 ---
 
-Owly leverages Hyperliquid's high-performance infrastructure to deliver industry-leading copy trading speed.
+Owly submits strategy actions to Hyperliquid and refreshes account state as execution results become available. Copying, exchange acceptance, fills, and portfolio updates are separate stages.
 
-## Why Speed Matters
+## What affects execution
 
-In copy trading, every millisecond counts. The delay between the original trade and your copied trade directly impacts:
+| Stage | What can affect it |
+| --- | --- |
+| **Source observation** | Data freshness and the source's market activity |
+| **Strategy decision** | Account state, copy ratio, enabled venues, coin filters, and risk settings |
+| **Order submission** | Authorization validity, minimum order size, collateral, and exchange rules |
+| **Fill** | Order type, price, liquidity, partial fills, and market movement |
+| **Display update** | WebSocket connectivity, API availability, and cached or refreshed data |
 
-- **Entry Price**: Slower execution means worse fills
-- **Slippage**: Market can move significantly during delays
-- **Profitability**: Small differences compound over many trades
+A submitted order may remain open, fill partially, or be rejected. A successful start request means the strategy request was accepted, not that all source positions have already been copied.
 
-## Our Technical Edge
+## Copying and synchronization
 
-<CardGroup cols={2}>
-  <Card title="~ 100ms Latency" icon="gauge-high">
-    Achieved through the synergy of optimized infrastructure and our high-performance SDK, clocking from signal detection to execution in ~100ms.
-  </Card>
-  <Card title="Optimized Infrastructure" icon="server">
-    Optimal execution nodes selected through multi-platform and multi-region stress testing.
-  </Card>
-  <Card title="High-Performance SDK" icon="code">
-    Powered by our open-source [async-hyperliquid](https://github.com/owlyfi/async-hyperliquid) SDK, reducing execution time from 1,000ms+ to microseconds.
-  </Card>
-  <Card title="Direct Integration" icon="plug">
-    Native integration with Hyperliquid's order matching engine.
-  </Card>
-</CardGroup>
+Copy settings include periodic position, spot, leverage, and optional pending-order synchronization. Each has its own enabled state and interval. A synchronization interval is not an end-to-end execution guarantee. LeverAcc does not support copying pending orders.
 
-## Optimized Infrastructure
+Grid Bot reconciles its configured grid on its own interval. Its behavior and account requirements are described in [Grid Bot](/guide/grid-bot).
 
-To minimize network latency, we conducted extensive evaluations across multiple geographic regions and major cloud service platforms.
+## Check results
 
-- **Multi-Region Testing**: We benchmarked various cloud providers, including AWS, Google Cloud, and Azure, measuring access latency to Hyperliquid's nodes from different global locations.
-- **Top-Tier Selection**: After thousands of cross-regional stress tests, we selected the server configuration that delivers the fastest trade execution, ensuring maximum physical throughput and minimal hardware-level latency.
+1. Check the bot's current state and any reported error.
+2. Inspect actual orders and fills, including partial or rejected orders.
+3. Compare the same market and account scope before judging a difference from the source.
+4. After stopping or closing, inspect remaining orders, positions, and cleanup status.
 
-## High-Performance SDK
+Owly's source implementation does not establish a fixed latency or slippage guarantee. Market conditions and upstream availability affect the outcome. See [Troubleshooting](/faq/troubleshooting) when execution differs from expectations.
 
-To achieve extreme execution efficiency, our team developed and open-sourced a high-performance SDK: **[async-hyperliquid](https://github.com/owlyfi/async-hyperliquid)**.
-
-- **Microsecond Performance**: Compared to the 1,000ms+ latency of the official SDK, we've improved order execution speed to the microsecond level.
-- **Superior Throughput**: Concurrency capacity is approximately **15x** higher than the official SDK.
-- **Advanced Order Support**: Native support for advanced order types, including **TP/SL (Take Profit/Stop Loss)** and **TWAP (Time-Weighted Average Price)**.
-- **Full Protocol Support**: Comprehensive support for **HIP-3**.
-- **Instant New Asset Support**: High-performance local caching with automatic updates for immediate support of new assets.
-
-#### SDK Performance Benchmarks
-
-| Operation | Official SDK | Owly | Improvement |
-| :--- | :--- | :--- | :--- |
-| **State Retrieval (Read)** | 9.99 req/s | **156.1 req/s** | **~15.6x** |
-| **Order Execution (Write)** | 1.06 req/s | **2.3 req/s** | **~2.2x** |
-
-> [View Original Benchmark Chart](https://github.com/owlyfi/async-hyperliquid/blob/main/benchmarks/benchmarks.png)
-
-## Performance Comparison
-
-| Metric | Industry Standard | Owly | Improvement |
-|--------|------------------|------|------|
-| Detection Latency (Read) | ~ 1,500ms | **~ 100ms** | **~15x** |
-| Execution Time (Write) | ~ 450ms | **~ 200ms** | **~2x** |
-| Average Slippage | 0.5% - 2% | **~ 0.1%** | **5x - 20x** |
-
-<Info>
-  Speed is crucial for high-frequency strategies. For longer-term position trading, execution speed has less impact on overall returns.
-</Info>
+For the team's asynchronous Hyperliquid SDK, see [async-hyperliquid](https://github.com/owlyfi/async-hyperliquid). SDK benchmarks describe their own test conditions and should not be treated as a guaranteed user trade latency.

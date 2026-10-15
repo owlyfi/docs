@@ -1,42 +1,50 @@
 ---
 title: "Fee Structure"
-description: "Understanding Owly's transparent fee model"
+description: "Platform trading fees, authorization ceilings, and other trading costs"
 icon: "receipt"
 ---
 
+Owly charges platform trading fees through Hyperliquid's builder fee mechanism. The applicable rate depends on the product, account configuration, and any eligible referral discount.
 
-Owly maintains a simple and transparent fee structure. We only charge a small fee on your trades to sustain the platform, with pricing based on the strategy you use.
+## Platform Trading Fees
 
-## Fee Summary
+| Product | Fee | When Applied |
+| :--- | :--- | :--- |
+| **Copy Trading** | Default base rate **0.055% (5.5 bps)**; applicable configuration and discounts can change the effective rate | On executed trading volume |
+| **Trade terminal** | **0.02% (2 bps)** | On executed terminal trading volume |
+| **Grid and other configured bots** | Applicable builder fee configuration | On executed bot trading volume |
 
-<CardGroup cols={1}>
-  <Card title="Platform Fee" icon="receipt">
-    Copy trading is charged **0.055%** (5.5 bps) on transaction volume. Other trading bots are charged **0.02%** (2 bps) on transaction volume.
-  </Card>
-</CardGroup>
+One basis point (bps) is **0.01%**. For example, a $10,000 executed trade at 5.5 bps incurs a $5.50 platform fee before any applicable discount. At 2 bps, the platform fee is $2.00.
 
-## Detailed Breakdown
+<Note>
+The 2 bps terminal rate is not a universal rate for every trading bot. Existing account or strategy fee configurations can differ. Check the applicable fee before starting or resuming a strategy.
+</Note>
 
-| Fee Type | Rate | When Applied |
-|----------|------|--------------|
-| **Copy Trading Fee** | 0.055% | Per copy trade executed |
-| **Other Trading Bot Fee** | 0.02% | Per bot trade executed |
-| **Performance Fee** | 0% | No profit sharing |
-| **Management Fee** | 0% | No hidden costs |
-| **Withdrawal Fee** | 0% | Network gas only |
+## Builder Authorization Is a Ceiling
 
-## No Performance Fees
+The standard builder authorization requests a maximum rate of **0.1% (10 bps)**. This is permission for a maximum charge, not an upfront payment or the rate charged on every trade. The actual builder fee submitted with an order determines its platform trading fee, within the approved limit.
 
-Unlike other platforms, Owly does **not** charge any performance fees. You keep 100% of your trading profits. The only platform trading cost is **0.055%** for copy trading or **0.02%** for other trading bots, depending on the strategy you use.
+Some account onboarding flows may check an existing approval against their own required minimum. An approval value alone does not establish the fee a strategy will charge.
 
-## No Hidden Fees
+## Referral Discounts
 
-Owly does not charge:
-- ❌ Account opening fees
-- ❌ Monthly subscription fees
-- ❌ Deposit fees
-- ❌ Inactivity fees
+Eligible referral discounts reduce the builder fee for supported Owly-managed strategies during the applicable discount window. Discount ratios and duration are configurable; they are not a separate withdrawable rebate. See [Referral System](/guide/referral).
+
+## Performance and Management Fees
+
+The current trading flow does not add a platform performance fee or management fee to the builder trading charge. Profitability still depends on trading fees, funding, execution prices, and other costs.
+
+## Other Costs
+
+The platform trading fee is separate from:
+
+- **Hyperliquid exchange fees**, including maker/taker fees and any applicable exchange fee discounts.
+- **Perpetual funding payments**, which can be paid or received while holding positions.
+- **Network, bridge, swap, or withdrawal charges** associated with moving funds or using external services.
+- **Borrowing costs** when using an On-chain Lending account.
+
+Review the transaction or quote shown for a funding or withdrawal operation. A zero platform performance fee does not mean that trading or moving funds is free.
 
 <Tip>
-  Always check a curator's fee percentage before starting copy trading. Higher fees require proportionally higher returns to be worthwhile.
+Compare returns after fees and funding. The fee approved in your wallet, the platform builder fee on a fill, and Hyperliquid's exchange fee are different values.
 </Tip>

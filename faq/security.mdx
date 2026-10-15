@@ -1,87 +1,38 @@
 ---
 title: "Security & Risks"
-description: "Important security information and risk disclosures"
+description: "Protect wallet authorizations and understand trading and protocol risks"
 icon: "triangle-exclamation"
 ---
 
+## Wallet and trading-key security
 
-Understanding the risks involved in copy trading is essential for making informed decisions.
+You control the owning wallet; Owly generates and stores the API key used by automated strategies. The current Trade terminal stores its API trading authorization persistently in this device’s browser. Never send any private key or seed phrase to the Assistant or support. See [Non-Custodial Security](/advantages/non-custodial).
 
-## Security Measures
+An API Wallet cannot replace the owner's external withdrawal signature, but can execute trades that lose funds. Verify the signer and permission scope, and revoke compromised authorizations through the owning wallet. Stopping a bot, removing a manager, and revoking an API Wallet are separate operations.
 
-<CardGroup cols={2}>
-  <Card title="Non-Custodial" icon="shield-check">
-    Owly never holds custody of your funds.
-  </Card>
-  <Card title="Permission-Based" icon="lock">
-    Trading permissions only - no withdrawal access.
-  </Card>
-  <Card title="Open Source" icon="code">
-    Core contracts are open for public audit.
-  </Card>
-  <Card title="Monitoring" icon="eye">
-    24/7 system monitoring for anomalies.
-  </Card>
-</CardGroup>
+## Trading risks
 
-## Risk Categories
+| Risk | What it means |
+| --- | --- |
+| **Market and leverage** | Price moves, funding costs, and liquidation can reduce or exhaust account equity |
+| **Copy execution** | Latency, liquidity, minimum order sizes, market filters, and available collateral can produce different fills or positions from the source |
+| **Risk thresholds** | SL/TP settings must be configured; monitoring and close orders can fail or execute after the threshold at a worse price |
+| **Grid exposure** | Directional grids can accumulate exposure, and prices can leave the configured range |
+| **Data limitations** | Returns and replay depend on available history, account scope, and data freshness |
 
-### Market Risk
+Past results do not guarantee future performance. A ranking score, simulation, or read-only Ghost view does not guarantee a strategy is suitable or will be copied successfully.
 
-<Warning>
-  Cryptocurrency markets are highly volatile. You can lose some or all of your invested capital.
-</Warning>
+## Funding and protocol risks
 
-- Price volatility can lead to rapid losses
-- Leverage amplifies both gains and losses
-- Liquidation is possible in extreme market conditions
+- Check the route's network and token before signing. The integrated Trade funding flow supports Arbitrum One mainnet; LeverAcc also uses HyperEVM.
+- Review gas, swap, bridge/CCTP, activation, and protocol charges separately.
+- Pending submissions can be uncertain. Check the existing operation before repeating it.
+- Smart contracts, bridges, exchanges, wallet software, and upstream providers can fail. Code availability alone is not evidence of a security audit.
+- LeverAcc collateral and borrowing introduce interest and liquidation risk. Stopping trading or closing positions does not repay debt.
 
-### Smart Contract Risk
+## Managing incidents
 
-While Owly uses audited contracts, no smart contract is 100% risk-free:
-- Potential undiscovered vulnerabilities
-- Dependency on Hyperliquid's infrastructure
-- Bridge and cross-chain risks
-
-### Copy Trading Specific Risks
-
-| Risk | Description |
-|------|-------------|
-| **Trader Performance** | Past performance does not guarantee future results |
-| **Slippage** | Copied trades may execute at different prices |
-| **Strategy Mismatch** | Trader's strategy may not suit your risk tolerance |
-| **Concentration** | Following one trader creates single-point-of-failure |
-
-## Best Practices
-
-<Steps>
-  <Step title="Start Small">
-    Begin with an amount you can afford to lose.
-  </Step>
-  <Step title="Diversify">
-    Consider following multiple traders with different strategies.
-  </Step>
-  <Step title="Set Limits">
-    Use stop-loss and position limits to cap potential losses.
-  </Step>
-  <Step title="Monitor Regularly">
-    Check your portfolio at least weekly.
-  </Step>
-  <Step title="Stay Informed">
-    Keep up with market conditions that might affect your positions.
-  </Step>
-</Steps>
-
-## Not Financial Advice
-
-<Note>
-  The information provided by Owly is for educational purposes only and should not be considered financial advice. Always do your own research and consider consulting a financial advisor before investing.
-</Note>
-
-## Reporting Issues
-
-If you discover a security vulnerability:
-- Telegram: [https://t.me/owlyfi_support](https://t.me/owlyfi_support)
-- Email: security@owly.fi
-- Do not publicly disclose until resolved
-- Bug bounty program available for qualifying reports
+1. Stop affected automation and inspect positions and outstanding orders.
+2. Revoke or replace the affected trading authorization with the owning wallet. For LeverAcc, follow its execution-wallet update flow.
+3. Check pending funding operations and transaction hashes before making further transfers.
+4. Contact [Telegram support](https://t.me/owlyfi_support) or [security@owly.fi](mailto:security@owly.fi) with public addresses, issue time, and redacted evidence. Do not publish secrets or vulnerabilities in public chat.

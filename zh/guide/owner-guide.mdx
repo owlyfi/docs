@@ -1,261 +1,93 @@
 ---
 title: "资产所有者"
-description: "管理 Hyperliquid Sub Account 并分配给基金经理进行 Copy Trade"
+description: "添加交易账户，并按 Owly 所有者范围授予经理权限"
 icon: "user-shield"
 ---
 
-本手册指导您如何在 Owly 上管理 Hyperliquid Sub Account 并分配给基金经理进行 Copy Trade。
+Owly 允许资产所有者添加经理并选择交易管理权限。**经理授权覆盖该所有者名下全部活跃交易账户，包括以后新增的账户。** 这是所有者与经理之间的关系，不是对某一个子账户单独分配。
 
-## 操作流程概览
+## 准备交易账户
 
-1. [准备工作](#步骤-1-准备工作)
-2. [准备 Hyperliquid 子账户](#步骤-2-准备-hyperliquid-子账户)
-3. [导入 Owly](#步骤-3-导入-sub-account-到-owly)
-4. [分配基金经理](#步骤-4-分配给基金经理)
-5. [日常管理](#步骤-5-日常管理)
-6. [权限与安全](#权限与安全说明)
+以资产所有者身份登录 [Owly](https://app.owly.fi/accounts)。普通交易账户可按[快速入门](/zh/guide/quick-start)配置 API 钱包，也可按下方流程添加 Hyperliquid 原生子账户。Owly 的统一账户数量上限与 Hyperliquid 的原生子账户条件分别计算，详见[账户类型](/zh/guide/account-types)。
 
-## 步骤 1: 准备工作
+### 添加 Hyperliquid 原生子账户
 
-### 1.1 注册 Owly 账户
+1. 使用拥有该原生子账户或将用于创建子账户的 Hyperliquid 主钱包登录。
+2. 打开账户管理，选择 **新建跟单账户**，再选择 **Hyperliquid 子账户**。
+3. 选择已有子账户。符合条件时，也可在同一表单选择 **创建子账号**，输入不重复且不超过 16 个字符的名称，按提示完成授权与创建。该流程会先准备或复用所需的普通 API 钱包授权。继续前核对签名钱包地址和创建结果。
+4. 若创建结果尚未确认，先刷新子账户列表核对原请求，不要直接重复创建。
+5. 填写账户显示名称并继续。使用主钱包核对并完成必要的统一账户启用、专用 API 钱包授权和 Builder 费用授权。
+6. 等待完成并核对所选交易账户地址。无需输入或复制私钥。
 
-<Steps>
-  <Step title="访问 Owly 官网">
-    前往 [app.owly.fi](https://app.owly.fi)
-  </Step>
-  <Step title="连接主钱包">
-    点击 "Connect Wallet" 连接您的主钱包
-  </Step>
-  <Step title="完成签名验证">
-    签名验证消息以确认钱包所有权
-  </Step>
-  <Step title="注册成功">
-    完成注册，进入 Owly 平台
-  </Step>
-</Steps>
+您也可以先在 [Hyperliquid](https://app.hyperliquid.xyz/subAccounts) 创建符合条件的原生子账户，再回到 Owly 选择。原生子账户仍受支持。旧版 Owly 托管钱包属于另一种账户类型，已禁用新建、新配置机器人和重启机器人。
 
-### 1.2 确认基金经理已注册
+<Note>
+原生子账户没有自己的私钥，由所属主钱包授权 API 钱包。Owly 为每次导入生成专用 API 钱包以减少共享 Nonce 冲突；这不等于在 Hyperliquid 协议层将该代理限制为只能操作一个子账户。
+</Note>
 
-<Check>基金经理必须已注册为 Owly 用户</Check>
-<Check>获取基金经理的钱包地址</Check>
+## 添加经理
+
+经理必须是已注册 Owly 的 EVM 地址，不能是本人，也不能重复添加。每位所有者最多添加 **20 位经理**。
+
+1. 在账户管理找到 **管理账户**，选择 **添加管理账户**。
+2. 输入经理已注册的钱包地址，可填写备注昵称。
+3. 核对 **查看**、**启动** 和 **停止** 权限。默认三项均勾选，只保留您希望授予的权限。
+4. 确认后，经理可在 **我管理的子账户** 中按所获权限访问您的账户。
 
 <Warning>
-如基金经理未注册，分配将失败。
+此操作授权的是所有者名下全部活跃账户，也包括未来新增账户。确认前请核对完整范围；在该所有者下另建一个交易子账户，不会把经理权限缩小到该子账户。
 </Warning>
 
-## 步骤 2: 准备 Hyperliquid 子账户
+## 权限范围
 
-### 2.1 前置条件
+| 权限 | 允许的操作 |
+| --- | --- |
+| **查看（`VIEW`）** | 在受支持管理页面查看账户与策略信息 |
+| **启动（`START`）** | 启动或重启受支持的机器人 |
+| **停止（`STOP`）** | 停止机器人，或请求终止及清理 |
 
-<Note>
-新建原生子账户需满足 [Hyperliquid 当前创建条件](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts)。已有子账户可直接按下方流程导入。
-</Note>
+机器人配置修改使用启动/停止权限校验，没有独立的经理“修改配置”权限开关。经理权限不包含提现、修改账户所有权或设置、添加其他经理等所有者操作；账户类型限制和钱包授权仍然适用。
 
-### 2.2 创建 Sub Account
+API 钱包用于已授权的交易签名。外部充值与提现仍需资金钱包或主钱包承担相应签名角色。API 钱包泄露仍可能通过恶意交易造成亏损。LeverAcc 账户的抵押、债务、还款及协议提现由 LeverAcc 管理；停止机器人不等于还款。
 
-<Steps>
-  <Step title="访问 Hyperliquid">
-    前往 [app.hyperliquid.xyz](https://app.hyperliquid.xyz)
-  </Step>
-  <Step title="连接钱包">
-    连接您的主钱包
-  </Step>
-  <Step title="进入 Sub Accounts">
-    在菜单中找到 Sub Accounts
-  </Step>
-  <Step title="创建 Sub Account">
-    点击 Create Sub Account，输入名称并确认创建
-  </Step>
-</Steps>
+## 监控与停止交易
 
-### 2.3 由 Owly 自动生成 API 钱包
+在账户管理和投资组合中查看余额、持仓、订单、盈亏与机器人状态。除生命周期状态外，也应核对执行和清理状态。
 
-导入前无需去 Hyperliquid 创建 API 钱包或保存私钥。Owly 会为每个导入的子账户自动生成并安全保存专用 API 钱包，再由所属主钱包在下一步签名授权。
+- **停止**会停止自动执行，本身不平掉已有持仓。
+- **关闭／终止**请求终止策略并清理持仓和相关订单。请确认清理结果及实际持仓，不要假定每次关闭都会成功。
+- 清理进行中或失败时需要继续处理。确认剩余风险前，应保留账户所需保证金。
 
-<Note>
-独立 API 钱包可减少共享 Nonce（交易序号）造成的冲突，但不等于在协议层将 API 钱包限制为只能操作一个子账户。详见[账户类型指南](/zh/guide/account-types)。
-</Note>
+## 修改或移除经理
 
-## 步骤 3: 导入 Sub Account 到 Owly
+在经理卡片选择 **编辑**，修改备注昵称或权限；选择 **移除**，撤销该所有者对这位经理的授权。
 
-### 3.1 进入添加页面
+**移除经理不会自动停止运行中的机器人、平仓、撤单或撤销 Hyperliquid API 钱包授权。** 如果希望结束交易，请由所有者逐个停止或关闭相关机器人，并核对状态及剩余风险。移除一位经理也不会取消其他经理的权限。
 
-<Steps>
-  <Step title="登录 Owly">
-    使用拥有该 Hyperliquid 子账户的主钱包登录 Owly
-  </Step>
-  <Step title="进入子账户管理">
-    在导航中找到 **子账户管理**
-  </Step>
-  <Step title="添加 Sub Account">
-    点击 **新建跟单账户**，然后选择 **Hyperliquid 子账户**
-  </Step>
-</Steps>
-
-### 3.2 选择 Sub Account
-
-Owly 会自动获取您的 Sub Account 列表，选择要导入的 Sub Account。
-
-### 3.3 设置名称并生成 API 钱包
-
-填写账户名称并继续。如果主账户尚未启用统一账户（Unified Account），先核对并签署 Owly 的启用请求。随后 Owly 自动生成并保存专用 API 钱包，无需输入私钥。
-
-### 3.4 授权并确认导入
-
-核对生成的 API 钱包公开地址和当前连接的主钱包，由 **所属主钱包**签署 API 钱包授权及必要的 Builder 费用授权。已确认的授权会被跳过。等待导入成功，再检查所选子账户地址。
-
-原生子账户没有自己的私钥，不要在此流程输入主钱包私钥或助记词。
-
-## 步骤 4: 分配给基金经理
-
-<Steps>
-  <Step title="进入子账户管理">
-    在 Owly 中进入 **子账户管理**
-  </Step>
-  <Step title="选择 Sub Account">
-    选择要分配的 Sub Account
-  </Step>
-  <Step title="分配基金经理">
-    点击 **分配基金经理**
-  </Step>
-  <Step title="输入地址">
-    输入基金经理的钱包地址
-  </Step>
-  <Step title="确认分配">
-    确认分配
-  </Step>
-</Steps>
-
-<Note>
-如果基金经理未注册 Owly，分配将失败并提示"该地址未注册"。
-</Note>
-
-## 步骤 5: 日常管理
-
-### 查看账户状态
-
-进入 **子账户管理** 查看所有账户，包括持仓、盈亏、Bot 运行状态。
-
-### 停止 Bot
-
-<Steps>
-  <Step title="选择账户">
-    选择 Sub Account
-  </Step>
-  <Step title="停止 Bot">
-    点击 **停止 Bot**
-  </Step>
-  <Step title="完成">
-    Bot 将停止执行新交易
-  </Step>
-</Steps>
-
-### 解除基金经理分配
-
-<Steps>
-  <Step title="选择账户">
-    选择 Sub Account
-  </Step>
-  <Step title="解除分配">
-    点击 **解除分配**
-  </Step>
-  <Step title="确认">
-    确认后，基金经理失去管理权限，关联的 Bot 会自动停止
-  </Step>
-</Steps>
-
-### 紧急撤销 (链上操作)
-
-如需完全撤销 API Key:
-
-<Steps>
-  <Step title="访问 Hyperliquid">
-    前往 Hyperliquid
-  </Step>
-  <Step title="进入 Sub Account">
-    进入对应 Sub Account
-  </Step>
-  <Step title="撤销 API">
-    删除/撤销 API Key
-  </Step>
-</Steps>
-
-## 权限与安全说明
-
-### API Key 技术限制
-
-| 限制 | 说明 |
-|:-----|:-----|
-| **权限范围** | API Key 可签名操作主账户及所有 Sub Account |
-| **Nonce 机制** | 每个 API Key 使用独立的 Nonce 序列 |
-| **共享签名风险** | 多个账户共用 API 钱包会共享交易序号状态，可能发生冲突 |
-| **Owly 要求** | 每个 Sub Account 必须使用独立的 API Key |
-
-### API 钱包与资金操作
-
-API 钱包用于已授权的交易签名。资金转账或提现应由资产所有者在 Hyperliquid 的受支持流程中本人核对并完成。API 钱包泄露可能导致恶意交易和资金亏损；不能把无提现权限理解为资金绝对安全。密钥输入边界与账户区别见[账户类型指南](/zh/guide/account-types)。
-
-### 基金经理权限
-
-分配给基金经理后，其可以：
-
-| 操作 | 权限 |
-|:-----|:-----|
-| 配置和启停 Copy Trade Bot | ✅ 允许 |
-| 查看持仓和盈亏 | ✅ 允许 |
-| 提现或转出资金 | ❌ 不允许 |
-| 修改账户设置 | ❌ 不允许 |
-| 分配给其他人 | ❌ 不允许 |
-
-### 安全建议
-
-<Warning>
-1. **核对钱包授权**：导入时由 Owly 自动生成并保管 API 钱包；任何私钥或助记词都不要发送给 Assistant、客服或聊天
-2. **每个 Sub Account 使用独立 API 钱包**，导入时由 Owly 自动创建
-3. **只分配给您信任的基金经理**
-4. **定期检查交易记录**，发现异常及时停止 Bot
-5. **如怀疑 API 泄露**，立即在 Hyperliquid 撤销
-</Warning>
-
-### 风险提示
-
-| 场景 | 风险 | 您的控制手段 |
-|:-----|:-----|:-------------|
-| 基金经理策略亏损 | 资金减少 | 停止 Bot、解除分配 |
-| 高杠杆操作 | 爆仓风险 | 监控持仓、及时干预 |
-| API Key 泄露 | 恶意交易 | 在 Hyperliquid 撤销 API |
-| 市场极端行情 | 大幅亏损 | 提前设置止损 |
+如果怀疑 API 钱包泄露，请先停止受影响的自动交易，再使用所属主钱包到 [Hyperliquid API 页面](https://app.hyperliquid.xyz/API)核对授权，并按 Owly 账户管理流程授权替换钱包。不要把助记词或任何私钥发送给 Assistant、客服或经理。
 
 ## 常见问题
 
 <AccordionGroup>
-  <Accordion title="无法创建 Sub Account">
-    检查 [Hyperliquid 当前创建条件](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts)；若只是添加普通 API 钱包账户，无需先创建原生子账户
+  <Accordion title="能否只给经理分配一个交易账户？">
+    当前经理关系覆盖所有者名下的活跃账户。在同一所有者下另建原生子账户，不会把授权范围限制为这个账户。
   </Accordion>
-  <Accordion title="导入失败提示 Builder Fee 未设置">
-    回到导入表单，使用子账户所属主钱包按页面提示完成必要授权；不要使用旧版授权测试页面
+  <Accordion title="为什么添加经理失败？">
+    检查 EVM 地址及注册状态，并确认不是本人或已添加的经理。每位所有者上限为 20 位经理。
   </Accordion>
-  <Accordion title="找不到我的 Sub Account">
-    确认使用的是创建 Sub Account 的主钱包
+  <Accordion title="为什么不能创建原生子账户？">
+    按表单返回的资格和数量限制处理，也可选择已有子账户。若创建尚未确认，请先刷新检查，避免重复创建。
   </Accordion>
-  <Accordion title="分配失败提示该地址未注册">
-    基金经理需先注册 Owly 账户
-  </Accordion>
-  <Accordion title="基金经理能提走我的资金吗">
-    不能，API Key 无提现权限
-  </Accordion>
-  <Accordion title="为什么每个 Sub Account 要单独的 API">
-    共享 API 钱包会共享交易序号状态，可能冲突；Owly 要求每个导入子账户单独配置 API 钱包
+  <Accordion title="经理能提走资金吗？">
+    Owly 的查看、启动、停止权限不授予提现或转账权限。此类操作由所有者钱包及账户所在协议的规则控制。
   </Accordion>
 </AccordionGroup>
 
-## 下一步
-
 <CardGroup cols={2}>
-  <Card title="资产管理" href="/zh/guide/asset-management" icon="wallet">
-    了解如何管理充值和提现
+  <Card title="账户类型" href="/zh/guide/account-types" icon="wallet">
+    核对账户配置和授权要求。
   </Card>
-  <Card title="仪表盘" href="/zh/guide/dashboard" icon="chart-line">
-    了解您的投资组合和绩效指标
+  <Card title="资产管理" href="/zh/guide/asset-management" icon="wallet">
+    了解充值、提现及不同账户的限制。
   </Card>
 </CardGroup>

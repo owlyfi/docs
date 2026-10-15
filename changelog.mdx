@@ -4,6 +4,244 @@ description: 'Latest updates to Owly platform'
 icon: 'list'
 ---
 
+## 2026.10.15
+
+### New
+
+- **Trade USDC withdrawals**: Added withdrawals to Arbitrum with source-ledger and CCTP destination verification, followed by transfer history after completion.
+- **Independent HYPE preparation**: LeverAcc setup can prepare Arbitrum ETH and HyperEVM HYPE with separate swap budgets, recover submitted wallet operations, and poll for confirmation.
+
+### Improvements
+
+- **Ghost navigation**: Added copy-trading and return-to-trader actions in the read-only terminal, with clearer address links from trader details.
+- **Trading connection setup**: Unified connection actions and stabilized step and button layout during refreshes and wallet signing.
+
+### Fixes
+
+- **Short-window PnL charts**: Rebased trader 1D, 7D, and 30D PnL at the selected window’s first sample while preserving account-value charts.
+- **Signing retries and gas quotes**: Restored usable connection retries after cancelled or rejected signatures; tightened bootstrap quote fee completeness and limits, with improved rejection diagnostics.
+
+## 2026.10.14
+
+### New
+
+- **Read-only Ghost terminal**: Browse public accounts and open the corresponding markets and charts from trader, position, and trade views.
+- **Native sub-account creation in Owly**: Eligible Hyperliquid masters can create a native sub-account from the selector and then authorize its dedicated API Wallet.
+- **Mobile perpetual ticker**: View perpetual market quotes and enter trading from the mobile interface.
+
+### Improvements
+
+- **Account onboarding**: Displayed all three account types directly, refined LeverAcc creation, and preserved the guest creation entry through login.
+
+### Fixes
+
+- **Legacy managed-account restrictions**: Blocked bot configuration changes, start, and restart for retired Owly managed accounts while retaining viewing, stopping, closing, and fund recovery. Native Hyperliquid sub-accounts remain supported.
+
+## 2026.10.12
+
+### Improvements
+
+- **Mobile trading**: Reorganized market, position, order-entry, and settings views and simplified position-close dialogs.
+
+### Fixes
+
+- **Cancel recovery**: Improved recovery and status feedback when a cancellation outcome is unknown.
+
+## 2026.10.11
+
+### New
+
+- **Desktop perpetual ticker**: Added desktop market quotes and market shortcuts.
+
+### Improvements
+
+- **Connection and market selection**: Simplified API trading authorization and recovery guidance and refined mobile market controls, picker focus, and layout.
+
+### Fixes
+
+- **Closing and recovery**: Improved safe limit-position closing and automatic trading-operation recovery.
+- **Chart price line**: Anchored the price line to the latest candle close.
+
+## 2026.10.10
+
+### New
+
+- **Integrated API Wallet activation deposits**: Inactive trading wallets can deposit, verify arrival, and activate inside account creation before returning to authorization.
+- **Spot asset details**: Added detailed spot balances and official market names and expanded spot market data.
+
+### Improvements
+
+- **Trade views and mobile setup**: Aligned account views and mobile onboarding and added a Hyperliquid chart watermark.
+
+### Fixes
+
+- **Funding and authorization verification**: Fixed funding and onboarding edge cases and verified Unified Account and agent approval against official Hyperliquid state.
+- **Live trading data**: Fixed continuing order-book updates, account-wide trade details, and active TWAP counts.
+- **Wallet continuity**: Preserved the wallet connection across Trade navigation.
+
+## 2026.10.09
+
+### New
+
+- **Trade transfer history**: Added shared account transfer records.
+- **Search equity estimates**: Added lightweight equity estimates for candidate addresses.
+
+### Improvements
+
+- **Funding and trading setup**: Connected deposits to subsequent trading setup, refined Market, Limit, and TWAP controls and quote/network presentation, and supported activation funding for a trading wallet distinct from login.
+- **Configurable gas preparation**: Unified ETH swap-budget configuration across terminal and onboarding funding flows.
+
+### Fixes
+
+- **Deposit recovery**: Fixed funded-account setup continuation, new-account balances, and wallet retries; swap recovery preserves the original wallet and stablecoin conversion order and rejects expired quotes.
+- **Long-window trader PnL**: Corrected 90-day and 180-day PnL baselines.
+
+## 2026.10.08
+
+### New
+
+- **Owly Trade terminal**: Introduced perpetual and spot markets, charts, order books, recent trades, and account trading views.
+- **Arbitrum funding**: Added trading-account authorization and Arbitrum USDC/USDT deposit preparation, swaps, and status checks.
+- **Onboarding gas preparation**: Added a reusable USDC-to-ETH preparation flow for supported onboarding, including LeverAcc. Swaps use the user’s funds.
+
+### Improvements
+
+- **Terminal charts and controls**: Added account chart controls and canonical market routes and aligned trading controls, confirmations, and API Wallet setup.
+
+### Fixes
+
+- **Terminal stability**: Fixed chart and trading-setup state transitions.
+
+## 2026.10.07
+
+### New
+
+- **Embedded LeverAcc**: Added in-app account creation and deposit, repayment, withdrawal, borrowing, and transfer entry points.
+
+### Improvements
+
+- **Account name checks**: Aligned name availability and conflict feedback across creation, renaming, and LeverAcc recovery.
+
+### Fixes
+
+- **LeverAcc creation confirmation**: Preserved transaction evidence across wallets and verified creation receipts and Builder approval before continuing.
+- **Portfolio PnL charts**: Rebased long-window PnL consistently.
+
+## 2026.10.06
+
+### Fixes
+
+- **Trading-wallet validation**: Rejected non-owner addresses such as API agents during setup and isolated stale connection results after wallet cancellation or switching.
+
+## 2026.10.02
+
+### Improvements
+
+- **Unified LeverAcc account management**: Consolidated lending accounts into shared account lists, management, recovery, and active-account capacity.
+
+## 2026.10.01
+
+### New
+
+- **BLP activity**: Added BLP activity to trader transfer history.
+
+### Improvements
+
+- **Legacy funding retirement**: Retired deposits and general internal transfers for old Owly managed accounts while preserving withdrawals back to the owner.
+
+### Fixes
+
+- **LeverAcc copying**: Aligned configuration, startup, and execution with ordinary agents and fixed project Builder authorization and recovery after retries.
+- **Capital and return consistency**: Aligned quote-asset capital used for PE admission and fixed portfolio history interpolation and live totals.
+- **Post-start navigation**: Closed setup after a successful copy start and navigated to the corresponding portfolio account.
+
+## 2026.09.29
+
+### New
+
+- **LeverAcc copy settings**: Enabled lending-account copy configuration and PE ratio admission, subsequently integrated with the ordinary bot lifecycle.
+
+## 2026.09.28
+
+### New
+
+- **Assistant trade attribution**: Added seven-day completed-trade contributors, direction breakdowns, and current main-perpetual exposure evidence with coverage information.
+
+### Improvements
+
+- **Execution-wallet recovery and rotation**: Added LeverAcc pending and orphaned-binding recovery and refined revoke-first wallet replacement.
+- **Account creation options**: Removed new Owly managed-account creation while retaining API Wallet and native Hyperliquid sub-account setup.
+- **Weekly brief presentation**: Condensed evidence-backed portfolio briefs and improved account labels and amount formatting.
+
+### Fixes
+
+- **Assistant data fallback**: Used bounded live-trade evidence when historical data is unavailable and preserved no-fill, missing-data, and provenance distinctions.
+
+## 2026.09.27
+
+### New
+
+- **Running-strategy trade analysis**: Added assistant comparisons of seven-day completed trades for running follower and source accounts, plus recent trade evidence.
+
+### Improvements
+
+- **Account metric guidance**: Added explanatory tooltips to portfolio account cards.
+
+### Fixes
+
+- **Assistant analysis scope**: Limited running-copy analysis to confirmed running strategies and improved session titles and retention of established facts.
+
+## 2026.09.26
+
+### Improvements
+
+- **Desktop discovery**: Compacted the ranking toolbar to leave more room for trader content.
+
+### Fixes
+
+- **Referral signing**: Standardized the OWLYFI code used in signed Hyperliquid referral actions.
+
+## 2026.09.24
+
+### New
+
+- **Featured trader carousel**: Added curated trader presentation with lightweight PnL charts.
+
+### Improvements
+
+- **Mobile discovery**: Collapsed ranking headers on scroll while retaining navigation controls.
+
+### Fixes
+
+- **Account returns**: Corrected cash-flow-adjusted returns on copy account cards.
+- **Live trader state**: Completed WebSocket state and open-order recovery.
+
+## 2026.09.23
+
+### New
+
+- **Copy settings on trader details**: Added editing of existing sub-account copy settings from trader details.
+- **Live trader data**: Streamed trader-detail state through Hyperliquid WebSocket.
+
+### Improvements
+
+- **Mobile Explore and renewal details**: Defaulted mobile Explore to list view and showed verified expiry and funding-wallet identity during LeverAcc renewal.
+
+### Fixes
+
+- **Account data and authorization recovery**: Aligned assets, returns, and account-mode refresh across copy views and fixed owner expiry reminders in manager views and pending recovery.
+
+## 2026.09.22
+
+### Improvements
+
+- **Progressive portfolio loading**: Loaded account metadata progressively and streamed balances through WebSocket.
+- **API Wallet naming**: Generated wallet names on the server during new authorizations and updates.
+
+### Fixes
+
+- **Setup and portfolio state**: Hardened copy-account setup recovery and preserved configuration and runtime provenance instead of presenting fallback defaults as saved state.
+
 ## 2026.09.21
 ### New
 - **On-chain Lending Sub-account (Alpha)**: Added a LeverAcc account type for copy trading with USDC borrowed against collateral. Complete setup and create and activate a trading account on LeverAcc before adding it to Owly. This type is in Alpha: account linking is supported, but starting copy trading is not yet available.

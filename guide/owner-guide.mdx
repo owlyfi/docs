@@ -1,261 +1,93 @@
 ---
 title: "For Asset Owners"
-description: "Manage Hyperliquid Sub Accounts and delegate to fund managers for Copy Trading"
+description: "Add trading accounts and grant managers access across your Owly accounts"
 icon: "user-shield"
 ---
 
-This guide walks you through managing Hyperliquid Sub Accounts on Owly and delegating them to fund managers for Copy Trading.
+Owly lets an asset owner add managers with selected trading permissions. **Manager authorization applies to all active trading accounts under the owner, including accounts added later.** It is an owner-to-manager relationship, not a separate assignment for one sub-account.
 
-## Workflow Overview
+## Prepare Your Accounts
 
-1. [Preparation](#step-1-preparation)
-2. [Prepare a Hyperliquid Sub-account](#step-2-prepare-a-hyperliquid-sub-account)
-3. [Import to Owly](#step-3-import-sub-account-to-owly)
-4. [Assign Manager](#step-4-assign-to-fund-manager)
-5. [Daily Management](#step-5-daily-management)
-6. [Permissions & Security](#permissions-%26-security)
+Sign in to [Owly](https://app.owly.fi/accounts) as the asset owner. For an ordinary trading account, use the [API Wallet setup](/guide/quick-start). You can also add native Hyperliquid sub-accounts as described below. Owly's shared account limit and Hyperliquid's native eligibility rules are separate; see [Account Type](/guide/account-types).
 
-## Step 1: Preparation
+### Add a Native Hyperliquid Sub-account
 
-### 1.1 Register Owly Account
+1. Sign in with the Hyperliquid master wallet that owns, or will create, the native sub-account.
+2. Open account management, choose **Create Sub Account**, then **Hyperliquid Sub-account**.
+3. Select an existing sub-account. If eligible, you can choose **Create Sub-account** in the same form, enter a unique name of up to 16 characters, and follow the authorization and creation prompts. Owly first prepares or reuses the normal API Wallet authorization needed by this flow. Check the wallet address and the result before continuing.
+4. If creation is unconfirmed, refresh the sub-account list to check the original attempt before creating again.
+5. Enter the account's display name and continue. Review and sign any required Unified Account enablement, dedicated API Wallet approval, and Builder fee authorization with the master wallet.
+6. Wait for completion and verify the selected trading account address. You do not enter or copy private keys.
 
-<Steps>
-  <Step title="Visit Owly">
-    Go to [app.owly.fi](https://app.owly.fi)
-  </Step>
-  <Step title="Connect Wallet">
-    Click "Connect Wallet" to connect your main wallet
-  </Step>
-  <Step title="Sign Verification">
-    Sign the verification message to confirm wallet ownership
-  </Step>
-  <Step title="Registration Complete">
-    Complete registration and enter the Owly platform
-  </Step>
-</Steps>
+You can also create an eligible native sub-account on [Hyperliquid](https://app.hyperliquid.xyz/subAccounts), then select it in Owly. Existing native sub-accounts remain supported. Legacy Owly-managed wallets are a different account type: new creation, new bot setup, and bot restart are disabled for those wallets.
 
-### 1.2 Confirm Fund Manager Registration
+<Note>
+Native sub-accounts have no private key of their own. Their master wallet authorizes API Wallets. Owly generates a dedicated API Wallet for each import to reduce shared-nonce conflicts; this does not restrict the agent to that one sub-account at the Hyperliquid protocol level.
+</Note>
 
-<Check>Fund manager must be a registered Owly user</Check>
-<Check>Obtain the fund manager's wallet address</Check>
+## Add a Manager
+
+The manager must be a registered Owly user with an EVM address. You cannot add yourself or add the same manager twice. Each owner can add **up to 20 managers**.
+
+1. In account management, find **Manager Accounts** and select **Add Manager**.
+2. Enter the manager's registered wallet address and an optional nickname.
+3. Review the **View**, **Start Bot**, and **Stop Bot** permissions. All three are selected by default; keep only the permissions you intend to grant.
+4. Confirm. The manager can use **Managed Sub Accounts** to access your accounts according to those permissions.
 
 <Warning>
-If the fund manager is not registered, the assignment will fail.
+This grants access across your active accounts, including future additions. Review the full owner-level scope before confirming. A dedicated trading sub-account does not make the manager authorization specific to that sub-account.
 </Warning>
 
-## Step 2: Prepare a Hyperliquid Sub-account
+## Permissions
 
-### 2.1 Prerequisites
+| Permission | What it allows |
+| --- | --- |
+| **View (`VIEW`)** | View account and strategy information through the supported management views |
+| **Start Bot (`START`)** | Start or restart a supported bot |
+| **Stop Bot (`STOP`)** | Stop a bot or request termination and cleanup |
 
-<Note>
-Creating a native sub-account requires meeting [Hyperliquid's current eligibility rules](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts). Existing sub-accounts can be imported below.
-</Note>
+Bot configuration changes use the start/stop permission checks; there is no separate manager configuration-permission switch. Manager permissions do not grant owner operations such as withdrawals, editing account ownership/settings, or adding other managers. Account-type restrictions and wallet authorizations still apply.
 
-### 2.2 Create Sub Account
+An API Wallet signs authorized trading actions. Asset owners retain the funding-wallet or master-wallet signing role for external funding and withdrawals. A leaked API Wallet can still cause losses through malicious trading. For LeverAcc accounts, manage collateral, debt, repayment, and protocol withdrawals through LeverAcc; stopping a bot does not repay a loan.
 
-<Steps>
-  <Step title="Visit Hyperliquid">
-    Go to [app.hyperliquid.xyz](https://app.hyperliquid.xyz)
-  </Step>
-  <Step title="Connect Wallet">
-    Connect your main wallet
-  </Step>
-  <Step title="Navigate to Sub Accounts">
-    Find Sub Accounts in the menu
-  </Step>
-  <Step title="Create Sub Account">
-    Click Create Sub Account, enter a name and confirm creation
-  </Step>
-</Steps>
+## Monitor and Stop Trading
 
-### 2.3 Let Owly generate the API Wallet
+Review account balances, positions, orders, P&L, and bot status in account management and Portfolio. Check runtime and cleanup status as well as the displayed lifecycle state.
 
-You do not need to create an API Wallet on Hyperliquid or save its private key before importing. Owly automatically generates and securely stores a dedicated API Wallet for each imported sub-account. Its master wallet signs the authorization in the next step.
+- **Stop** stops automated execution; it does not itself close existing positions.
+- **Close / terminate** requests strategy termination and position/order cleanup. Confirm the cleanup result and actual positions; do not assume every close attempt succeeds.
+- A pending or failed cleanup requires follow-up. Keep the account funded for its remaining margin obligations until you have checked the result.
 
-<Note>
-Separate API Wallets reduce shared-nonce conflicts. They do not restrict an API Wallet to one sub-account at the protocol level. See [Account Type](/guide/account-types).
-</Note>
+## Change or Remove a Manager
 
-## Step 3: Import Sub Account to Owly
+Use **Edit** on the manager card to update its nickname or permissions. Use **Remove** to revoke that owner's authorization for the manager.
 
-### 3.1 Access Add Page
+**Removing a manager does not automatically stop running bots, close positions, cancel orders, or revoke Hyperliquid API Wallet approvals.** If you want trading to end, stop or close each affected bot yourself and verify its state and remaining exposure. Removing one manager also does not revoke another manager's access.
 
-<Steps>
-  <Step title="Login to Owly">
-    Sign in to Owly with the Hyperliquid master wallet that owns this sub-account
-  </Step>
-  <Step title="Go to Sub Account Management">
-    Navigate to **Sub Account Management**
-  </Step>
-  <Step title="Add Sub Account">
-    Click **Create Sub-Account**, then select **Hyperliquid Sub-account**
-  </Step>
-</Steps>
+If an API Wallet may be compromised, stop the affected automation and review its authorization on the [Hyperliquid API page](https://app.hyperliquid.xyz/API) using the master wallet. Follow Owly's account-management flow to approve a replacement. Never send a seed phrase or private key to the Assistant, support, or a manager.
 
-### 3.2 Select Sub Account
-
-Owly will automatically fetch your Sub Account list. Select the Sub Account you want to import.
-
-### 3.3 Name the account and generate its API Wallet
-
-Enter an account name and continue. If the master account is not a Unified Account, review and sign Owly's request to enable that mode. Owly then generates and stores the dedicated API Wallet; you do not enter a private key.
-
-### 3.4 Authorize and confirm import
-
-Verify the generated API Wallet public address and the connected master wallet. Sign the API Wallet authorization and any required Builder fee authorization with the **master wallet**. Owly checks confirmed authorizations and skips those already complete. Wait for import to succeed, then verify the selected sub-account address.
-
-Native sub-accounts have no private key of their own. Never enter a master wallet private key or seed phrase in this flow.
-
-## Step 4: Assign to Fund Manager
-
-<Steps>
-  <Step title="Go to Sub Account Management">
-    Navigate to **Sub Account Management** in Owly
-  </Step>
-  <Step title="Select Sub Account">
-    Choose the Sub Account to assign
-  </Step>
-  <Step title="Assign Fund Manager">
-    Click **Assign Fund Manager**
-  </Step>
-  <Step title="Enter Address">
-    Enter the fund manager's wallet address
-  </Step>
-  <Step title="Confirm Assignment">
-    Confirm the assignment
-  </Step>
-</Steps>
-
-<Note>
-If the fund manager hasn't registered on Owly, assignment will fail with "Address not registered" message.
-</Note>
-
-## Step 5: Daily Management
-
-### View Account Status
-
-Go to **Sub Account Management** to view all accounts, including positions, P&L, and Bot running status.
-
-### Stop Bot
-
-<Steps>
-  <Step title="Select Account">
-    Select the Sub Account
-  </Step>
-  <Step title="Stop Bot">
-    Click **Stop Bot**
-  </Step>
-  <Step title="Complete">
-    Bot will stop executing new trades
-  </Step>
-</Steps>
-
-### Remove Fund Manager Assignment
-
-<Steps>
-  <Step title="Select Account">
-    Select the Sub Account
-  </Step>
-  <Step title="Remove Assignment">
-    Click **Remove Assignment**
-  </Step>
-  <Step title="Confirm">
-    After confirmation, fund manager loses management permissions and associated Bots will automatically stop
-  </Step>
-</Steps>
-
-### Emergency Revocation (On-chain)
-
-To completely revoke an API Key:
-
-<Steps>
-  <Step title="Visit Hyperliquid">
-    Go to Hyperliquid
-  </Step>
-  <Step title="Enter Sub Account">
-    Navigate to the corresponding Sub Account
-  </Step>
-  <Step title="Revoke API">
-    Delete/revoke the API Key
-  </Step>
-</Steps>
-
-## Permissions & Security
-
-### API Key Technical Limitations
-
-| Limitation | Description |
-|:-----------|:------------|
-| **Scope** | API Key can sign operations for main account and all Sub Accounts |
-| **Nonce Mechanism** | Each API Key uses an independent Nonce sequence |
-| **Shared Signing Risk** | Accounts using one API Wallet share nonce state, which can cause conflicts |
-| **Owly Requirement** | Each Sub Account must use a dedicated API Key |
-
-### API Wallets and funding actions
-
-API Wallets sign authorized trading actions. Asset owners should review and complete transfers or withdrawals themselves through supported Hyperliquid flows. A leaked API Wallet can enable malicious trading and losses; lack of withdrawal permission does not make funds risk-free. See [Account Type](/guide/account-types) for account roles and secret-input boundaries.
-
-### Fund Manager Permissions
-
-After assignment, fund managers can:
-
-| Operation | Permission |
-|:----------|:-----------|
-| Configure and start/stop Copy Trade Bot | ✅ Allowed |
-| View positions and P&L | ✅ Allowed |
-| Withdraw or transfer funds | ❌ Not Allowed |
-| Modify account settings | ❌ Not Allowed |
-| Assign to others | ❌ Not Allowed |
-
-### Security Recommendations
-
-<Warning>
-1. **Review wallet authorizations**: Owly generates and stores the API Wallet during import. Never send private keys or seed phrases to the Assistant, support, or chat
-2. **Keep a dedicated API Wallet for each Sub Account**; Owly creates it automatically during import
-3. **Only assign to trusted fund managers**
-4. **Regularly check trading records** - stop Bot immediately if anomalies detected
-5. **If API leak suspected** - immediately revoke on Hyperliquid
-</Warning>
-
-### Risk Disclosure
-
-| Scenario | Risk | Your Control |
-|:---------|:-----|:-------------|
-| Fund manager strategy loss | Capital reduction | Stop Bot, remove assignment |
-| High leverage operation | Liquidation risk | Monitor positions, intervene promptly |
-| API Key leak | Malicious trading | Revoke API on Hyperliquid |
-| Extreme market conditions | Significant losses | Set stop-loss in advance |
-
-## FAQ
+## Common Questions
 
 <AccordionGroup>
-  <Accordion title="Cannot create Sub Account">
-    Check [Hyperliquid's current eligibility rules](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts). The ordinary API Wallet route does not require first creating a native sub-account
+  <Accordion title="Can I assign a manager to just one trading account?">
+    The current manager relationship covers the owner's active accounts. Creating a separate native sub-account under that owner does not narrow the grant to one account.
   </Accordion>
-  <Accordion title="Import fails with 'Builder Fee not set'">
-    Return to the import form and complete any required authorization with the sub-account's master wallet. Do not use the old authorization test page
+  <Accordion title="Why did adding a manager fail?">
+    Check the EVM address, confirm the manager has registered, and ensure it is not your own address or an existing manager. The owner limit is 20 managers.
   </Accordion>
-  <Accordion title="Cannot find my Sub Account">
-    Confirm you're using the main wallet that created the Sub Account
+  <Accordion title="Why is native sub-account creation unavailable?">
+    Follow the eligibility and capacity result in the form. You can still select an existing eligible sub-account. If creation is unconfirmed, refresh before retrying to avoid duplicates.
   </Accordion>
-  <Accordion title="Assignment fails with 'Address not registered'">
-    Fund manager needs to register an Owly account first
-  </Accordion>
-  <Accordion title="Can fund manager withdraw my funds?">
-    No, API Key has no withdrawal permissions
-  </Accordion>
-  <Accordion title="Why does each Sub Account need a separate API?">
-    A shared API Wallet shares nonce state and may cause conflicts. Owly requires a dedicated API Wallet for each imported sub-account
+  <Accordion title="Can the manager withdraw funds?">
+    Owly's View / Start / Stop permissions do not grant withdrawal or transfer authority. The owner's wallet and the account's protocol rules govern those actions.
   </Accordion>
 </AccordionGroup>
 
-## Next Steps
-
 <CardGroup cols={2}>
-  <Card title="Asset Management" href="/guide/asset-management" icon="wallet">
-    Learn how to manage deposits and withdrawals
+  <Card title="Account Type" href="/guide/account-types" icon="wallet">
+    Check account setup and authorization requirements.
   </Card>
-  <Card title="Dashboard" href="/guide/dashboard" icon="chart-line">
-    Understand your portfolio and performance metrics
+  <Card title="Asset Management" href="/guide/asset-management" icon="wallet">
+    Review funding, withdrawals, and account-specific limits.
   </Card>
 </CardGroup>

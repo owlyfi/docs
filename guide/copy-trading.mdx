@@ -11,7 +11,7 @@ Learn how to effectively use Owly's copy trading features.
 
 ### Discovery Page
 
-The Discovery page uses a **Multi-Dimensional Ranking System** to help you find "Smart Money" based on comprehensive performance metrics, not just ROI.
+Open **Copy Trading → Explore**. Discovery uses a **Multi-Dimensional Ranking System** to help you find "Smart Money" based on comprehensive performance metrics, not just ROI.
 
 <CardGroup cols={2}>
   <Card title="Smart Ranking" icon="trophy">
@@ -51,13 +51,13 @@ The Discovery page uses a **Multi-Dimensional Ranking System** to help you find 
     Press the "Start Copy Trading" button.
   </Step>
   <Step title="Select Sub-Account">
-    Choose which sub-account to use for copying.
+    Choose an eligible API Wallet, native Hyperliquid Sub-account, or authorized LeverAcc account. An account already running a bot or without readable available collateral cannot be selected; legacy Owly managed accounts are disabled.
   </Step>
   <Step title="Set Copy Ratio">
     Configure how much of each trade to copy (e.g., 0.5x, 1x, 2x).
   </Step>
   <Step title="Configure Risk Settings">
-    Set **Portfolio SL/TP** to protect your total equity, along with max leverage and position limits.
+    Review this copy account’s **Exit Rules** (SL/TP), PE Ratio Cap, ROE entry filter, market/coin selection, and leverage synchronization. SL/TP thresholds start unset; configure the controls you require.
   </Step>
   <Step title="Confirm">
     Review all settings and start copying.
@@ -88,10 +88,10 @@ For example, assume the trader's total capital is **100,000 USDC** and your capi
 
 ### Viewing Status
 
-On your Portfolio page, you can see:
+Open **Copy Trading → Portfolio** to see:
 - Active copy trading relationships
-- Real-time position mirroring
-- Performance since starting
+- Current copy status and available positions
+- Performance for the selected period
 
 ### Stopping Copy Trading
 
@@ -111,5 +111,13 @@ On your Portfolio page, you can see:
 </Steps>
 
 <Note>
-  When you stop copy trading, you can choose whether to close all open positions at the same time.
+  The stop dialog defaults to also closing positions. Clear that option to stop automation while retaining positions. Inspect remaining positions, orders, and bot cleanup status after the request; a successful submission does not guarantee every close has filled. Stopping a LeverAcc strategy does not repay its debt.
 </Note>
+
+## Advanced settings and account limits
+
+Copy settings also include spot/perpetual selection, venue filters, periodic position synchronization, TWAP copying, quote-coin synchronization, and small-position filtering. Their effect depends on enabled markets and available collateral. The ROE filter controls whether an existing source position is synchronized; it is not a stop-loss.
+
+For **LeverAcc**, copying pending orders is disabled. Project binding and execution authorization must remain valid. Adding or funding an account does not start copying automatically.
+
+Use **History** to inspect past bot operations. Review saved settings and actual fills after starting or changing a strategy. See [Risk Management](/advantages/risk-management) and [Portfolio & Navigation](/guide/dashboard).

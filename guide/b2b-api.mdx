@@ -15,8 +15,8 @@ All B2B endpoints are authenticated with tenant credentials. If you are looking 
 The recommended order is:
 
 1. Create or fetch an API wallet for the target address.
-2. Set the returned `public_key` as the Hyperliquid API Agent.
-3. Start the Owly strategy instance.
+2. Approve the returned `public_key` as the Hyperliquid API Agent and complete the effective Builder fee authorization.
+3. Optionally run `source-check` before copy trading, then start the Owly strategy instance.
 4. Save the returned bot identifier for later status and lifecycle calls.
 5. Receive webhook notifications if configured.
 
@@ -33,7 +33,7 @@ sequenceDiagram
     Partner->>Owly: POST /api/tp/b2b/api-wallet
     Owly-->>Partner: public_key, created
 
-    Partner->>HL: Set public_key as API Agent
+    Partner->>HL: Approve API Agent and effective Builder fee
 
     Partner->>Owly: POST /api/tp/b2b/copycat/start
     Owly-->>Partner: name, state
@@ -49,7 +49,7 @@ sequenceDiagram
     Owly-->>Partner: stopped
 
     Partner->>Owly: PUT /api/tp/b2b/copycat/{bot_name}/close
-    Owly-->>Partner: closed
+    Owly-->>Partner: state, runtime_state, cleanup_state
 ```
 
 ## Base URL
@@ -73,7 +73,7 @@ Content-Type: application/json
 | --- | --- | --- |
 | `X-Owly-Tenant-Id` | Yes | Tenant identifier issued by Owly |
 | `X-Owly-Tenant-Key` | Yes | Tenant secret issued by Owly |
-| `Content-Type` | Yes | Must be `application/json` |
+| `Content-Type` | For JSON requests | `application/json`; GET requests do not need a body |
 
 ## Response Format
 
@@ -88,11 +88,13 @@ Successful responses follow this envelope:
 }
 ```
 
-Error responses use:
+Error `detail` can be a string, an object containing fields such as `code` / `message`, or a validation-error list. Start failures may also return a top-level `bot_name` for follow-up queries. Do not match only a fixed English error message. For example, protocol-owned accounts cannot be added through the generic B2B wallet flow:
 
 ```json
 {
-  "detail": "Error message description"
+  "detail": {
+    "code": "leveracc_dedicated_flow_required"
+  }
 }
 ```
 
@@ -105,7 +107,9 @@ Common HTTP status codes:
 | `403` | Tenant or target account is unavailable |
 | `404` | Resource not found |
 | `409` | Resource state conflict |
-| `500` | Internal service error |
+| `422` | Body or field validation failed |
+| `500` | Internal service or execution error |
+| `503` | Account or authorization verification dependency is unavailable |
 
 ## Step 1: Create or Fetch an API Wallet
 
@@ -125,7 +129,9 @@ POST /api/tp/b2b/api-wallet
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `target` | string | Yes | Target address that will run the strategy |
+| `target` | string | Yes | EVM address that will run the strategy |
+| `created` | boolean | No | Defaults to `false` to reuse an existing wallet; `true` requests a replacement |
+| `idempotency_key` | string | When `created=true` | 1–128 characters; reuse the same value when retrying one rotation |
 
 ### Success Example
 
@@ -154,16 +160,62 @@ POST /api/tp/b2b/api-wallet
 Owly securely stores the API wallet private key and does not return it to the partner.
 </Tip>
 
+The target must currently use `unifiedAccount` or `dexAbstraction` mode. Requests fail if the mode cannot be verified. This endpoint does not switch the target account mode.
+
 Important behavior:
 
 - Repeating the same request for the same `target` under the same tenant returns the existing wallet whenever possible.
 - If the `target` is already occupied by another tenant or another incompatible flow, the API returns `409`.
+- After rotation, approve the returned `public_key` again and check the strategy status. Generating a replacement does not complete Hyperliquid authorization.
+- Retrying `created=true` with the same idempotency key returns the wallet from that rotation. Response `created` reports whether this call created a wallet; its meaning differs from the request flag.
+
+Rotation request example:
+
+```json
+{
+  "target": "0x1111111111111111111111111111111111111111",
+  "created": true,
+  "idempotency_key": "wallet-rotation-001"
+}
+```
 
 ## Step 2: Set the API Agent on Hyperliquid
 
 Use the `public_key` returned in Step 1 and set it as the API Agent for the target address on Hyperliquid.
 
-This step is completed by the partner on Hyperliquid. Owly does not perform the on-chain or Hyperliquid-side configuration for you.
+The partner completes these authorizations on Hyperliquid. Approve the effective Builder address and fee as well as the API Agent: startup verifies both. Builder settings may come from the account, an existing strategy, or tenant configuration, so confirm the integration settings instead of assuming one fee applies to every tenant.
+
+## Check Copy-Trading Sources
+
+```http
+POST /api/tp/b2b/copycat/source-check
+```
+
+Use the same tenant headers and submit 1–20 EVM addresses:
+
+```json
+{
+  "sources": ["0x2222222222222222222222222222222222222222"]
+}
+```
+
+Example success `data`:
+
+```json
+{
+  "results": [
+    {
+      "address": "0x2222222222222222222222222222222222222222",
+      "eligible": true,
+      "account_mode": "unifiedAccount",
+      "rejection_reason": null,
+      "order_risk_metrics": null
+    }
+  ]
+}
+```
+
+This check requires sources to use `unifiedAccount` and checks historical orders when order-behavior risk checks are enabled. Rejection reasons include `account_mode_not_unified`, `high_risk_order_behavior`, or unavailable verification data. Risk metrics may be null. This result grants no authorization or execution guarantee; startup performs its own validation.
 
 ## Step 3: Start the Strategy Instance
 
@@ -184,24 +236,34 @@ POST /api/tp/b2b/copycat/start
     "copy_ratio": 1.0,
     "included_coins": [],
     "excluded_coins": [],
-    "included_dexs": [""]
-  },
-  "webhook": "https://partner.example.com/owly/callback"
+    "included_dexs": [""],
+    "alerts": {
+      "enable": true,
+      "webhook": "https://partner.example.com/owly/callback"
+    }
+  }
 }
 ```
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `config` | object | Yes | Strategy configuration. This currently follows Owly's external `BotConfig` structure |
-| `webhook` | string \| null | No | Event callback URL. Can override, clear, or fall back to a default value |
+| `config` | object | Yes | `copytrading` or `grid` configuration; public endpoints support Hyperliquid targets only |
+| `config.alerts` | object | No | Notification settings; the example explicitly enables alerts and supplies a webhook |
+| `config.alerts.webhook` | string \| null | No | Preferred callback field; explicit `null` clears it |
+| `webhook` | string \| null | No | Deprecated top-level compatibility field; migrate to `config.alerts.webhook` |
 
-### Webhook Semantics
+Ordinary copy trading requires `source`; grid bots require a valid `grid` configuration. Perpetual grids require positive `grid.total_invest`, from which the server derives order size. See [Grid Bot](/guide/grid-bot). Do not submit master-wallet or API-wallet private keys.
+
+### Webhook Precedence
 
 | Request shape | Behavior |
 | --- | --- |
-| omit `webhook` | Use the tenant default webhook; if no tenant default exists, keep the bot's current webhook |
-| `webhook = "https://..."` | Override with a new webhook |
-| `webhook = null` | Explicitly clear the webhook |
+| Explicit `config.alerts.webhook` | Overrides the top-level field and tenant default; explicit `null` clears it |
+| Nested field omitted, top-level `webhook` supplied | Use the compatibility field; explicit `null` clears it |
+| Both fields omitted, tenant default exists | Use the tenant default |
+| Both fields omitted, no tenant default | Preserve the existing bot webhook |
+
+`config.alerts=null` alone does not explicitly set `config.alerts.webhook=null`. Delivery also depends on the notification switch and event settings.
 
 ### Success Example
 
@@ -212,7 +274,12 @@ POST /api/tp/b2b/copycat/start
   "timestamp": 1763471390,
   "data": {
     "name": "bot_abc123",
-    "state": "running"
+    "state": "running",
+    "runtime_state": "active",
+    "cleanup_state": "none",
+    "start_time": null,
+    "uptime": null,
+    "err_msg": null
   }
 }
 ```
@@ -223,7 +290,7 @@ The `name` field in the response is the `bot_name` used by the status, stop, and
 
 ## Webhook Notifications
 
-If a webhook is configured, Owly can actively deliver strategy events to your callback endpoint.
+With notifications enabled and a valid webhook configured, Owly can deliver the configured strategy notifications to your callback endpoint.
 
 Webhook categories include:
 
@@ -255,10 +322,28 @@ Success example:
   "timestamp": 1763471391,
   "data": {
     "name": "bot_abc123",
-    "state": "running"
+    "state": "running",
+    "runtime_state": "active",
+    "cleanup_state": "none",
+    "start_time": null,
+    "uptime": null,
+    "err_msg": null
   }
 }
 ```
+
+`data` uses the strategy status structure. Successful start, stop, and close calls return this structure too:
+
+| Field | Meaning |
+| --- | --- |
+| `name` | The `bot_name` for later requests |
+| `state` | Lifecycle state, such as `running`, `stopped`, `terminated`, or `error` |
+| `runtime_state` | Execution state, such as `active`, `idle`, `degraded`, `risk_exit_in_progress`, or `risk_exit_failed` |
+| `cleanup_state` | `none`, `in_progress`, `completed`, or `failed` |
+| `start_time` / `uptime` | Start time and elapsed seconds; may be null |
+| `err_msg` | Optional error information |
+
+Check execution state, cleanup state, and errors together. `state=running` alone does not prove the strategy is placing orders normally.
 
 ### Stop a Strategy
 
@@ -266,7 +351,7 @@ Success example:
 PUT /api/tp/b2b/copycat/{bot_name}/stop
 ```
 
-Success example:
+`stop` stops automated execution without running position-close cleanup. Check existing positions and orders separately. Example of a stopped status:
 
 ```json
 {
@@ -275,7 +360,12 @@ Success example:
   "timestamp": 1763471392,
   "data": {
     "name": "bot_abc123",
-    "state": "stopped"
+    "state": "stopped",
+    "runtime_state": "stopped",
+    "cleanup_state": "none",
+    "start_time": null,
+    "uptime": null,
+    "err_msg": null
   }
 }
 ```
@@ -286,31 +376,40 @@ Success example:
 PUT /api/tp/b2b/copycat/{bot_name}/close
 ```
 
-`close` ends the lifecycle of the strategy instance. After closing, it no longer continues to run.
+`close` requests strategy termination and its cleanup, including attempts to close positions and clear related orders. It does not withdraw funds or repay borrowing. Check `cleanup_state` and `err_msg`, and verify actual positions and orders. After a timeout or cleanup failure, query the current status before deciding what to do next.
 
-Success example:
+This example shows the response shape after completed cleanup; it does not guarantee every close request completes cleanup:
 
 ```json
 {
   "code": 0,
   "msg": "success",
   "timestamp": 1763471393,
-  "data": null
+  "data": {
+    "name": "bot_abc123",
+    "state": "terminated",
+    "runtime_state": "terminated",
+    "cleanup_state": "completed",
+    "start_time": null,
+    "uptime": null,
+    "err_msg": null
+  }
 }
 ```
 
 ## Common Errors
 
-| Status | `detail` | Meaning |
+| Status | Situation | What to check |
 | --- | --- | --- |
-| `401` | `Invalid tenant key` | Tenant ID or key is incorrect |
-| `403` | `Tenant is inactive` | The tenant is disabled |
-| `403` | `Sub account is not active` | The target account is not currently available |
-| `404` | `Bot not found` | The requested strategy instance does not exist |
-| `409` | `Target is already managed by another tenant` | The target address is already occupied by another tenant |
-| `409` | `Target is already registered outside tenant flow` | The target address is already occupied by a non-B2B flow |
-| `409` | `Target is initialized with incompatible account state` | The target address already has an incompatible state |
-| `500` | `Startup failed` | Strategy startup failed |
+| `400` | Unsupported target mode or incomplete Agent / Builder authorization | Account mode and effective authorizations |
+| `401` | Invalid tenant credentials | Both tenant headers |
+| `403` | Inactive tenant or unavailable account | Tenant and account status |
+| `404` | Target account or bot not found | Tenant ownership and `bot_name` |
+| `409` | Ownership conflict, concurrent lifecycle operation, or incompatible state | Query status before resolving the conflict |
+| `422` | Invalid address, idempotency key, or configuration | Current request schema |
+| `500` / `503` | Execution failure or unavailable verification dependency | Preserve `bot_name` and error details; query current status |
+
+Errors may contain structured business codes or strings. A timeout does not prove that startup never happened: query the known `bot_name` before repeating an operation.
 
 ## Minimal cURL Example
 
@@ -341,9 +440,12 @@ curl -X POST "https://dev-app.owly.fi/api/tp/b2b/copycat/start" \
       "copy_ratio": 1.0,
       "included_coins": [],
       "excluded_coins": [],
-      "included_dexs": [""]
-    },
-    "webhook": "https://partner.example.com/owly/callback"
+      "included_dexs": [""],
+      "alerts": {
+        "enable": true,
+        "webhook": "https://partner.example.com/owly/callback"
+      }
+    }
   }'
 ```
 
@@ -357,9 +459,9 @@ curl -X GET "https://dev-app.owly.fi/api/tp/b2b/copycat/bot_abc123/status" \
 
 ## Integration Recommendations
 
-- Always follow the sequence `api-wallet -> set API Agent on Hyperliquid -> start`.
+- Follow `api-wallet -> Hyperliquid Agent + Builder approval -> optional source-check -> start`.
 - Persist the returned `bot_name` immediately.
 - Make webhook consumers idempotent and retry-safe.
 - Treat webhook events as Owly business notifications and do not depend on Owly internal implementation details.
-- If `created = false`, reuse the returned `public_key`.
-- If startup fails, first verify tenant authentication, Hyperliquid API Agent setup, target ownership, and whether `config` satisfies the current `BotConfig` requirements.
+- Reuse API Wallets by default. Request rotation with `created=true` and reuse the idempotency key for retries of that rotation.
+- If startup fails, check tenant credentials, account mode, Agent and Builder approvals, target ownership, and strategy configuration; inspect runtime and cleanup status too.
