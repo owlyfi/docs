@@ -4,20 +4,20 @@ description: "Platform trading fees, authorization ceilings, and other trading c
 icon: "receipt"
 ---
 
-Owly charges platform trading fees through Hyperliquid's builder fee mechanism. The applicable rate depends on the product, account configuration, and any eligible referral discount.
+Owly charges platform trading fees through Hyperliquid's builder fee mechanism. Strategies use different builder fee rates, with base rates ranging from **2–10 bps (0.02%–0.1%)**, depending on the selected strategy's fee configuration. Eligible referral discounts are then applied to the applicable base rate.
 
 ## Platform Trading Fees
 
 | Product | Fee | When Applied |
 | :--- | :--- | :--- |
-| **Copy Trading** | Default base rate **0.055% (5.5 bps)**; applicable configuration and discounts can change the effective rate | On executed trading volume |
+| **Copy Trading** | **2–10 bps (0.02%–0.1%)**, according to the specific copy-trading strategy's builder fee configuration | On executed trading volume |
 | **Trade terminal** | **0.02% (2 bps)** | On executed terminal trading volume |
-| **Grid and other configured bots** | Applicable builder fee configuration | On executed bot trading volume |
+| **Grid and other configured bots** | **2–10 bps (0.02%–0.1%)**, according to the specific strategy's builder fee configuration | On executed bot trading volume |
 
-One basis point (bps) is **0.01%**. For example, a $10,000 executed trade at 5.5 bps incurs a $5.50 platform fee before any applicable discount. At 2 bps, the platform fee is $2.00.
+One basis point (bps) is **0.01%**. For example, suppose a strategy has a base builder fee of **5.5 bps (0.055%)**. A 10,000 USDC trade incurs a platform fee before discounts of `10,000 × 0.055% = 5.50 USDC`. The 5.5 bps rate is illustrative; actual strategy base rates range from 2–10 bps, depending on the strategy configuration.
 
 <Note>
-The 2 bps terminal rate is not a universal rate for every trading bot. Existing account or strategy fee configurations can differ. Check the applicable fee before starting or resuming a strategy.
+Platform trading fees vary by strategy configuration. The terminal's 2 bps rate does not establish the rate for every strategy. Check the strategy's applicable builder fee and discounts before starting or resuming it.
 </Note>
 
 ## Builder Authorization Is a Ceiling
@@ -29,6 +29,8 @@ Some account onboarding flows may check an existing approval against their own r
 ## Referral Discounts
 
 Eligible referral discounts reduce the builder fee for supported Owly-managed strategies during the applicable discount window. Discount ratios and duration are configurable; they are not a separate withdrawable rebate. See [Referral System](/guide/referral).
+
+Referral rewards are calculated from actual eligible builder fees after any discount, using each recipient's applicable L1 or L2 ratio. They are not calculated from the full trading volume or Hyperliquid's exchange fees. The discount window starts at referral binding; its expiry alone does not end referral rewards.
 
 ## Performance and Management Fees
 
