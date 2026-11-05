@@ -18,7 +18,7 @@ Suppose A invites B, and B invites C:
 | C | B earns L1 rewards | B's tier L1 ratio |
 | C | A earns L2 rewards | A's tier L2 ratio |
 
-The system settles only L1 and L2 rewards. Each recipient uses their own applicable tier ratio. C's fee discount follows the tier rules of their direct inviter, B.
+The system settles only L1 and L2 rewards. Each recipient uses their own applicable tier ratio. C's eligible fee reduction is 5%, regardless of their direct inviter B's tier.
 
 ## Referral Tiers & Rewards
 
@@ -26,12 +26,12 @@ The referral system supports Normal, Advanced, and VIP tiers. The default rules 
 
 | Tier | Cumulative direct-referral fee threshold | L1 reward | L2 reward | Referee fee reduction | Discount duration | Direct invite limit |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Normal | $0 | 30% | 5% | 5% | 14 days | 5 users |
-| Advanced | $10 | 35% | 10% | 10% | 14 days | 20 users |
-| VIP | $500 | 40% | 15% | 15% | 14 days | Unlimited |
+| Normal | $0 | 30% | 2% | 5% | 14 days | 5 users |
+| Advanced | $10 | 35% | 3% | 5% | 14 days | 20 users |
+| VIP | $500 | 40% | 5% | 5% | 14 days | Unlimited |
 
 <Note>
-These values come from the initial tier configuration and do not establish the current policy in every environment. Check your current tier, invite allowance, available rewards, and reward records on the **Referral** page.
+Discount durations and invite limits shown here are defaults and may vary by platform configuration. Check your current tier, invite allowance, available rewards, and reward records on the **Referral** page.
 </Note>
 
 Automatic tier evaluation uses **cumulative builder fees in reward records from active direct referrals (L1)**. L2 fees, trading volume, and invite counts do not determine the tier. Tiers are re-evaluated after settlement, and later settlements use the updated applicable ratios; previously settled rewards are not automatically recalculated after a tier change. Some accounts may have an assigned tier or a separately adjusted invite allowance.
@@ -51,7 +51,7 @@ Lower fees paid by an invited user also reduce the reward base. Hyperliquid exch
 When a referral is bound, the system sets a discount expiry using the direct inviter's applicable tier rules. The discount starts **when the relationship is bound**, without waiting for the first trade. The default duration is 14 days; the configuration applicable at binding determines the actual duration. This is separate from the browser's referral attribution window.
 
 - During the discount window, eligible Owly-managed strategies can apply a reduced builder fee automatically.
-- The discount ratio follows the inviter's applicable tier configuration; it is not necessarily frozen at registration.
+- All standard inviter tiers grant the same **5% reduction in the applicable builder fee**. The reduction does not increase when the inviter moves to a higher tier.
 - An inviter's tier upgrade does not automatically extend an existing discount expiry. Discount expiry alone does not end the referral relationship or referral rewards.
 - Discounts reduce the trading fee charged. They do not create a separate cash rebate that the invited user must withdraw.
 - Strategies using a third-party builder or a preserved independent low fee are not overwritten by the standard discount rules. Check the applicable fee before trading.
@@ -110,8 +110,8 @@ Submission is not an immediate on-chain transfer. Use the withdrawal record to c
 Suppose A and B both use the default Normal ratios, A invites B, and B invites C. This example assumes an **actual builder fee rate of 5.5 bps (0.055%)** on fills, after any applicable discounts and fee rounding:
 
 1. B trades 10,000 USDC, generating actual builder fees of `10,000 × 0.055% = 5.50 USDC`. A earns L1 rewards of `5.50 × 30% = 1.65 USDC`.
-2. C trades 20,000 USDC, generating actual builder fees of `20,000 × 0.055% = 11.00 USDC`. B earns L1 rewards of `11.00 × 30% = 3.30 USDC`, and A earns L2 rewards of `11.00 × 5% = 0.55 USDC`.
-3. A earns `1.65 + 0.55 = 2.20 USDC` in total. C's same fees serve as the base for B's L1 and A's L2 rewards separately.
+2. C trades 20,000 USDC, generating actual builder fees of `20,000 × 0.055% = 11.00 USDC`. B earns L1 rewards of `11.00 × 30% = 3.30 USDC`, and A earns L2 rewards of `11.00 × 2% = 0.22 USDC`.
+3. A earns `1.65 + 0.22 = 1.87 USDC` in total. C's same fees serve as the base for B's L1 and A's L2 rewards separately.
 
 The 5.5 bps rate is an example assumption, not a uniform rate for every strategy. The example reward ratios do not establish the current tier policy either. Use the applicable rules and your settled reward records for actual amounts.
 
