@@ -4,6 +4,8 @@ description: 'Latest updates to Owly platform'
 icon: 'list'
 ---
 
+*Weekly backfills follow the original production release week (Monday–Sunday, UTC+8); weeks without production updates are omitted. The November 8 entry is a consolidated October 16–November 8 update, with its original release weeks listed below.*
+
 ## 2026.11.08
 
 ### New
@@ -25,6 +27,61 @@ icon: 'list'
 - **Returns and asset totals**: Unified cash-flow-adjusted return handling across account views and corrected missing or inconsistent portfolio-margin, BLP, outcome, and spot asset values.
 - **Trading continuity**: Improved market reconnection, preserved account tabs when switching markets, and kept account actions and cancellation authorization tied to the correct account.
 - **Wallet and history feedback**: Improved restored-session handling, displayed login times in the local timezone, and showed actual referral-reward settlement times.
+
+## 2026.11.01
+
+*Week: 2026.10.26–2026.11.01 (UTC+8).*
+
+{/* owly-changelog-week: 2026-10-26/2026-11-01; generated-by: manual-backfill; source-production-sha: 9f2c9bb2b63953d1a798bd8c2aa8929f2fd996d8 */}
+
+### New
+
+- **Strategy-tag filters**: Search Discovery by strategy tags and combine multiple tags in a shareable filter state.
+- **Adjustable trading workspace**: Resize the chart and order-book area, save the layout, and show fill execution prices on candles.
+
+### Improvements
+
+- **Trader performance and history**: Defaulted performance views to PnL, paginated completed trades, and loaded insights independently of the trade list.
+- **Account asset coverage**: Included BLP balances and outcome holdings in the relevant asset totals and spot views.
+
+### Fixes
+
+- **Account context and wallet restoration**: Kept the account tab when switching markets, tied position actions to the current market and wallet, and waited for stored wallet sessions to finish restoring.
+
+## 2026.10.25
+
+*Week: 2026.10.19–2026.10.25 (UTC+8).*
+
+{/* owly-changelog-week: 2026-10-19/2026-10-25; generated-by: manual-backfill; source-production-sha: e60f8d2527e8b4e730936c1f7971ce5c487b4f8c */}
+
+### New
+
+- **Scale orders**: Split an order across a chosen price range, preview the allocation, and adjust the number and relative size of individual orders.
+- **Mobile TWAP and position protection**: Added mobile TWAP entry and take-profit/stop-loss controls for existing positions.
+
+### Improvements
+
+- **Account tables**: Aligned active orders, trade history, execution colors, and mobile account details across trading views.
+
+### Fixes
+
+- **Market reconnection**: Preserved the selected market display during reconnects and recovered live subscriptions after interruptions.
+- **Spot balance PnL**: Restored available spot profit and return figures while leaving unavailable values blank.
+
+## 2026.10.18
+
+*Week: 2026.10.12–2026.10.18 (UTC+8). Additional updates beyond the dated entries below.*
+
+{/* owly-changelog-week: 2026-10-12/2026-10-18; generated-by: manual-backfill; source-production-sha: c2f7096fa4acb79a3caf31ee393f8fcc0f7a9f0e */}
+
+### New
+
+- **Trading connection preferences**: Separated initial account setup from reconnecting, with an option to remember trading authorization on your own device.
+- **Trading allowance status**: Added per-account request usage, Normal or Rate Limited status, and explanations of exchange trading limits.
+
+### Fixes
+
+- **Chart overlays**: Hid external fill labels while TradingView dialogs or menus are open, then restored their latest positions.
 
 ## 2026.10.15
 
@@ -272,6 +329,244 @@ icon: 'list'
 - **Sub-account Setup**: Owly now automatically creates and stores API Wallets for both API Wallet and Hyperliquid Sub-account setup. Connect the trading wallet or the sub-account's master wallet and sign the authorizations, without manually creating an API Wallet on Hyperliquid or copying and importing its private key.
 - **Authorization Guidance**: Setup checks Unified Account mode and guides you through enabling it when needed, followed by API Wallet and Builder fee authorizations. Confirmed authorizations are skipped.
 - **Documentation**: Updated [Quick Start](/guide/quick-start) and [Account Type](/guide/account-types) with prerequisites for all four account types, API Wallet quotas, validity periods, and the copy trading stop rule before expiry.
+
+## 2026.09.20
+
+*Week: 2026.09.14–2026.09.20 (UTC+8).*
+
+{/* owly-changelog-week: 2026-09-14/2026-09-20; generated-by: manual-backfill; source-production-sha: d0052c76988ddc9afc50beae69753a7d7722731f */}
+
+### New
+
+- **Longer portfolio windows**: Added 60-day and 90-day performance views to both your portfolio and read-only public portfolios.
+
+### Improvements
+
+- **Contextual account guides**: Added Assistant help inside account setup and remembered completion of the introductory choice for returning users.
+- **Wallet connection options**: Let the wallet selector offer supported connection methods, including QR connection, without first requiring a browser extension.
+
+### Fixes
+
+- **Discovery scrolling**: Fixed load-more behavior, scroll restoration, and stale results when switching trader filters.
+- **Wallet session ownership**: Bound restored login sessions to the wallet explicitly selected, preventing credentials from another wallet from being reused.
+
+## 2026.09.13
+
+*Week: 2026.09.07–2026.09.13 (UTC+8).*
+
+{/* owly-changelog-week: 2026-09-07/2026-09-13; generated-by: manual-backfill; source-production-sha: d8f07e0b87b7982dfbe58db675542833992cafaf */}
+
+### New
+
+- **Read-only Website Assistant**: Added an Assistant alongside Discovery, Trader Detail, and Portfolio, with page-aware questions, saved conversations, and links to supporting evidence.
+- **Copy-period chart markers**: Marked your copying periods and start boundaries on trader ROI and PnL charts.
+
+### Fixes
+
+- **Simulation records**: Restored simulations with missing trader names or avatars and distinguished loading from an empty simulation list.
+- **Live trader data**: Avoided false account-state warnings and unnecessary position refreshes when a WebSocket update contains market metadata only.
+
+## 2026.08.30
+
+*Week: 2026.08.24–2026.08.30 (UTC+8).*
+
+{/* owly-changelog-week: 2026-08-24/2026-08-30; generated-by: manual-backfill; source-production-sha: 3e2577cab7a5642fc48f95c6fb83df796ccaa0a1 */}
+
+### Improvements
+
+- **Copy exchange selection**: Included supported exchanges seen in the source trader’s recent fills and active positions when preparing a new copy setup.
+
+### Fixes
+
+- **WalletConnect signing**: Synchronized the wallet’s network with the selected signing network before account authorization.
+- **Portfolio PnL and returns**: Corrected perpetual PnL display for Unified and portfolio-margin accounts, and prevented internal vault and staking transfers from distorting combined NAV returns.
+
+## 2026.08.16
+
+*Week: 2026.08.10–2026.08.16 (UTC+8).*
+
+{/* owly-changelog-week: 2026-08-10/2026-08-16; generated-by: manual-backfill; source-production-sha: 2efc3e8e610ee64610fd986ebcd48de48b9f0349 */}
+
+### Improvements
+
+- **Operation history details**: Expanded history records with account names, trader links, and readable before-and-after changes to copy-trading settings.
+
+### Fixes
+
+- **Exchange availability**: Removed delisted HIP-3 exchanges from copy setup and validated available markets before including them.
+- **Return calculations**: Fixed NAV return handling for one-time account activation fees.
+
+## 2026.08.02
+
+*Week: 2026.07.27–2026.08.02 (UTC+8).*
+
+{/* owly-changelog-week: 2026-07-27/2026-08-02; generated-by: manual-backfill; source-production-sha: c745b5399071535b9e7a813e75dca83b405513b5 */}
+
+### Fixes
+
+- **Unified-account performance**: Kept account value, PnL, and return views on the combined account scope for unified accounts.
+- **DEX collateral movements**: Corrected return handling for internal USDC collateral moves when enabling DEX abstraction.
+- **Portfolio source comparisons**: Completed background performance loading for all followed source accounts instead of leaving later comparisons unfilled.
+
+## 2026.07.26
+
+*Week: 2026.07.20–2026.07.26 (UTC+8).*
+
+{/* owly-changelog-week: 2026-07-20/2026-07-26; generated-by: manual-backfill; source-production-sha: e5ce59791faf91f1716d6c73e219b947d61a573f */}
+
+### New
+
+- **Low-liquidity market filter**: Added an optional setting to skip perpetual markets that do not meet the system’s open-interest or daily-volume requirements.
+- **Transfer history filters**: Filter trader transfers by asset and activity, with searchable choices on desktop and mobile.
+
+### Improvements
+
+- **Trader links and address copying**: Added direct address URLs for trader profiles and one-click address copying in Favorites.
+
+### Fixes
+
+- **Lending cash flows**: Corrected return calculations so internal borrow/lend reallocations are not treated as new investor capital.
+
+## 2026.07.19
+
+*Week: 2026.07.13–2026.07.19 (UTC+8).*
+
+{/* owly-changelog-week: 2026-07-13/2026-07-19; generated-by: manual-backfill; source-production-sha: 139335f367f9b27e14a3a91790ee71d74335d380 */}
+
+### New
+
+- **Telegram connection**: Added a navigation entry to connect or reconnect Telegram through Owly Bot, with guided handoff and connection-status checks.
+
+### Improvements
+
+- **Copy-trading exchange defaults**: Expanded the supported exchange selection for new copy setups while preserving existing custom selections.
+
+### Fixes
+
+- **Replay video ending**: Made exported replay videos reliably hold the final chart frame before ending.
+
+## 2026.07.12
+
+*Week: 2026.07.06–2026.07.12 (UTC+8).*
+
+{/* owly-changelog-week: 2026-07-06/2026-07-12; generated-by: manual-backfill; source-production-sha: 94adac56e5060663dbfd2a7eb1640736df5331b7 */}
+
+### New
+
+- **Completed-trade metrics**: Added Profit Factor and Average Win/Loss Ratio, with completed-trade win rates, period selection, and clearer limited or unavailable sample states.
+
+### Improvements
+
+- **Sub-account perpetual PnL**: Added all-time perpetual PnL to sub-account management and aligned its meaning across portfolio and manager views.
+
+### Fixes
+
+- **Exposure and radar charts**: Aligned long/short exposure calculations and adjusted radar ROI scales to the selected period.
+- **Open-position replay**: Improved replay eligibility when multiple fills share a timestamp and their position transitions establish a unique sequence.
+
+## 2026.07.05
+
+*Week: 2026.06.29–2026.07.05 (UTC+8).*
+
+{/* owly-changelog-week: 2026-06-29/2026-07-05; generated-by: manual-backfill; source-production-sha: 28c93be125bbb0b17c84cff7d9cf392ed6fd2f41 */}
+
+### New
+
+- **Holding-period risk review**: Added copy-trading warnings based on completed-trade holding times and the share of very short trades.
+
+### Improvements
+
+- **Replay fill markers**: Added price-dot markers and fill timestamps to make trade execution details easier to inspect.
+- **Copy-trading confirmation**: Added loading indicators and disabled repeated confirmation while a start request is being prepared or submitted.
+
+## 2026.06.28
+
+*Week: 2026.06.22–2026.06.28 (UTC+8).*
+
+{/* owly-changelog-week: 2026-06-22/2026-06-28; generated-by: manual-backfill; source-production-sha: bc0debf39d1cac20b963b799e57a45cfd01c66be */}
+
+### New
+
+- **API Wallet renewal**: Added expiring-key reminders and an account-management flow to replace supported API Wallet keys.
+- **Portfolio operation history**: Added portfolio-rule changes and take-profit/stop-loss events to operation history, with clearer account and threshold details.
+
+### Fixes
+
+- **Completed-trade insights**: Corrected the account scope used for estimated peak leverage and kept profitable trades from being presented as losing trades.
+- **Portfolio risk controls**: Fixed take-profit/stop-loss enable and disable flows and improved failure feedback.
+- **Position stability**: Prevented stale or incomplete live account snapshots from making valid positions disappear temporarily.
+
+## 2026.06.21
+
+*Week: 2026.06.15–2026.06.21 (UTC+8).*
+
+{/* owly-changelog-week: 2026-06-15/2026-06-21; generated-by: manual-backfill; source-production-sha: aa384c885a16e8d6c65a75c971325908776a49e0 */}
+
+### Improvements
+
+- **Live trader data**: Improved initial loading and ongoing updates across perpetual DEXs, with recovery when live data is incomplete.
+- **Replay markers**: Made opening and closing fills easier to distinguish and added details for side, size, average price and grouped fills.
+- **Copy-capital guidance**: Improved recommended minimum amount loading and explained unavailable estimates before copy confirmation.
+- **Performance context**: Added warnings when whole-account history may include Vault or staking assets in reported returns and PnL.
+
+### Fixes
+
+- **TWAP status**: Correctly identify terminated TWAPs instead of treating them as active.
+
+## 2026.06.14
+
+*Week: 2026.06.08–2026.06.14 (UTC+8).*
+
+{/* owly-changelog-week: 2026-06-08/2026-06-14; generated-by: manual-backfill; source-production-sha: 23f6bf73638219b654f728e3dfe2622ea02c8ca3 */}
+
+### New
+
+- **Trader TWAP history**: Added desktop and mobile TWAP views with execution progress, remaining size, average price, status and sorting.
+
+### Improvements
+
+- **Portfolio summary returns**: Applied cash-flow-adjusted NAV accounting to portfolio summaries, with clearer data-loading and unavailable states.
+- **Transfers and margin metrics**: Expanded transfer activity labels and separated used margin from maintenance-margin usage.
+
+### Fixes
+
+- **Portfolio refreshes**: Improved account-mode cache handling, position valuation and read-only portfolio synchronization.
+
+## 2026.06.07
+
+*Week: 2026.06.01–2026.06.07 (UTC+8).*
+
+{/* owly-changelog-week: 2026-06-01/2026-06-07; generated-by: manual-backfill; source-production-sha: df00c6cc032011396233f1f0a2d0bcd729a28549 */}
+
+### New
+
+- **Cash-flow-adjusted trader returns**: Added NAV-based return charts for supported Unified and Portfolio Margin accounts, with clear unavailable states when ledger or valuation data is insufficient.
+- **Position funding fees**: Show cumulative funding fees alongside trader positions.
+
+### Improvements
+
+- **Mobile positions and replay navigation**: Refined position summaries and added trader-detail and address-copy actions inside replay.
+
+### Fixes
+
+- **Unified-account metrics**: Corrected asset totals, leverage and margin calculations for unified-account views.
+- **Position details**: Restored position opening times and separated mobile card expansion from replay actions.
+
+## 2026.05.31
+
+*Additional updates: 2026.05.30–2026.05.31, after the May 29 entry (UTC+8).*
+
+{/* owly-changelog-week: 2026-05-30/2026-05-31; generated-by: manual-backfill; source-production-sha: dccbd50860782139a07197d77abefe6adad8c7df */}
+
+### New
+
+- **Token filters**: Filter trader trade history and completed trades by token.
+- **Open-position replay**: Open replay from eligible current positions, with history and position checks before playback.
+
+### Fixes
+
+- **Replay fills**: Improved fill matching and deduplication for open-position replay.
+- **Account capital and loading**: Prevented duplicate USDC hold amounts in trader capital and fixed cross-origin failures when loading portfolio history.
 
 ## 2026.05.29
 ### Fixes
