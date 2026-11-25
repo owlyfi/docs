@@ -1,0 +1,123 @@
+---
+title: "Copia de operaciones"
+description: "Cómo encontrar, evaluar y copiar a traders"
+icon: "copy"
+---
+
+
+Aprende a usar las funciones de copia de operaciones de Owly.
+
+## Encuentra traders
+
+### Página Explorar
+
+Abre **Copiar trading → Explorar**. La página usa un **sistema de clasificación multidimensional** para ayudarte a identificar traders destacados («Smart Money») con un conjunto de métricas de rendimiento que incluye el ROI.
+
+<CardGroup cols={2}>
+  <Card title="Clasificación inteligente" icon="trophy">
+    El algoritmo pondera los resultados para equilibrar rentabilidad, riesgo y estabilidad.
+  </Card>
+  <Card title="Filtros de rendimiento" icon="filter">
+    Filtra por ROI, porcentaje de aciertos y periodo.
+  </Card>
+  <Card title="Métricas de riesgo" icon="chart-line">
+    Consulta la caída desde máximos, el uso de apalancamiento y la volatilidad.
+  </Card>
+  <Card title="Estilo de trading" icon="sliders">
+    Busca traders cuyo estilo encaje con tu estrategia.
+  </Card>
+</CardGroup>
+
+### Métricas clave
+
+| Métrica | Qué observar |
+|--------|------------------|
+| **Puntuación en la clasificación** | Una puntuación más alta indica un mejor equilibrio general |
+| **Ratio de Sharpe** | Un valor superior a 2 indica una rentabilidad ajustada al riesgo excelente |
+| **Caída máxima (drawdown)** | Una caída menor suele implicar menos riesgo (< 20%) |
+| **Porcentaje de aciertos** | Busca más del 50% junto con una buena relación entre riesgo y beneficio |
+| **Frecuencia de operaciones** | Busca un nivel de actividad acorde con tus preferencias |
+
+## Empieza a copiar operaciones
+
+<Steps>
+  <Step title="Selecciona un trader">
+    Haz clic en la tarjeta de un trader para ver su perfil completo.
+  </Step>
+  <Step title="Revisa los detalles">
+    Analiza su historial de operaciones, sus posiciones abiertas y sus métricas de riesgo.
+  </Step>
+  <Step title="Abre el panel de copia">
+    Pulsa **Copia del comercio**.
+  </Step>
+  <Step title="Selecciona una subcuenta">
+    Elige una cuenta de billetera API que cumpla los requisitos, una subcuenta nativa de Hyperliquid o una cuenta de LeverAcc autorizada. El selector excluye las cuentas que ya ejecutan un bot, aquellas cuya garantía disponible no se puede consultar y las antiguas cuentas con gestión de Owly.
+  </Step>
+  <Step title="Fija la proporción de copia">
+    Define en qué proporción se copiará cada operación, por ejemplo 0.5x, 1x o 2x.
+  </Step>
+  <Step title="Configura los controles de riesgo">
+    Revisa las **Reglas de salida** (SL/TP) de la cuenta, el límite de PE Ratio, el filtro de entrada por ROE, la selección de mercados y monedas, y la sincronización del apalancamiento. Los umbrales de SL/TP empiezan sin configurar. Ajusta los controles que necesites.
+  </Step>
+  <Step title="Confirma">
+    Revisa todos los ajustes y empieza a copiar.
+  </Step>
+</Steps>
+
+## Cómo funciona la proporción de copia
+
+La proporción de copia determina el tamaño de tus posiciones en relación con las del trader.
+
+Imagina que el capital total del trader es de **100,000 USDC** y el tuyo de **10,000 USDC**. Si el trader abre una posición por el **10%** de su capital, la operación asciende a **10,000 USDC**. Con una proporción de copia de **1x**, tu posición se ajusta a tu propio capital y la operación copiada asciende a **1,000 USDC**. La tabla compara tres proporciones.
+
+| Proporción de copia | El trader abre una posición del 10% ($10,000) | Tu posición |
+|------------|-------------------------------------|----------|
+| 0.5x | $10,000 | $500 |
+| 1x | $10,000 | $1000 |
+| 2x | $10,000 | $2000 |
+
+<Note>
+  La copia reproduce las operaciones del trader. El PnL puede diferir aunque se copien las mismas operaciones, sin garantía de una precisión del 100%. Debido a la complejidad de los mercados y a la rapidez con que pueden cambiar, Owly procura acercar tu rendimiento al del trader.
+</Note>
+
+<Warning>
+  Una proporción de copia más alta amplifica tanto las ganancias como las pérdidas. Tenlo en cuenta antes de aumentarla.
+</Warning>
+
+## Gestiona las copias activas
+
+### Consulta el estado
+
+En **Copiar trading → Cartera** puedes consultar lo siguiente.
+- Estrategias de copia activas
+- Estado de la copia y posiciones disponibles
+- Rendimiento del periodo seleccionado
+
+### Detén la copia de operaciones
+
+<Steps>
+  <Step title="Abre Cartera">
+    Abre tu subcuenta.
+  </Step>
+  <Step title="Busca la copia activa">
+    Localiza la tarjeta de la estrategia de copia activa.
+  </Step>
+  <Step title="Detén la copia">
+    Pulsa **Deja de copiar el comercio**.
+  </Step>
+  <Step title="Decide qué hacer con las posiciones">
+    Elige si quieres cerrar las posiciones existentes o mantenerlas abiertas.
+  </Step>
+</Steps>
+
+<Note>
+  En el cuadro de confirmación, la opción de cerrar posiciones viene seleccionada. Desmárcala si quieres detener la automatización y mantener las posiciones abiertas. Después de enviar la solicitud, comprueba las posiciones y órdenes restantes y el estado de cierre del bot. Una solicitud enviada correctamente puede dejar órdenes de cierre sin ejecutar. La deuda de LeverAcc se reembolsa por separado.
+</Note>
+
+## Ajustes avanzados y límites de la cuenta
+
+La configuración de copia también permite elegir mercados al contado o de perpetuos, filtrar plataformas de ejecución, sincronizar posiciones periódicamente, copiar órdenes TWAP, sincronizar monedas de cotización y filtrar posiciones pequeñas. El efecto de estos ajustes depende de los mercados habilitados y de la garantía disponible. El filtro por ROE determina si se sincroniza una posición ya abierta por el trader de origen. Configura el stop-loss por separado.
+
+En **LeverAcc** no se pueden copiar órdenes pendientes. La vinculación del proyecto y la autorización de ejecución deben seguir vigentes. Después de añadir o financiar una cuenta, inicia la estrategia por separado para empezar a copiar operaciones.
+
+Abre **Historia de la operación** para ver las acciones anteriores del bot. Revisa los ajustes guardados y las ejecuciones reales después de iniciar o cambiar una estrategia. Consulta [Gestión de riesgos](/es/advantages/risk-management) y [Cartera y navegación](/es/guide/dashboard).

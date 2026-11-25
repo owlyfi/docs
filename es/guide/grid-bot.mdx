@@ -1,0 +1,74 @@
+---
+title: "Bot de cuadrícula"
+description: "Cree, financie y administre una red perpetua utilizando la interfaz Owly actual"
+icon: "sliders"
+---
+
+Abra **Trading Bots → Grid Trading** en [Grid Trading](https://app.owly.fi/trading-bots/grid). Inicie sesión antes de administrar bots.
+
+## Soporte actual
+
+El editor de cuadrícula admite mercados perpetuos, direcciones **Neutral**, **Long** y **Short**, **Arithmetic** o Espaciado **Geométrico** y margen **Cruz** o **Aislado**. También expone un precio de activación, posiciones iniciales direccionales y precios de estrategia de toma de ganancias y stop-loss.
+
+<Note>
+Spot grid no está disponible en este editor. Los controles de seguimiento hacia arriba y hacia abajo están visibles pero deshabilitados. La opción Cuadrícula en la [Terminal comercial](/es/guide/trading-terminal) separada también es una vista previa; use la página Grid Trading para administrar un robot de grid.
+</Note>
+
+## Elija una cuenta elegible
+
+Cree o importe una cuenta en [Administración de cuentas](https://app.owly.fi/accounts), luego regrese a Grid Trading. El selector de creación requiere una cuenta con un saldo disponible positivo y legible y sin bot en ejecución. Se excluyen las cuentas configuradas para un tipo de bot diferente. Las cuentas
+
+- **API Wallet** y **Hyperliquid Subcuenta** se pueden usar cuando cumplan con esos controles. Las cuentas
+- **Préstamos en cadena / LeverAcc** están excluidas del selector de cuentas de la red.
+- Las subcuentas administradas**Owly heredadas** no pueden actualizar la configuración de los bots ni iniciarlos. Mueva los fondos restantes a una cuenta de autocustodia a través del flujo de retiro admitido.
+
+Es posible que aún exista una cuenta que falta en el selector en Administración de cuentas. Verifique su tipo, saldo y configuración de bot existente antes de agregar otra cuenta.
+
+## Configurar la grilla
+
+Haga clic en **Crear**, elija un par de cuenta y contrato y revise los siguientes campos.
+
+| Campo | Significado |
+| --- | --- |
+| Dirección | Neutral, Largo o Corto |
+| Margen y apalancamiento | Cruzado o Aislado, dentro del apalancamiento permitido del mercado seleccionado |
+| Precios inferiores y superiores | El rango de precios de la red; el precio superior debe exceder el precio inferior |
+| Recuento de cuadrícula | Número de intervalos; al menos 2, sujeto a la cuota de pedido disponible estimada |
+| Inversión | Capital total asignado a la red, consignado con dos decimales; debe ser positivo y menor que el saldo disponible de la cuenta |
+| Algoritmo de precios | La aritmética utiliza diferencias de precios iguales; Geométrico utiliza proporciones de precios iguales |
+| Precio de activación | Opcional; cuando está habilitado, comienza después de que el precio alcance la condición Arriba o Abajo seleccionada |
+| Posición inicial | Disponible en modo Largo o Corto; desactivado en modo Neutral |
+| Tomar ganancias / detener pérdidas | Niveles de precios de estrategias opcionales que inician la salida del riesgo |
+| Intervalo de sincronización | Intervalo de conciliación de órdenes; el formulario comienza en 15 segundos |
+
+La página estima la inversión mínima, la cantidad por pedido y el beneficio por cuadrícula del mercado y rango elegidos. Éstas son estimaciones; Los mínimos de las órdenes de intercambio, la precisión, las tarifas, el margen disponible y los precios en vivo aún determinan si el bot puede iniciarse y ejecutarse.
+
+<Warning>
+Aumentar el número de redes divide la inversión entre más pedidos. Un mayor número de cuadrículas no garantiza más ganancias y puede dejar órdenes individuales por debajo del mínimo de intercambio. Dejar margen disponible para pérdidas y comisiones.
+</Warning>
+
+## Comprender la dirección y las posiciones iniciales
+
+**Neutral** coloca órdenes de compra por debajo y órdenes de venta por encima del precio de referencia. No abre automáticamente una posición base direccional.
+
+**Long** agrega exposición larga con compras y utiliza ventas de solo reducción para reducir la exposición. **Short** agrega exposición corta con ventas y utiliza compras de solo reducción para reducir la exposición. Ambos modos direccionales pueden construir una posición inicial cuando están habilitados. Revisar los puestos existentes antes de comenzar; una posición incompatible o un margen insuficiente pueden impedir la activación.
+
+## Guardar, iniciar y detener
+
+1. **Save** almacena la configuración sin iniciar el bot.
+2. Utilice la acción de inicio, revise la confirmación y confirme para comenzar. Si el guardado se realiza correctamente pero el inicio falla, la configuración permanece guardada; verifique el error y el estado antes de volver a intentarlo.
+3. Supervise el estado de ejecución, el saldo de la cuenta, los pedidos y las posiciones. Una configuración guardada o una solicitud aceptada no prueba que se hayan completado todos los pedidos de la red.
+4. Detenga el bot antes de editar. Las cuadrículas en ejecución son de solo lectura en el editor.
+5. ​​En el cuadro de diálogo de parada, revise **Cerrar todas las posiciones también**, que está seleccionado de forma predeterminada. Al limpiarlo se solicita una parada sin cerrar posiciones; retenerlo solicita detenerse y cerrarse. Verifique las órdenes y posiciones resultantes después de cualquiera de las acciones.
+
+Los activadores de toma de ganancias y limitación de pérdidas abandonan el mantenimiento normal de la red e inician la salida del riesgo. La ejecución puede retrasarse, rechazarse o completarse parcialmente. Una solicitud de parada, cierre o umbral de riesgo no garantiza un cumplimiento inmediato o una pérdida final fija.
+
+## Configuración de la interfaz de usuario y compatibilidad con API
+
+El formulario actual envía la inversión total como `total_invest`. No solicita un `order_size` por pedido o un `bootstrap_size` por separado; Es posible que las configuraciones más antiguas aún contengan esos campos. No trate un ejemplo antiguo por pedido como la inversión actual.
+
+Las nuevas configuraciones de red utilizan `account_mode: "auto"` a menos que una configuración existente ya especifique un modo. El editor no ofrece un selector de modo de cuenta, por lo que es independiente de cualquier configuración de cuenta unificada requerida al agregar la cuenta.
+
+La carga útil conserva la compatibilidad con `trailing_up_limit` y `trailing_down_limit`, y puede leer valores finales históricos. Ambos controles finales están actualmente deshabilitados en la interfaz de usuario; Los valores del formulario recién creados los dejamos en `0`. Que el backend acepte o retenga un campo no significa que los usuarios puedan habilitarlo en el editor. Del mismo modo, los parámetros de backend como `rebalance_tolerance_bps` no son controles de formulario editables actualmente.
+
+Consulte [Tipo de cuenta](/es/guide/account-types) para configurar la cuenta y [Tarifas](/es/faq/fees) para conocer los costos comerciales.

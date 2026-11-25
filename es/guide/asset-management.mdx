@@ -1,0 +1,58 @@
+---
+title: "Gestión de activos"
+description: "Elija el flujo correcto de depósito, retiro y transferencia para su cuenta"
+icon: "wallet"
+---
+
+Verifique la **dirección de cuenta**, **red** y **activo** antes de transferir fondos. Una billetera API es un firmante comercial, no una cuenta con fondos ni un destino de depósito.
+
+## Elija el punto de entrada correcto
+
+| Cuenta o punto de entrada | Flujo de financiación actual |
+| --- | --- |
+| **Terminal comercial** | **Deposit** y **Withdraw** operan en la propia cuenta Hyperliquid de la billetera iniciada |
+| **API Configuración de billetera** | Una billetera comercial inactiva puede usar el flujo de depósito incorporado para activar su cuenta Hyperliquid antes de la autorización |
+| **API Cuenta de billetera en Cuentas** | Los controles de financiación lo dirigen a Hyperliquid; conecte la billetera comercial real |
+| **Hyperliquid Subcuenta en Cuentas** | Siga el flujo de financiación/transferencia Hyperliquid utilizando su billetera principal |
+| **Préstamos en cadena (Alfa)** | **Depositar**, **Pagar**, **Retirar**, **Préstamo** y **Transferencia de fondos** abren el interfaz LeverAcc integrada |
+| **Legacy Owly cuenta administrada** | Se retiran nuevos depósitos y transferencias internas generales; utilizar el retiro admitido para su propietario |
+
+La terminal comercial no cambia a una cuenta de copia comercial arbitraria. Si la cuenta a la que desea financiar tiene una dirección diferente a la de su inicio de sesión, utilice el flujo admitido de esa cuenta. Consulte [Tipo de cuenta](/es/guide/account-types).
+
+## Depósito a través de la terminal comercial
+
+1. Abra **Trade → Deposit** y verifique la billetera propietaria conectada.
+2. Seleccione **USDC** o **USDT** en **Arbitrum Una red principal**. La transferencia a Hyperliquid utiliza USDC. USDT primero debe cambiarse a USDC mediante el paso de preparación ofrecido.
+3. Prepare el saldo de la billetera fuente que se muestra en el formulario. Si ETH es insuficiente, se puede ofrecer un intercambio de USDC a ETH cuando el proveedor sin gas esté configurado y haya una cotización compatible disponible.
+4. Revise cada cotización, asignación de tokens, tarifa de red, tarifa CCTP y monto estimado recibido. Una nueva dirección Hyperliquid también requiere la tarifa de activación **1 USDC** que se muestra. El monto del depósito debe exceder las tarifas aplicables; el umbral de preparación de la billetera de origen no es un depósito mínimo universal.
+5. Firme usted mismo cada paso solicitado. Espere la confirmación del destino y un saldo Hyperliquid acreditado antes de operar.
+
+El mismo flujo de depósito integrado puede aparecer durante la configuración de la billetera API para una billetera comercial inactiva, incluso cuando esa billetera comercial difiere de su inicio de sesión Owly.
+
+<Note>
+Los swaps gastan sus propios activos: USDT-to-USDC usa USDT, mientras que la preparación de ETH usa USDC. “Sin gas” no significa una subvención de gas gratis. Los límites de gasto cotizados y los límites de aprobación de tokens están separados; una cotización puede solicitar una asignación simbólica ilimitada incluso cuando el gasto en swaps tiene un límite.
+</Note>
+
+## Retiro a través de la terminal de Comercio
+
+**Retiro** envía **USDC a la billetera propietaria conectada en Arbitrum One**. La cuenta debe ser un usuario Hyperliquid activado en modo Cuenta unificada. El monto debe ser **mayor que 0.2 USDC**, exceder la tarifa de retiro actual y ajustarse al saldo retirable disponible. Esto no significa que todos los montos superiores a 0.2 USDC sean retirables.
+
+Revise el destinatario, la red, el monto, las tarifas y el recibo esperado antes de firmar con la billetera propietaria. El firmante comercial API no reemplaza la firma de retiro del propietario. Espere a que se verifique el saldo recibido; enviar una solicitud no es prueba de llegada.
+
+## Transferencias pendientes o interrumpidas
+
+Mantenga seleccionada la billetera y la red originales. Utilice **Verificar estado** o reanudar la operación existente. Cuando esté disponible, **Buscar transacción** permite que el flujo verifique una transacción de origen existente. No repetir una transferencia mientras se desconozca su resultado. Si la cotización expiró antes de enviarla, obtenga y revise una cotización nueva.
+
+Mantenga el almacenamiento del navegador disponible para la recuperación de operaciones pendientes. Para obtener soporte, proporcione la dirección pública, la red, la hora de emisión y el hash de la transacción; nunca proporcione una frase inicial o una clave privada.
+
+## LeverAcc fondos y deuda
+
+LeverAcc verifica la creación de cuenta **Arbitrum USDC y ETH** y **HyperEVM HYPE** según lo requiere la configuración actual. La preparación de ETH y HYPE tiene presupuestos USDC separados que se muestran en la página. Siga las reglas de garantía, préstamo, pago y retiro de la interfaz integrada.
+
+Detener el copy trading no amortiza un préstamo. El cierre de posiciones no libera por sí solo todas las garantías ni liquida la deuda. Confirme el estado de la deuda y el pago por separado antes de retirar o cambiar las vinculaciones del proyecto.
+
+## Tarifas y saldos
+
+La financiación puede generar cargos de gas, swap, puente/CCTP, activación y protocolo. Consulte la cotización en vivo; No se aplica a todas las rutas ni una hora de llegada fija ni un modelo de tarifa de gas de red únicamente. Consulte [Estructura de tarifas](/es/faq/fees).
+
+**El valor de la cuenta** y **saldo retirable** son diferentes. Las posiciones, los requisitos de margen, la garantía al contado y los préstamos pueden afectar la cantidad que puede retirar. Compare la misma dirección de cuenta con fondos en Owly y Hyperliquid, en lugar de la dirección de billetera API.

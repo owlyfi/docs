@@ -17,9 +17,9 @@
     "href": "https://owly.fi"
   },
   "navigation": {
-    "tabs": [
+    "languages": [
       {
-        "tab": "English",
+        "language": "en",
         "groups": [
           {
             "group": "Introduction",
@@ -98,7 +98,440 @@
         ]
       },
       {
-        "tab": "中文",
+        "language": "ja",
+        "navbar": {
+          "links": [
+            {
+              "label": "サポート",
+              "href": "https://t.me/owlyfi_support"
+            }
+          ],
+          "primary": {
+            "type": "button",
+            "label": "アプリを開く",
+            "href": "https://app.owly.fi"
+          }
+        },
+        "groups": [
+          {
+            "group": "はじめに",
+            "icon": "book-open",
+            "pages": [
+              "ja/introduction/what-is-owly",
+              "ja/introduction/why-owly",
+              "ja/introduction/who-is-owly-for"
+            ]
+          },
+          {
+            "group": "Owly の強み",
+            "icon": "stars",
+            "pages": [
+              "ja/advantages/speed-execution",
+              "ja/advantages/non-custodial",
+              "ja/advantages/risk-management",
+              "ja/advantages/transparency"
+            ]
+          },
+          {
+            "group": "ユーザーガイド",
+            "icon": "map",
+            "pages": [
+              "ja/guide/concepts",
+              "ja/guide/account-types",
+              "ja/guide/quick-start",
+              "ja/guide/asset-management",
+              "ja/guide/trading-terminal",
+              "ja/guide/copy-trading",
+              "ja/guide/grid-bot",
+              "ja/guide/dashboard",
+              "ja/guide/owner-guide",
+              "ja/guide/referral"
+            ]
+          },
+          {
+            "group": "API と連携",
+            "icon": "code",
+            "pages": [
+              "ja/guide/b2b-api"
+            ]
+          },
+          {
+            "group": "よくある質問",
+            "icon": "question",
+            "pages": [
+              "ja/faq/fees",
+              "ja/faq/security",
+              "ja/faq/troubleshooting",
+              "ja/faq/community"
+            ]
+          },
+          {
+            "group": "更新情報",
+            "icon": "sparkles",
+            "pages": [
+              "ja/changelog"
+            ]
+          },
+          {
+            "group": "コミュニティ",
+            "icon": "folder-open",
+            "pages": [
+              "ja/brand-kit"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "ko",
+        "navbar": {
+          "links": [
+            {
+              "label": "지원",
+              "href": "https://t.me/owlyfi_support"
+            }
+          ],
+          "primary": {
+            "type": "button",
+            "label": "앱 열기",
+            "href": "https://app.owly.fi"
+          }
+        },
+        "groups": [
+          {
+            "group": "소개",
+            "icon": "book-open",
+            "pages": [
+              "ko/introduction/what-is-owly",
+              "ko/introduction/why-owly",
+              "ko/introduction/who-is-owly-for"
+            ]
+          },
+          {
+            "group": "Owly의 장점",
+            "icon": "stars",
+            "pages": [
+              "ko/advantages/speed-execution",
+              "ko/advantages/non-custodial",
+              "ko/advantages/risk-management",
+              "ko/advantages/transparency"
+            ]
+          },
+          {
+            "group": "사용자 가이드",
+            "icon": "map",
+            "pages": [
+              "ko/guide/concepts",
+              "ko/guide/account-types",
+              "ko/guide/quick-start",
+              "ko/guide/asset-management",
+              "ko/guide/trading-terminal",
+              "ko/guide/copy-trading",
+              "ko/guide/grid-bot",
+              "ko/guide/dashboard",
+              "ko/guide/owner-guide",
+              "ko/guide/referral"
+            ]
+          },
+          {
+            "group": "API 및 연동",
+            "icon": "code",
+            "pages": [
+              "ko/guide/b2b-api"
+            ]
+          },
+          {
+            "group": "자주 묻는 질문",
+            "icon": "question",
+            "pages": [
+              "ko/faq/fees",
+              "ko/faq/security",
+              "ko/faq/troubleshooting",
+              "ko/faq/community"
+            ]
+          },
+          {
+            "group": "업데이트",
+            "icon": "sparkles",
+            "pages": [
+              "ko/changelog"
+            ]
+          },
+          {
+            "group": "커뮤니티",
+            "icon": "folder-open",
+            "pages": [
+              "ko/brand-kit"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "es",
+        "navbar": {
+          "links": [
+            {
+              "label": "Soporte",
+              "href": "https://t.me/owlyfi_support"
+            }
+          ],
+          "primary": {
+            "type": "button",
+            "label": "Abrir la app",
+            "href": "https://app.owly.fi"
+          }
+        },
+        "groups": [
+          {
+            "group": "Introducción",
+            "icon": "book-open",
+            "pages": [
+              "es/introduction/what-is-owly",
+              "es/introduction/why-owly",
+              "es/introduction/who-is-owly-for"
+            ]
+          },
+          {
+            "group": "Nuestras ventajas",
+            "icon": "stars",
+            "pages": [
+              "es/advantages/speed-execution",
+              "es/advantages/non-custodial",
+              "es/advantages/risk-management",
+              "es/advantages/transparency"
+            ]
+          },
+          {
+            "group": "Guía de usuario",
+            "icon": "map",
+            "pages": [
+              "es/guide/concepts",
+              "es/guide/account-types",
+              "es/guide/quick-start",
+              "es/guide/asset-management",
+              "es/guide/trading-terminal",
+              "es/guide/copy-trading",
+              "es/guide/grid-bot",
+              "es/guide/dashboard",
+              "es/guide/owner-guide",
+              "es/guide/referral"
+            ]
+          },
+          {
+            "group": "API e integraciones",
+            "icon": "code",
+            "pages": [
+              "es/guide/b2b-api"
+            ]
+          },
+          {
+            "group": "Preguntas frecuentes",
+            "icon": "question",
+            "pages": [
+              "es/faq/fees",
+              "es/faq/security",
+              "es/faq/troubleshooting",
+              "es/faq/community"
+            ]
+          },
+          {
+            "group": "Novedades",
+            "icon": "sparkles",
+            "pages": [
+              "es/changelog"
+            ]
+          },
+          {
+            "group": "Comunidad",
+            "icon": "folder-open",
+            "pages": [
+              "es/brand-kit"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "ru",
+        "navbar": {
+          "links": [
+            {
+              "label": "Поддержка",
+              "href": "https://t.me/owlyfi_support"
+            }
+          ],
+          "primary": {
+            "type": "button",
+            "label": "Открыть приложение",
+            "href": "https://app.owly.fi"
+          }
+        },
+        "groups": [
+          {
+            "group": "Введение",
+            "icon": "book-open",
+            "pages": [
+              "ru/introduction/what-is-owly",
+              "ru/introduction/why-owly",
+              "ru/introduction/who-is-owly-for"
+            ]
+          },
+          {
+            "group": "Преимущества",
+            "icon": "stars",
+            "pages": [
+              "ru/advantages/speed-execution",
+              "ru/advantages/non-custodial",
+              "ru/advantages/risk-management",
+              "ru/advantages/transparency"
+            ]
+          },
+          {
+            "group": "Руководство пользователя",
+            "icon": "map",
+            "pages": [
+              "ru/guide/concepts",
+              "ru/guide/account-types",
+              "ru/guide/quick-start",
+              "ru/guide/asset-management",
+              "ru/guide/trading-terminal",
+              "ru/guide/copy-trading",
+              "ru/guide/grid-bot",
+              "ru/guide/dashboard",
+              "ru/guide/owner-guide",
+              "ru/guide/referral"
+            ]
+          },
+          {
+            "group": "API и интеграции",
+            "icon": "code",
+            "pages": [
+              "ru/guide/b2b-api"
+            ]
+          },
+          {
+            "group": "Частые вопросы",
+            "icon": "question",
+            "pages": [
+              "ru/faq/fees",
+              "ru/faq/security",
+              "ru/faq/troubleshooting",
+              "ru/faq/community"
+            ]
+          },
+          {
+            "group": "Обновления",
+            "icon": "sparkles",
+            "pages": [
+              "ru/changelog"
+            ]
+          },
+          {
+            "group": "Сообщество",
+            "icon": "folder-open",
+            "pages": [
+              "ru/brand-kit"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "zh-Hant",
+        "navbar": {
+          "links": [
+            {
+              "label": "支援",
+              "href": "https://t.me/owlyfi_support"
+            }
+          ],
+          "primary": {
+            "type": "button",
+            "label": "開啟應用程式",
+            "href": "https://app.owly.fi"
+          }
+        },
+        "groups": [
+          {
+            "group": "產品介紹",
+            "icon": "book-open",
+            "pages": [
+              "zh-hant/introduction/what-is-owly",
+              "zh-hant/introduction/why-owly",
+              "zh-hant/introduction/who-is-owly-for"
+            ]
+          },
+          {
+            "group": "核心優勢",
+            "icon": "stars",
+            "pages": [
+              "zh-hant/advantages/speed-execution",
+              "zh-hant/advantages/non-custodial",
+              "zh-hant/advantages/risk-management",
+              "zh-hant/advantages/transparency"
+            ]
+          },
+          {
+            "group": "操作指南",
+            "icon": "map",
+            "pages": [
+              "zh-hant/guide/concepts",
+              "zh-hant/guide/account-types",
+              "zh-hant/guide/quick-start",
+              "zh-hant/guide/asset-management",
+              "zh-hant/guide/trading-terminal",
+              "zh-hant/guide/copy-trading",
+              "zh-hant/guide/grid-bot",
+              "zh-hant/guide/dashboard",
+              "zh-hant/guide/owner-guide",
+              "zh-hant/guide/referral"
+            ]
+          },
+          {
+            "group": "API 與整合",
+            "icon": "code",
+            "pages": [
+              "zh-hant/guide/b2b-api"
+            ]
+          },
+          {
+            "group": "常見問題",
+            "icon": "question",
+            "pages": [
+              "zh-hant/faq/fees",
+              "zh-hant/faq/security",
+              "zh-hant/faq/troubleshooting",
+              "zh-hant/faq/community"
+            ]
+          },
+          {
+            "group": "更新動態",
+            "icon": "sparkles",
+            "pages": [
+              "zh-hant/changelog"
+            ]
+          },
+          {
+            "group": "社群中心",
+            "icon": "folder-open",
+            "pages": [
+              "zh-hant/brand-kit"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "zh",
+        "navbar": {
+          "links": [
+            {
+              "label": "支持",
+              "href": "https://t.me/owlyfi_support"
+            }
+          ],
+          "primary": {
+            "type": "button",
+            "label": "打开应用",
+            "href": "https://app.owly.fi"
+          }
+        },
         "groups": [
           {
             "group": "产品介绍",

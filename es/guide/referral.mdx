@@ -1,0 +1,120 @@
+---
+title: Sistema de invitaciones
+description: 'Invita a tus amigos, consulta tus recompensas y gestiona los retiros'
+icon: 'user-group'
+---
+
+# Sistema de invitaciones de Owlyfi
+
+Comparte tu código o enlace para invitar a otras personas a Owly. Cuando las cuentas de trading de un amigo invitado generen comisiones de Builder que cumplan los requisitos y se incluyan en una liquidación, podrás recibir recompensas directas (L1). Los usuarios que invite ese amigo también pueden generarte recompensas indirectas (L2). Según las reglas aplicables, los usuarios invitados pueden recibir un descuento temporal en la comisión de trading de la plataforma.
+
+## Dos niveles de invitación
+
+Imagina que A invita a B y B invita a C.
+
+| Usuario que genera las comisiones | Beneficiario | Porcentaje aplicable |
+| :--- | :--- | :--- |
+| B | A recibe recompensas L1 | Porcentaje L1 del nivel de A |
+| C | B recibe recompensas L1 | Porcentaje L1 del nivel de B |
+| C | A recibe recompensas L2 | Porcentaje L2 del nivel de A |
+
+El sistema solo liquida recompensas L1 y L2. A cada beneficiario se le aplica el porcentaje de su propio nivel. Las comisiones de C que cumplan los requisitos se reducen un 5%, sea cual sea el nivel de B, su invitador directo.
+
+## Niveles y recompensas
+
+El sistema admite los niveles Normal, Avanzado y VIP. Estos son los valores predeterminados. Los valores efectivos dependen de la configuración de la plataforma.
+
+| Nivel | Umbral acumulado de comisiones de invitados directos | Recompensa L1 | Recompensa L2 | Descuento del usuario invitado | Duración del descuento | Límite de invitaciones directas |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Normal | $0 | 30% | 2% | 5% | 14 días | 5 usuarios |
+| Avanzado | $10 | 35% | 3% | 5% | 14 días | 20 usuarios |
+| VIP | $500 | 40% | 5% | 5% | 14 días | Sin límite |
+
+<Note>
+La duración del descuento y el límite de invitaciones pueden variar según la configuración de la plataforma. Consulta tu nivel actual, tu cupo de invitaciones, tus recompensas disponibles y el historial en **Invitaciones**.
+</Note>
+
+El sistema evalúa el nivel automáticamente según **las comisiones de Builder acumuladas en los registros de recompensas de los invitados directos activos (L1)**. Las comisiones L2, el volumen negociado y el número de invitaciones quedan fuera de ese cálculo. El nivel se reevalúa después de la liquidación. Los porcentajes actualizados se usan en liquidaciones posteriores. Las recompensas ya liquidadas no se recalculan automáticamente al cambiar de nivel. Algunas cuentas pueden tener un nivel asignado o un cupo de invitaciones ajustado por separado.
+
+Una invitación directa consume un cupo cuando se vincula, aunque el invitado todavía no haya operado. Las invitaciones indirectas no consumen cupos directos.
+
+## Base de cálculo de las recompensas
+
+Las comisiones de Builder de la plataforma varían según la estrategia elegida. Sus tasas base van de **2–10 bps (0.02%–0.1%)**. El mismo volumen negociado puede generar distintas comisiones y recompensas según la estrategia. Si se aplica un descuento por invitación, también afecta a la comisión efectivamente pagada.
+
+La recompensa equivale a **las comisiones de Builder efectivamente cobradas en los periodos de trading elegibles y liquidados × el porcentaje aplicable al beneficiario**. Solo se incluyen las subcuentas de trading actualmente activas del usuario invitado que entren en la liquidación. Operar con la misma billetera en otras cuentas o plataformas no garantiza que esas operaciones cuenten.
+
+Cuanto menos pague el invitado en comisiones, menor será la base de la recompensa. Las comisiones de Hyperliquid, los pagos de financiación y los costes de red quedan fuera de esta base de cálculo.
+
+## Descuento para los usuarios invitados
+
+Al vincular una invitación, el sistema fija cuándo vence el descuento según las reglas del nivel aplicable al invitador directo. El descuento comienza **en el momento de la vinculación**, antes de que se realice la primera operación. La duración predeterminada es de 14 días. La duración real depende de la configuración vigente al vincular la invitación. El plazo de atribución de la invitación en el navegador se calcula por separado.
+
+- Durante el periodo de descuento, las estrategias gestionadas por Owly que cumplan los requisitos pueden aplicar automáticamente una comisión de Builder reducida.
+- Todos los niveles estándar del invitador conceden la misma **reducción del 5% en la comisión de Builder aplicable**. La reducción se mantiene aunque suba el nivel del invitador.
+- Un cambio de nivel del invitador no amplía automáticamente un descuento que ya está en curso. Cuando vence el descuento, la vinculación y las recompensas por invitación pueden seguir vigentes.
+- El descuento reduce la comisión cobrada en cada operación. No genera un reembolso en efectivo que el invitado tenga que retirar.
+- Las reglas estándar de descuento mantienen las comisiones configuradas en estrategias que usan un Builder externo o conservan una comisión reducida independiente. Comprueba la comisión aplicable antes de operar.
+
+El descuento se calcula sobre la comisión base de la estrategia elegida. Si la comisión base de Builder es de **5.5 bps (0.055%)** y el invitado recibe una reducción del 5%, la tasa teórica con descuento es `5.5 × (1 − 5%) = 5.225 bps`. La tasa de 5.5 bps es un ejemplo. Las tasas base reales van de 2–10 bps según la configuración de la estrategia. La tasa enviada con la orden se redondea al alza a la precisión que admite la interfaz de trading. Las recompensas siempre se calculan sobre las comisiones efectivamente registradas en las ejecuciones.
+
+Consulta la [estructura de comisiones](/es/faq/fees) para distinguir entre la comisión cobrada por operar y el límite autorizado para Builder.
+
+## Atribución de las invitaciones
+
+Antes del registro, Owly atribuye la invitación **al primer enlace abierto en el mismo navegador**.
+
+1. Al abrir un enlace con un código bien formado, el navegador guarda el primer código en una cookie durante un máximo de **30 días**. El sistema comprueba si el código existe y si le queda cupo al registrar la cuenta o vincular la invitación.
+2. Mientras la cookie siga vigente, los enlaces de invitación posteriores no reemplazan el código. Guardar un código tampoco reemplaza al invitador ya vinculado a una cuenta con sesión iniciada.
+3. Al registrarte, Owly intenta usar el código guardado. El servidor comprueba el código y el cupo disponible y rechaza las solicitudes con códigos inválidos o agotados. Si falla el registro automático con el código, la página muestra un error y vuelve a intentarlo sin él. Comprueba quién te invitó en **Invitaciones**, incluso si el registro se completó.
+
+El código guardado puede perderse al borrar las cookies, al caducar la cookie o al usar otro navegador o dispositivo. Una vez vinculado un invitador a la cuenta, el proceso habitual no permite reemplazarlo. Si no se aplicó ningún código al registrarte y cumples los requisitos, puedes introducirlo una vez en **Invitaciones**.
+
+Los códigos tienen **4–16 caracteres** y admiten letras, números, guiones bajos y guiones. El sistema compara los códigos sin distinguir entre mayúsculas y minúsculas. Para vincular la invitación, el código debe ser válido, debe quedar cupo y el usuario debe cumplir los requisitos.
+
+## Recompensas y liquidación
+
+Una tarea programada recupera las comisiones de trading que cumplen los requisitos y calcula las recompensas de cada subcuenta de trading para el periodo pendiente de liquidación. Cuando la liquidación finaliza, el registro y el saldo disponible se actualizan juntos. Reintentar la tarea no vuelve a pagar un periodo ya liquidado.
+
+La liquidación deja margen para que se sincronicen los datos. El momento en que aparecen los registros depende de la programación de la tarea, del estado de liquidación de la cuenta y de la disponibilidad de los datos de origen. Para retirar una recompensa, espera a que se liquide. Si la API falla temporalmente, se necesita una liquidación posterior exitosa.
+
+Una invitación puede seguir en estado `pending` hasta que se registre actividad que genere comisiones elegibles. **Invitaciones** muestra por separado los usuarios invitados, los que han operado, los registros de recompensas y el historial de retiros.
+
+### Operaciones anteriores y fecha de liquidación
+
+- La primera liquidación de una cuenta nueva fija el punto de partida. Las operaciones anteriores no generan automáticamente recompensas. Vincular un código más adelante tampoco garantiza recompensas retroactivas.
+- Las cuentas antiguas pendientes de conciliación deben completar ese proceso antes de que pueda reanudarse la liquidación. Las recompensas históricas no se incorporan automáticamente.
+- El **momento de liquidación** indica cuándo se liquidó y abonó la recompensa. La fecha de liquidación es la fecha contable de la tarea y puede ser distinta de la fecha de cada comisión. El momento de creación del registro también puede ser distinto. Es posible que los registros históricos no tengan un momento de liquidación. Consulta la información que muestra la página.
+
+### Retiros
+
+1. Abre **Invitaciones** y comprueba tu saldo disponible para retirar.
+2. Introduce un importe dentro de ese saldo. El formulario actual pide un mínimo de **1 USDC**. Las reglas aplicables pueden exigir un mínimo superior.
+3. Envía la solicitud. El importe solicitado se deduce del saldo disponible mientras se procesa.
+4. Sigue la solicitud en el historial de retiros y comprueba su estado final y la referencia de la transacción.
+
+| Estado | Significado |
+| :--- | :--- |
+| `pending` | Solicitud enviada para revisión |
+| `approved` | Solicitud aprobada para su procesamiento |
+| `processing` | Procesamiento en curso |
+| `completed` | Retiro registrado como completado con una referencia de transacción |
+| `rejected` / `failed` | La solicitud se rechazó durante la revisión o falló al procesarse. El importe vuelve al saldo disponible y el motivo queda registrado |
+
+<Note>
+Tras enviar la solicitud, espera a que se procese la transferencia en cadena. Comprueba el resultado en el historial de retiros. El tiempo de procesamiento puede variar.
+</Note>
+
+## Ejemplo de cálculo
+
+Imagina que A y B tienen los porcentajes predeterminados del nivel Normal, que A invita a B y que B invita a C. El ejemplo parte de una **comisión efectiva de Builder de 5.5 bps (0.055%)** en las ejecuciones, después de aplicar los descuentos y redondeos que correspondan.
+
+1. B realiza operaciones por 10,000 USDC y genera comisiones de Builder de `10,000 × 0.055% = 5.50 USDC`. A recibe una recompensa L1 de `5.50 × 30% = 1.65 USDC`.
+2. C realiza operaciones por 20,000 USDC y genera comisiones de Builder de `20,000 × 0.055% = 11.00 USDC`. B recibe una recompensa L1 de `11.00 × 30% = 3.30 USDC` y A recibe una recompensa L2 de `11.00 × 2% = 0.22 USDC`.
+3. A recibe en total `1.65 + 0.22 = 1.87 USDC`. Las mismas comisiones de C se usan por separado como base para la recompensa L1 de B y la recompensa L2 de A.
+
+La tasa de 5.5 bps y los porcentajes de recompensa del ejemplo son ilustrativos. Para saber qué importes te corresponden, consulta las reglas aplicables y tus registros de recompensas liquidadas.
+
+## Requisitos de participación
+
+El sistema rechaza las autoinvitaciones y las cadenas circulares de invitación. Los códigos tienen límites de uso según el nivel o el cupo asignado a la cuenta. No uses cuentas falsas ni generes actividad artificial para eludir las reglas de invitación.

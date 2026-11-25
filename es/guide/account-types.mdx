@@ -1,0 +1,123 @@
+---
+title: "Tipos de cuenta"
+description: "Conoce las billeteras API de Hyperliquid y compara los tres tipos de cuenta de trading de Owly, incluidos los préstamos en cadena en fase alfa"
+icon: "wallet"
+---
+
+## Qué es una billetera API de Hyperliquid
+
+Una **billetera API** de Hyperliquid, también llamada **billetera de agente**, es un agente de firma autorizado por una cuenta principal. Puede firmar las operaciones de trading admitidas para esa cuenta o sus subcuentas nativas. **Generar o autorizar una billetera API no crea otra cuenta principal de Hyperliquid ni asigna fondos de trading independientes.** Consulta los saldos, las posiciones y las ganancias o pérdidas en la dirección de la cuenta principal o de la subcuenta correspondiente. Consulta la [documentación de Hyperliquid sobre billeteras API](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/nonces-and-api-wallets#api-wallets).
+
+La autorización de una billetera API no le permite firmar depósitos desde tu billetera de financiación ni retirar fondos de la cuenta principal a una billetera externa. La billetera que contiene los fondos inicia el depósito. Los retiros requieren la firma de la billetera principal. Evita usar la dirección de la billetera API como destino del depósito. Estas restricciones se refieren a depósitos y retiros externos. El agente puede tener permisos para ciertas operaciones internas con fondos. Consulta la [guía de depósitos](https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/how-to-start-trading) y el [endpoint de retiros](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#initiate-a-withdrawal-request) de Hyperliquid.
+
+<Warning>
+Una billetera API comprometida puede usarse para operar sin tu permiso y provocar pérdidas. Nunca envíes fondos a su dirección ni la trates como una cuenta que contiene tus fondos para copiar operaciones.
+</Warning>
+
+## Diferencia entre la cuenta de Owly y las cuentas de trading
+
+Owly utiliza «subcuenta» como nombre general para las cuentas de trading que gestionas. La pantalla de alta ofrece tres tipos. **Billetera API** usa una cuenta principal de Hyperliquid. **Subcuenta de Hyperliquid** importa una subcuenta nativa existente o permite crear una si la cuenta principal cumple los requisitos. **Préstamos en cadena (alfa)** crea o conecta una cuenta de LeverAcc mediante la interfaz integrada.
+
+- **Cuenta principal de Owly**. Es la billetera que usas para iniciar sesión y gestionar cuentas.
+- **Cuenta de trading**. Contiene tus fondos y posiciones de trading en Hyperliquid.
+- **Billetera API**. Es el agente autorizado para firmar por la cuenta de trading. Los fondos permanecen en la cuenta de trading.
+
+**Tu cuenta principal de Owly y tu cuenta de trading pueden usar la misma dirección.** También puedes iniciar sesión con una dirección y añadir otra como cuenta de trading. Si usas direcciones distintas, comprueba por separado las que se usan para iniciar sesión, depositar fondos y firmar. Para usar la misma dirección basta con tu billetera existente.
+
+**Los tres tipos comparten un límite de 10 cuentas de trading activas por cuenta principal de Owly.** Por ejemplo, 9 cuentas de tipo billetera API o subcuenta de Hyperliquid, más 1 cuenta activa de préstamos en cadena, alcanzan el límite. El cupo y los requisitos de las subcuentas nativas de Hyperliquid se aplican por separado.
+
+## Compara las tres opciones
+
+| Tipo | Cuándo usarlo | Qué necesitas | Qué debes tener en cuenta |
+|:--|:--|:--|:--|
+| **Billetera API** | Quieres operar con una cuenta principal de Hyperliquid que tú controlas. Es la opción adecuada para la mayoría de los nuevos usuarios | La billetera de trading, conectada a Owly para firmar las autorizaciones | Cada cuenta de trading usa una dirección principal de Hyperliquid distinta. Una de ellas puede coincidir con la que usas para iniciar sesión en Owly |
+| **Subcuenta de Hyperliquid** | Quieres gestionar una subcuenta nativa de Hyperliquid desde su cuenta principal | La billetera principal y una subcuenta existente, o cumplir los requisitos para crearla. Owly genera la billetera API dedicada | Para crear subcuentas nuevas se aplican los requisitos y cupos de Hyperliquid |
+| **Préstamos en cadena (alfa)** | Quieres aportar garantías para pedir USDC prestado en LeverAcc y operar | Una billetera de financiación con el USDC y los activos para gas que pide la configuración, o una cuenta de trading existente de LeverAcc | La creación, la vinculación, el préstamo y el inicio de una estrategia son acciones independientes |
+
+## Cupo de billeteras API y revocación de autorizaciones sin uso
+
+Una cuenta principal de Hyperliquid puede aprobar **hasta 3 billeteras API con nombre de forma predeterminada**. Las aplicaciones que usan esa cuenta comparten el cupo. Hyperliquid permite además 1 billetera API sin nombre y añade 2 plazas para billeteras API con nombre por cada subcuenta nativa. Consulta los [límites oficiales de billeteras API de Hyperliquid](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#approve-an-api-wallet). Este cupo de autorizaciones es independiente del límite de cuentas de trading de Owly.
+
+Si el cupo está completo y no puedes crear o actualizar una billetera API, libera una plaza.
+
+1. Abre la [página de API de Hyperliquid](https://app.hyperliquid.xyz/API) y conecta la billetera principal propietaria de la autorización. Si se trata de una subcuenta de Hyperliquid, usa su billetera principal.
+2. Comprueba los nombres y las direcciones de las billeteras API. Elimina o revoca las autorizaciones que ya no necesites. Mantén las que siga usando Owly u otra aplicación. Revocar una autorización impide que la aplicación siga operando con esa billetera.
+3. Cuando confirmes que hay una plaza libre, vuelve a Owly y reintenta la creación de la billetera API o la actualización de la autorización.
+
+## Vigencia y renovación de las billeteras API
+
+Hyperliquid limita la autorización de una billetera API a **un máximo de 180 días**. La cuenta de trading sigue existiendo cuando vence la autorización. Consulta las [reglas oficiales de autorización de billeteras API de Hyperliquid](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#approve-an-api-wallet).
+
+Owly usa los siguientes periodos de vigencia predeterminados.
+
+| Tipo de cuenta | Vigencia predeterminada de la billetera API |
+|:--|:--|
+| Billetera API | **180 días** |
+| Subcuenta de Hyperliquid | **180 días** |
+| Préstamos en cadena con LeverAcc (alfa) | La configuración muestra **90 días**. Comprueba la fecha de vencimiento verificada |
+
+<Warning>
+En cuentas de **billetera API y subcuentas de Hyperliquid**, la comprobación programada de vencimiento intenta detener los bots activos durante los últimos **10 minutos** de vigencia de la autorización. LeverAcc queda fuera de esta comprobación. El momento real de detención puede variar y pueden quedar posiciones abiertas. Renueva la autorización con suficiente antelación, confirma el nuevo vencimiento verificado y revisa el estado del bot y las posiciones.
+</Warning>
+
+<a id="owly’s-api-wallet-account-type" />
+
+## Tipo de cuenta billetera API de Owly
+
+Este tipo usa **una cuenta principal de Hyperliquid por cuenta de trading, con una dirección EVM que contiene los fondos**. Las subcuentas nativas de Hyperliquid corresponden a otro tipo de cuenta. Si quieres añadir varias cuentas de trading de este tipo, usa una dirección principal distinta para cada una. Crear varias billeteras API para la misma cuenta principal no crea varias cuentas de trading. Una de las direcciones principales puede ser la que ya usas para iniciar sesión en Owly.
+
+Selecciona el tipo de cuenta billetera API, que figura como **API La bolsa**, introduce el nombre de la cuenta y pulsa **Connect** para conectar tu billetera de trading de Hyperliquid. Comprueba la dirección en pantalla. Puede coincidir con la de inicio de sesión en Owly. Si la dirección aún está inactiva en Hyperliquid, sigue el paso de depósito y espera a la activación antes de continuar. Para este tipo de cuenta no se admiten direcciones propietarias de agente, vault ni subcuenta nativa. El proceso genera la billetera API sin pedirte su clave privada.
+
+Owly comprueba si la cuenta de trading usa el modo **Cuenta unificada** y te solicita una firma para habilitarlo si hace falta. A continuación, genera y almacena de forma segura una billetera API, muestra su dirección pública y solicita la autorización de la billetera de trading conectada. Si se requiere la **autorización de la comisión de Builder**, revisa el límite y complétala. Las autorizaciones ya confirmadas se omiten.
+
+<Info>
+Owly gestiona la clave de trading de la billetera API que genera. Tú controlas la billetera principal. Los saldos, las posiciones y las ganancias o pérdidas pertenecen a la dirección de la cuenta de trading. Nunca deposites en la billetera API. El proceso de alta ya genera la billetera sin que tengas que visitar la página de API de Hyperliquid ni copiar su clave privada.
+</Info>
+
+Para tu primera cuenta, sigue la guía de [inicio rápido](/es/guide/quick-start) para prepararla, depositar fondos, conectarla y autorizarla.
+
+## Subcuenta de Hyperliquid
+
+Es una **subcuenta nativa** de una cuenta principal de Hyperliquid. Las cuentas del tipo billetera API usan directamente cuentas principales de Hyperliquid. Según las [reglas de Hyperliquid](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/sub-accounts), alcanzar **$100,000 de volumen de trading** habilita hasta **10** subcuentas. Cada **$100,000,000 de volumen** adicional añade una subcuenta, hasta un máximo de **50**. Diez es el cupo inicial. El límite de cuentas de Owly se aplica por separado.
+
+Inicia sesión en Owly con la billetera principal de Hyperliquid propietaria de la subcuenta. Selecciona **Hyperliquid Subaccount** para cargar sus subcuentas. Elige una subcuenta existente e introduce un nombre. Owly comprueba el modo Cuenta unificada de la cuenta principal, solicita una firma para activarlo si hace falta y genera y almacena una billetera API exclusiva para la importación. Revisa la dirección de la billetera API generada y usa la **billetera principal** para autorizarla y, si hace falta, autorizar la comisión de Builder. El proceso no requiere crear una billetera API en Hyperliquid ni introducir su clave privada. El selector excluye las subcuentas ya añadidas.
+
+También puedes crear una subcuenta nativa desde el selector cuando Owly confirma que la cuenta principal cumple los requisitos y tiene cupo. Introduce un nombre válido y disponible y elige la opción de creación. Si se solicita, autoriza primero la billetera API de la cuenta principal. Owly necesita esa autorización para enviar la solicitud a Hyperliquid. Una vez confirmada la nueva subcuenta, continúa la importación y autoriza su billetera API. Si no puedes crearla, revisa la billetera principal y los requisitos indicados en [Subcuentas de Hyperliquid](https://app.hyperliquid.xyz/subAccounts).
+
+<Warning>
+Una subcuenta nativa de Hyperliquid carece de clave privada propia. Su cuenta principal autoriza la billetera API. Owly crea automáticamente una billetera API distinta para cada subcuenta importada, lo que reduce los conflictos por nonces compartidos. A nivel de protocolo, los permisos de la billetera API pueden abarcar otras subcuentas. Consulta la [firma en subcuentas](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#subaccounts-and-vaults) y las [billeteras API](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/nonces-and-api-wallets#api-wallets).
+</Warning>
+
+Para delegar la gestión, consulta la [guía para propietarios de activos](/es/guide/owner-guide).
+
+## Préstamos en cadena (alfa)
+
+El tipo **Préstamos en cadena** conecta una cuenta de LeverAcc para operar con USDC prestado a cambio de garantías. Elige esta opción directamente en el selector de tipos de cuenta, donde figura como **Enlaces en cadena**.
+
+<Warning>
+Este tipo de cuenta está en **fase alfa**. Puedes seleccionar una cuenta para copiar operaciones cuando tenga una vinculación de proyecto verificada y una autorización de ejecución válida. El selector del bot de cuadrícula excluye las cuentas de LeverAcc. Una vez añadida la cuenta, el préstamo y el inicio de la estrategia requieren acciones por separado. La disponibilidad depende de la configuración actual de la aplicación y de las verificaciones del protocolo.
+</Warning>
+
+1. Introduce un nombre de cuenta y pulsa **Conectar** para conectar la billetera de financiación. Puede ser distinta de la billetera que usas para entrar en Owly. Owly detecta las cuentas de trading existentes de LeverAcc sin pedirte que pegues una clave privada ni introduzcas la dirección de un contrato de trading.
+2. Si necesitas crear una cuenta de trading, sigue la interfaz de LeverAcc integrada en Owly. Primero se comprueban el saldo de USDC y los activos para gas de la billetera de financiación en Arbitrum. Sigue los importes mínimos mostrados y espera a que se verifiquen la creación y la activación de la cuenta.
+3. Si están disponibles, el proceso puede ofrecer pasos para convertir USDC a ETH y USDC a HYPE. Cada paso tiene su propio presupuesto. Revisa el gasto cotizado y los permisos de uso de tokens de cada uno. Preparar ETH solo cubre ese requisito. Si no hay cotización, prepara los activos solicitados por tu cuenta y vuelve a comprobar los saldos.
+4. Comprueba las direcciones de la billetera de financiación y de la cuenta de trading y continúa a la pantalla de vinculación, **Proyecto Link**. Si el proyecto no coincide, elige **Enlace a Owly** y revisa la firma y la transacción del contrato. Para cambiar de proyecto, la cuenta debe estar libre de deuda pendiente y de riesgos que bloqueen la operación en el protocolo. El cambio deshabilita la billetera de ejecución anterior.
+5. Con la billetera de financiación, completa la autorización de la billetera de ejecución y la autorización de la comisión de Builder requerida. Espera a que Owly verifique la vinculación y confirme que se añadió la cuenta. Reanuda o comprueba cualquier operación pendiente antes de iniciar otra.
+6. En **Cuentas**, usa los controles de depósito, reembolso o retiro de la cuenta de LeverAcc, o las opciones para pedir un préstamo y transferir fondos en su menú. Estas acciones abren la interfaz integrada de LeverAcc. Cuando la cuenta tenga fondos y autorización, selecciónala en la configuración de la estrategia correspondiente y confirma la estrategia por separado.
+
+La deuda puede seguir generando intereses con la estrategia detenida. Detener un bot o cerrar las posiciones deja pendiente el préstamo. Consulta los límites de reembolso y retiro en LeverAcc. La disponibilidad de la fase alfa y las funciones de trading admitidas dependen del estado que muestre la página.
+
+## Cuentas con gestión de Owly retiradas
+
+El tipo de cuenta con gestión de Owly (`sub`) se ha retirado para nuevas altas, depósitos, transferencias internas y para iniciar, reiniciar o cambiar la configuración de los bots. En las cuentas existentes aún puedes consultar datos, detener o cerrar bots y efectuar los retiros admitidos. El tipo **Subcuenta de Hyperliquid** (`hl_sub`) sigue disponible conforme a las condiciones descritas arriba.
+
+## Cómo proteger la información confidencial
+
+- Nunca envíes la frase semilla ni las claves privadas de la billetera de inicio de sesión de Owly o de la billetera principal de trading al asistente, a soporte ni a terceros.
+- Durante el alta de una cuenta con billetera API o de una subcuenta de Hyperliquid, Owly genera y almacena la clave de trading de la billetera API. El proceso evita tener que crear, copiar o importar una clave manualmente.
+- El asistente puede explicarte los pasos a partir del tipo de cuenta y las direcciones públicas. Revisa por tu cuenta las conexiones, las autorizaciones, los depósitos, las transferencias y las operaciones.
+- Una billetera API comprometida puede usarse para operar sin tu permiso y provocar pérdidas. Si se filtra, detén el bot asociado y revoca la autorización en Hyperliquid. Si vence o necesitas reemplazarla, sigue las indicaciones de actualización en la gestión de cuentas de Owly.
+
+<Card title="Inicio rápido" href="/es/guide/quick-start" icon="rocket">
+Elige si quieres usar la misma dirección o una dirección de trading distinta y añade tu cuenta paso a paso.
+</Card>

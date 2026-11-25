@@ -1,0 +1,73 @@
+---
+title: "Descripción general de la cartera"
+description: "Leer copia del valor de la cuenta comercial, PnL, NAV ROI y estado de la estrategia"
+icon: "chart-line"
+---
+
+Abra **Copy Trading → Portfolio** para ver sus cuentas de copy trading juntas. La administración de cuentas está disponible por separado en **Cuentas**, y las estrategias de Grid tienen su propia página en **Trading Bots**.
+
+## Resumen de cartera
+
+La descripción general muestra cuatro métricas resumidas para las cuentas de copy trading cubiertas:
+
+<CardGroup cols={2}>
+  <Card title="Valor total" icon="dollar-sign">
+    Valor de la cuenta corriente para las cuentas cubiertas. Esto no está simplemente disponible USDC, y el valor de la posición abierta no debe agregarse nuevamente a un saldo de capital que ya lo incluya.
+  </Card>
+  <Card title="Total PnL" icon="trending-up">
+    Perpetuo agregado PnL para el período seleccionado. Es distinto de un cambio en el valor total de la cuenta causado por depósitos o retiros.
+  </Card>
+  <Card title="ROI" icon="percent">
+    Rendimiento calculado utilizando la contabilidad de acciones NAV y los flujos de capital registrados, con un alcance de valoración determinado por el modo de cada cuenta.
+  </Card>
+  <Card title="Cuentas de copia activa" icon="copy">
+    Número de cuentas de copy trading actualmente marcadas como activas. Varias cuentas que copian al mismo operador todavía se cuentan por separado.
+  </Card>
+</CardGroup>
+
+Los saldos, el estado de la estrategia, el historial y los cálculos de rendimiento se pueden cargar por separado. Si un recurso no está disponible o está incompleto, la interfaz puede mostrar un estado de carga, un valor no disponible o una instantánea anterior exitosa con un aviso de actualización. Un valor faltante no significa cero.
+
+## Gráficos de rendimiento
+
+Cambie entre **PnL** y **Valor de cuenta**. La serie seleccionada determina lo que representa la línea; la línea PnL no es una curva de acciones.
+
+Los períodos disponibles son **1D, 7D, 30D, 60D, 90D y Todos**. Las vistas 60D y 90D se derivan de un historial más largo disponible. **Todos** utiliza el historial de cuenta disponible, que no es necesariamente el tiempo desde el registro de Owly.
+
+El color de ganancia/pérdida del gráfico sigue el estado PnL mostrado. No marca cada sección de una curva de valor de cuenta como un período independientemente rentable o perdedor.
+
+## Copiar tarjetas de cuentas comerciales
+
+Cada tarjeta combina el saldo de la cuenta, la configuración de la copia guardada, la información del comerciante y el estado de la estrategia. Amplíe los detalles disponibles para inspeccionar las métricas y el operador copiado. Dependiendo del estado y los permisos, las acciones incluyen configuración, iniciar o detener la copia y cerrar posiciones.
+
+| Artículo | Cómo leerlo |
+| :--- | :--- |
+| **Valor de cuenta/activos** | Valoración de la cuenta, no necesariamente el monto inmediatamente disponible para retirar |
+| **PnL y detalles de rendimiento** | Leer el período seleccionado de la métrica y la información sobre herramientas; los períodos de la tarjeta de cuenta y del resumen pueden diferir |
+| **Comerciante copiado** | Dirección de origen de la estrategia de copia de esta cuenta |
+| **Estado** | Si la copia está activa o inactiva; una estrategia ociosa todavía puede tener posiciones |
+| **Configuraciones guardadas** | La configuración de copia actual de la cuenta, incluidos los umbrales SL/TP configurados |
+
+Las métricas de rentabilidad a corto plazo de las tarjetas pueden comparar el PnL perpetuo con el capital ajustado por los flujos de efectivo registrados. Su cálculo y alcance de capital difieren del NAV ROI del resumen; compare la información sobre herramientas y las advertencias de datos, así como el porcentaje mostrado.
+
+Detener la copia y cerrar posiciones son operaciones separadas. Marque la opción **cerrar posiciones** del cuadro de diálogo de parada y verifique el estado y las posiciones de la cuenta resultante.
+
+## Comprensión de la cartera ROI
+
+La descripción general utiliza la contabilidad de acciones NAV para separar los cambios de capital externo de los rendimientos:
+
+```text
+NAV = Account value / Shares
+ROI = (Ending NAV / Starting NAV - 1) × 100%
+```
+
+Los depósitos y retiros agregan o eliminan acciones utilizando el NAV rastreado. Para las cuentas unificadas y de margen de cartera, el alcance de la valoración incluye activos perpetuos, al contado, de bóveda y de participación. Otros modos admitidos utilizan el valor de cuenta perpetuo. Por lo tanto, una cartera puede combinar alcances de cuenta, mientras que su PnL mostrado permanece perpetuo PnL.
+
+ROI no está disponible cuando no se puede establecer el historial de cuenta requerido, el modo de cuenta o la información del libro mayor, o cuando no se puede clasificar un flujo de efectivo relevante. No sustituya ese valor no disponible por una simple fórmula de cambio de saldo.
+
+## Cartera SL/TP
+
+Utilice el control de estrategia de cartera para configurar umbrales de pérdida, obtención de beneficios y reducción desde niveles altos para las cuentas de copy trading cubiertas. Revise las cuentas cubiertas, las líneas de base, los valores de activación actuales y el intervalo de verificación. Guardar, deshabilitar y recalibrar son acciones separadas.
+
+<Tip>
+Compare PnL y ROI durante el mismo período, luego verifique las tarifas, la financiación y el alcance de la cuenta cubierta. Consulte [Conceptos básicos](/es/guide/concepts) y [Gestión de riesgos](/es/advantages/risk-management) para conocer los límites de cálculo y control.
+</Tip>

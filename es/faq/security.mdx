@@ -1,0 +1,38 @@
+---
+title: "Seguridad y riesgos"
+description: "Proteja las autorizaciones de billetera y comprenda los riesgos comerciales y de protocolo"
+icon: "triangle-exclamation"
+---
+
+## Seguridad de billetera y clave comercial
+
+Usted controla la billetera propietaria; Owly genera y almacena la clave API utilizada por las estrategias automatizadas. La terminal comercial actual almacena su autorización comercial API de manera persistente en el navegador de este dispositivo. Nunca envíe ninguna clave privada o frase inicial al Asistente o al soporte. Consulte [Seguridad sin custodia](/es/advantages/non-custodial).
+
+Una billetera API no puede reemplazar la firma de retiro externa del propietario, pero puede ejecutar operaciones que pierdan fondos. Verifique el firmante y el alcance del permiso, y revoque las autorizaciones comprometidas a través de la billetera propietaria. Detener un bot, eliminar un administrador y revocar una billetera API son operaciones independientes.
+
+## Riesgos comerciales
+
+| Riesgo | Qué significa |
+| --- | --- |
+| **Mercado y apalancamiento** | Los movimientos de precios, los costos de financiación y la liquidación pueden reducir o agotar el capital de la cuenta. |
+| **Ejecución de copia** | La latencia, la liquidez, los tamaños mínimos de las órdenes, los filtros de mercado y la garantía disponible pueden producir diferentes rellenos o posiciones desde la fuente |
+| **Umbrales de riesgo** | SL/TP; Las órdenes de seguimiento y cierre pueden fallar o ejecutarse después del umbral a un peor precio. |
+| **Exposición a la red** | Las cuadrículas direccionales pueden acumular exposición y los precios pueden salir del rango configurado |
+| **Limitaciones de datos** | Las devoluciones y reproducciones dependen del historial disponible, el alcance de la cuenta y la actualización de los datos. |
+
+Los resultados pasados no garantizan el rendimiento futuro. Una puntuación de clasificación, una simulación o una vista Ghost de solo lectura no garantizan que una estrategia sea adecuada o que se copie correctamente.
+
+## Riesgos de financiación y protocolo
+
+- Verifique la red y el token de la ruta antes de firmar. El flujo de financiación comercial integrado respalda Arbitrum Una red principal; LeverAcc también usa HyperEVM.
+- Revise los cargos de gas, swap, puente/CCTP, activación y protocolo por separado.
+- Las presentaciones pendientes pueden ser inciertas. Verifique la operación existente antes de repetirla.
+- Los contratos inteligentes, los puentes, los intercambios, el software de billetera y los proveedores ascendentes pueden fallar. La disponibilidad del código por sí sola no es evidencia de una auditoría de seguridad.
+- LeverAcc las garantías y los préstamos introducen riesgos de intereses y de liquidación. Dejar de negociar o cerrar posiciones no paga la deuda.
+
+## Gestión de incidentes
+
+1. Detener la automatización afectada e inspeccionar posiciones y órdenes pendientes.
+2. Revocar o reemplazar la autorización comercial afectada con la billetera propietaria. Para LeverAcc, siga el flujo de actualización de su billetera de ejecución.
+3. Verifique las operaciones de financiamiento pendientes y los hashes de transacciones antes de realizar más transferencias.
+4. Comuníquese con el soporte [Telegram](https://t.me/owlyfi_support) o [security@owly.fi](mailto:security@owly.fi) con direcciones públicas, hora de publicación y evidencia redactada. No publique secretos o vulnerabilidades en el chat público.

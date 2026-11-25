@@ -1,0 +1,132 @@
+---
+title: "Inicio rápido"
+description: "Añade una cuenta de billetera API, deposita fondos y actívala en Owly, autoriza el trading y comienza a copiar operaciones"
+icon: "rocket"
+---
+
+Esta guía usa el tipo de cuenta **Billetera API** para crear una cuenta de copia de operaciones en Owly. Usa una billetera EVM compatible, como la extensión de navegador de OKX Web3. **Puedes depositar fondos durante la configuración de la cuenta sin tener que registrarte, depositar fondos ni crear una billetera API manualmente en Hyperliquid.**
+
+```text
+Iniciar sesión → Crear la cuenta → Elegir una billetera API → Darle un nombre y conectar la billetera de trading
+  → Depositar desde la configuración si está inactiva → Esperar la verificación del abono → Volver a los datos de la cuenta
+  → Habilitar Cuenta unificada si hace falta → Generar y autorizar la billetera API → Crear la cuenta → Empezar a copiar
+```
+
+## Elige la billetera de trading
+
+| Rol | Para qué se usa |
+| --- | --- |
+| **Billetera de inicio de sesión de Owly** | Inicia sesión, añade cuentas y gestiona la copia de operaciones |
+| **Billetera de trading** | Contiene los activos para el depósito, recibe el abono en Hyperliquid y firma las autorizaciones. Puede coincidir con la billetera de inicio de sesión |
+| **Billetera API** | Owly la genera después de la activación para firmar operaciones. Nunca la uses como dirección de depósito |
+
+Para tu primera cuenta, puedes usar la billetera de inicio de sesión también como billetera de trading sin crear una segunda billetera. Si usas direcciones distintas, deposita fondos en la **billetera de trading que se muestra en la configuración** y úsala para autorizar las operaciones.
+
+<Warning>
+Nunca envíes fondos a la dirección de la billetera API. Durante la configuración de la cuenta, Owly no solicita la frase semilla ni las claves privadas de la billetera propietaria o de la billetera API.
+</Warning>
+
+## Paso 1. Inicia sesión en Owly
+
+1. Abre [Gestión de cuentas de Owly](https://app.owly.fi/accounts).
+2. Conecta tu billetera, comprueba la dirección y firma el mensaje de inicio de sesión.
+3. Si es tu primera visita, lee los términos y la política de privacidad y sigue las indicaciones de configuración inicial.
+
+La configuración del primer inicio de sesión y la creación de una cuenta de copia de operaciones son procesos independientes. Tendrás que crear la cuenta y depositar fondos en la billetera de trading por separado.
+
+## Paso 2. Añade una cuenta de billetera API
+
+1. En **Cuentas**, haz clic en **Creación de cuenta**.
+2. En **Elegir el tipo de cuenta**, selecciona la billetera API, que aparece como **API La bolsa**, y haz clic en **Siguiente paso**.
+3. Introduce el **Nombre de cuenta** en la pantalla de configuración de la billetera API, **Sitio API La bolsa**.
+4. Haz clic en **Connect** y selecciona la billetera que vas a usar para operar. Comprueba la dirección que se muestra y usa **Switch** si necesitas cambiarla.
+
+<Note>
+También puedes abrir el mismo proceso en **Cuentas** desde el cuadro **Copia del comercio** de un trader. Selecciona **Creación de una nueva cuenta** en el menú desplegable de cuentas.
+</Note>
+
+Owly comprueba que la dirección conectada corresponde a una billetera de usuario propietaria en Hyperliquid. **Si la dirección está inactiva, se abre automáticamente el proceso de depósito integrado que se describe a continuación.** Si la billetera de trading ya está activada, puedes pasar al paso 5 sin pagar de nuevo la comisión de activación. Para este tipo de cuenta, la dirección propietaria debe ser una billetera de usuario y no puede ser una dirección de agente, de subcuenta nativa ni de vault.
+
+## Paso 3. Prepara los fondos durante la configuración
+
+La pantalla de depósito usa la **billetera de trading conectada en el paso 2**, aunque sea distinta de la billetera con la que iniciaste sesión en Owly.
+
+1. En **Deposit**, selecciona **USDC** o **USDT** en **Asset** y haz clic en **Next**.
+2. Confirma que la red principal sea **Arbitrum One**. El proceso integrado deposita USDC en la cuenta de Hyperliquid de esa billetera.
+3. Si la billetera de origen tiene fondos insuficientes, prepara los activos en la dirección y por el importe mínimo que indica la pantalla. Comprueba la red antes de transferir. La página verifica los saldos automáticamente.
+4. Cuando el saldo cumpla el requisito vigente, continúa en el mismo proceso de Owly.
+
+| Qué muestra la pantalla | Qué hacer |
+| --- | --- |
+| **USDC y ETH suficientes** | Continúa para revisar el importe y las comisiones del depósito |
+| **USDT seleccionado** | Revisa y realiza el intercambio de USDT a USDC. Una vez verificado, prepara ETH si todavía hace falta y continúa con el depósito |
+| **USDC suficiente y ETH insuficiente** | Si la opción está habilitada y hay una cotización compatible, usa el paso disponible para convertir USDC a ETH. También puedes preparar ETH en Arbitrum por tu cuenta y volver a comprobar el saldo |
+| **Sin cotización de intercambio compatible** | Prepara por tu cuenta los USDC o ETH que se solicitan y vuelve a comprobar el saldo en el mismo proceso |
+
+Los intercambios se pagan con tus activos. Convertir USDT a USDC consume USDT y conseguir ETH consume USDC. El gas corre por tu cuenta. **Revisa y confirma cada intercambio por separado. Después del intercambio, comprueba que el depósito se haya abonado en Hyperliquid.**
+
+## Paso 4. Confirma el depósito y espera la activación
+
+1. Introduce el importe del depósito. Comprueba la billetera de trading, la red, las comisiones cotizadas (**Quoted fees**) y el importe estimado que recibirás (**Estimated received**).
+2. Activar una dirección de Hyperliquid por primera vez cuesta **1 USDC**, además de las comisiones vigentes de CCTP, de red o de intercambio que correspondan a la ruta. Cumple los requisitos de importe que indica el formulario y reserva fondos suficientes para los pasos de preparación.
+3. Sigue las indicaciones de **Confirm this step**, **Confirm Swap** o **Confirm Deposit**, según corresponda. Antes de firmar, revisa en tu billetera los permisos de gasto de tokens y las transacciones. Los pasos completados se omiten.
+4. Espera a que se verifiquen la transacción de origen, el abono efectivo en Hyperliquid y la activación de la cuenta. Aunque la billetera indique que la transacción se ha enviado, mantén abierto el proceso y espera la verificación antes de considerar otro depósito.
+5. Tras la verificación, el proceso vuelve a **Sitio API La bolsa** y comprueba de nuevo la billetera de trading. Confirma el nombre y la dirección y haz clic en **Siguiente paso**.
+
+<Note>
+El saldo mínimo requerido en la billetera de origen puede diferir del depósito mínimo final. Consulta las comisiones vigentes, el saldo disponible y el importe estimado que recibirás para determinar cuánto necesitas.
+</Note>
+
+### Si la operación está pendiente o se interrumpe
+
+Vuelve con la misma billetera de trading y la misma red. Reanuda la operación existente y usa **Check status** o, si se te pide verificar una transacción de origen existente, **Find transaction**. Evita reenviar la transacción mientras se desconozca su resultado. Mantén habilitado el almacenamiento del navegador para poder recuperar la operación. Si la cotización vence antes del envío, solicita una nueva y revísala.
+
+## Paso 5. Habilita el modo Cuenta unificada y genera la billetera API
+
+En **Sitio API La bolsa**, confirma el nombre de la cuenta y la dirección de trading y haz clic en **Siguiente paso**. Cuando se confirma la activación, Owly comprueba el modo Cuenta unificada. Si hace falta habilitarlo, firma con la billetera de trading y espera la confirmación. Si el ajuste ya está confirmado, el proceso omite ese paso.
+
+Owly genera y almacena la billetera API exclusiva de esta cuenta de copia y abre **Approve API Wallet**. El proceso no requiere crear una billetera en Hyperliquid ni copiar o importar claves privadas.
+
+## Paso 6. Autoriza y crea la cuenta
+
+1. Comprueba la **dirección pública de la billetera API** generada y la **dirección de la billetera de trading** que recibió los fondos.
+2. Haz clic en **Authorize & Create**. Primero, firma la aprobación de la billetera API con la billetera de trading y espera a que Owly la verifique.
+3. Si se requiere la **autorización de la comisión de Builder**, revisa su límite y complétala. El límite estándar es del **0,1 %** y corresponde a la tasa máxima autorizada. Consulta la [estructura de comisiones](/es/faq/fees) para conocer el cargo aplicable a las operaciones.
+4. La configuración puede intentar aplicar la referencia opcional de Hyperliquid. Si ya tienes un referente, se conserva. Sigue las indicaciones en pantalla. Las autorizaciones confirmadas se omiten.
+5. Espera a que se cree la cuenta, comprueba que la pantalla de confirmación muestre la **dirección de la cuenta de trading** que elegiste y haz clic en **OK**.
+
+Si cancelas una firma o una aprobación sigue pendiente, mantén conectada la billetera de trading correcta y continúa desde el paso actual. El depósito de fondos, la autorización de la API, la creación de la cuenta y el inicio de una estrategia son estados independientes.
+
+## Paso 7. Selecciona la cuenta y empieza a copiar operaciones
+
+1. Vuelve al trader que quieres seguir y abre **Copia del comercio**.
+2. Selecciona la cuenta que acabas de crear en el menú desplegable.
+3. Revisa el trader de origen, la cuenta de trading, la proporción de copia, las **Reglas de salida** de la cuenta y el resto de los ajustes. Luego confirma. Los umbrales de SL/TP quedan sin definir inicialmente. Comprueba la configuración guardada.
+4. Cuando se inicie la estrategia, Owly abre la tarjeta de la cuenta correspondiente en **Cartera**. Comprueba el estado del bot, las órdenes reales y las posiciones. Debes iniciar la estrategia para que comience a operar.
+
+## Preguntas frecuentes
+
+### ¿Tengo que depositar de nuevo si mi billetera de trading ya está activada?
+
+La activación se conserva. Una vez que se verifique, continúa con la autorización. Si más adelante quieres añadir fondos, usa el punto de acceso correspondiente a tu cuenta que se describe en [Gestión de activos](/es/guide/asset-management).
+
+### ¿Por qué tengo que depositar si mi billetera ya contiene USDC?
+
+El saldo de USDC en tu billetera de Arbitrum y el saldo de trading de Hyperliquid son independientes. El depósito integrado transfiere los activos de la billetera seleccionada a su cuenta de Hyperliquid y verifica el abono.
+
+### ¿A qué dirección envío fondos si inicio sesión con otra billetera?
+
+Prepara los activos en Arbitrum en la dirección de la billetera de trading que aparece en **Sitio API La bolsa** y en la pantalla de depósito integrada. Enviar fondos solo a la dirección de inicio de sesión no añade fondos a la otra cuenta de trading. Nunca envíes fondos a la billetera API generada.
+
+### ¿Qué hago si no se actualizan el saldo o el progreso del depósito?
+
+Comprueba la dirección de trading original, la red Arbitrum One, el activo seleccionado y la transacción de origen. Después, usa los controles de comprobación de estado o actualización del proceso en curso. Evita repetir el depósito. Si contactas con soporte, comparte únicamente las direcciones públicas, la hora del incidente y los hashes de las transacciones.
+
+<CardGroup cols={2}>
+  <Card title="Tipos de cuenta" href="/es/guide/account-types" icon="wallet">
+    Compara la billetera API, la subcuenta de Hyperliquid y los préstamos en cadena.
+  </Card>
+  <Card title="Copia de operaciones" href="/es/guide/copy-trading" icon="copy">
+    Aprende a seleccionar cuentas, configurar la copia y detener estrategias.
+  </Card>
+</CardGroup>

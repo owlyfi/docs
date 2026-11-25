@@ -1,0 +1,66 @@
+---
+title: "Transparencia"
+description: "Comprender las fuentes, el alcance y los límites de los datos comerciales"
+icon: "eye"
+---
+
+Owly utiliza datos de cuenta, posición, llenado y libro mayor de Hyperliquid para mostrar la actividad comercial y calcular el rendimiento. Los registros comerciales se pueden comparar con la dirección de la cuenta subyacente, mientras que las estadísticas de Owly dependen del alcance seleccionado y el historial disponible.
+
+## Lectura de la evidencia
+
+<AccordionGroup>
+  <Accordion title="Historial basado en cuentas" icon="check">
+    Inspeccione la dirección del comerciante y el historial comercial disponible en lugar de confiar únicamente en la descripción del comerciante. Seleccione el mismo mercado y ventana de tiempo al comparar registros.
+  </Accordion>
+  <Accordion title="Alcance de cálculo visible" icon="chart-line">
+    Los rendimientos perpetuos PnL, el valor de toda la cuenta y el NAV miden cosas diferentes. Los depósitos, retiros, tarifas y financiación pueden explicar las diferencias entre ellos.
+  </Accordion>
+  <Accordion title="Disponibilidad de datos" icon="sync">
+    Las actualizaciones en vivo, el historial almacenado en caché y los cálculos de backend pueden actualizarse en diferentes momentos. Los datos faltantes, cargados o incompletos no deben interpretarse como actividad cero o un historial completo garantizado.
+  </Accordion>
+</AccordionGroup>
+
+## Métricas que rastreamos
+
+<CardGroup cols={3}>
+  <Card title="PnL" icon="dollar-sign">
+    Ganancia o pérdida para el período seleccionado y alcance comercial.
+  </Card>
+  <Card title="ROI / Regresar" icon="percent">
+    Retorno según la metodología de flujo de efectivo y capital declarada de la vista.
+  </Card>
+  <Card title="Tasa de victorias" icon="trophy">
+    Proporción de operaciones o posiciones ganadoras incluidas en esa métrica.
+  </Card>
+  <Card title="Reducción máxima" icon="arrow-down">
+    Mayor descenso histórico de pico a mínimo en la serie medida.
+  </Card>
+  <Card title="Relación de Sharpe" icon="chart-bar">
+    Exceso de rentabilidad histórico en relación con la volatilidad de la rentabilidad.
+  </Card>
+  <Card title="Frecuencia comercial" icon="clock">
+    Actividad comercial medida durante el período seleccionado.
+  </Card>
+</CardGroup>
+
+Las métricas exactas disponibles varían según la vista y la cobertura de datos. Consulte [Conceptos básicos](/es/guide/concepts) para interpretación y [Descripción general de la cartera](/es/guide/dashboard) para la cartera ROI.
+
+## Fuentes de datos
+
+| Tipo de datos | Fuente | Qué comprobar |
+| :--- | :--- | :--- |
+| Rellenos e historial comercial | Hyperliquid reconstrucción comercial de datos y backend | Dirección, mercado, marcas de tiempo y rango del historial cargado |
+| Posiciones y saldos | Hyperliquid datos de la cuenta, a través de actualizaciones en vivo y solicitudes de instantáneas | Modo de cuenta, alcance de valoración y actualización de los datos |
+| Métricas de rendimiento | Cálculos a partir del historial de cuentas, operaciones y flujos de efectivo del libro mayor | Fórmula, período seleccionado, flujos de efectivo respaldados y avisos de datos faltantes |
+| Tarifas comerciales | Campos de tarifa de llenado de intercambio, incluidas las tarifas de constructor cuando estén presentes | Tarifas de cambio separadas de la comisión Builder de la plataforma |
+| Copiar configuración y estado de estrategia | Owly datos de estado de estrategia y configuración guardados | Si la estrategia está activa y qué configuraciones se guardaron |
+
+Los cálculos de rendimiento y la configuración de estrategias no son en sí mismos registros de contratos inteligentes inmutables. Una métrica redondeada o agregada tampoco se puede reproducir analizando una sola transacción.
+
+## Cheques independientes
+
+Utilice la dirección de la cuenta para inspeccionar la actividad en Hyperliquid y compararla con Owly utilizando el mismo mercado, período y alcance. Para una estrategia copiada, compare los registros de origen y de seguidores: diferentes capitales, tarifas, tiempos de ejecución y filtros pueden producir resultados diferentes.
+
+<Note>
+Los registros históricos respaldan comparaciones informadas, no una garantía de resultados futuros o replicación exacta. La interfaz solo puede mostrar el historial y las fuentes disponibles actualmente.
+</Note>

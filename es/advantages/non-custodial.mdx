@@ -1,0 +1,39 @@
+---
+title: "Seguridad sin custodia"
+description: "Comprender la propiedad de los fondos, las claves comerciales API y los límites de autorización"
+icon: "shield-check"
+---
+
+Owly conecta cuentas comerciales a través de firmas de billetera y claves comerciales autorizadas. La propiedad del fondo y la custodia de la clave comercial son diferentes: usted controla la billetera propietaria, mientras que una billetera API autorizada puede ejecutar operaciones e incurrir en pérdidas.
+
+## Cuenta y roles clave
+
+| Role | Comportamiento actual |
+| --- | --- |
+| **Owly iniciar sesión en la billetera** | Inicia sesión y administra cuentas; también puede ser el propietario comercial |
+| **Propietario comercial/billetera maestra** | Mantiene o controla la cuenta financiada y firma las autorizaciones y retiros requeridos por el propietario |
+| **Copy trading API Monedero** | Generado y almacenado por Owly durante la configuración; utilizado para firmar acciones estratégicas autorizadas |
+| **Terminal comercial API Billetera** | Almacenado persistentemente en el navegador de este dispositivo mediante la interfaz comercial actual |
+| **LeverAcc billetera de ejecución** | Autorizado a través de la vinculación del proyecto del protocolo; la garantía y la deuda siguen las reglas de LeverAcc |
+
+Consulte [Tipo de cuenta](/es/guide/account-types) para conocer las tres rutas de configuración actuales. No es necesario crear una subcuenta Hyperliquid nativa para la ruta de billetera API.
+
+## Qué permite una autorización
+
+Una billetera API puede firmar acciones comerciales admitidas, incluidas posiciones de apertura y cierre. No reemplaza la firma de retiro externa de la billetera propietaria. Esto no implica que un agente no tenga permisos de fondos internos del protocolo.
+
+Revise la dirección del propietario conectado, API la dirección de la billetera, el vencimiento, el límite de la comisión Builder y cualquier transacción del contrato antes de firmar. Los depósitos y canjes pueden requerir aprobaciones de tokens por separado. Un límite de aprobación de token es diferente de un límite de gasto de intercambio cotizado.
+
+<Warning>
+Una clave comercial API filtrada puede permitir transacciones maliciosas y pérdidas. La propiedad de fondos sin custodia no protege contra pérdidas de mercado, liquidaciones, transacciones maliciosas o fallas de protocolo.
+</Warning>
+
+## Proteger y revocar el acceso
+
+- Nunca envíe una frase inicial, una clave privada de billetera propia o una clave API comercial al Asistente, al soporte o al chat.
+- Utilice un dispositivo confiable para la autorización comercial. Borrar el almacenamiento del navegador puede eliminar las credenciales comerciales almacenadas localmente y la recuperación de operaciones pendientes; no revoca una autorización Hyperliquid.
+- Detenga el bot afectado e inspeccione las posiciones y órdenes restantes. Para revocar una billetera API, use la billetera maestra propietaria en la página](https://app.hyperliquid.xyz/API) de API de [Hyperliquid.
+- Actualice la autorización Owly correspondiente antes de reiniciar. LeverAcc utiliza su flujo de actualización de billetera de ejecución dedicado.
+- Al eliminar un administrador de fondos Owly se elimina el acceso a la administración; no detiene automáticamente la ejecución de bots ni revoca las autorizaciones de protocolo.
+
+Para conocer los puntos de entrada de fondos y las firmas de los propietarios, lea [Gestión de activos](/es/guide/asset-management). Para conocer el alcance de la delegación, lea [Para propietarios de activos](/es/guide/owner-guide).

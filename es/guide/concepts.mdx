@@ -1,0 +1,72 @@
+---
+title: "Conceptos básicos"
+description: "Comprender las cuentas, las métricas de rendimiento y los controles de copia de operaciones"
+icon: "book"
+---
+
+## Tipos de cuentas
+
+A Hyperliquid **API Wallet** es un agente firmante autorizado, no una nueva cuenta maestra con fondos. Owly admite tres tipos de cuentas comerciales:
+
+- **API Wallet**: conecta una dirección maestra/EVM Hyperliquid a través de un agente autorizado. Los fondos permanecen en esa dirección comercial.
+- **Hyperliquid Subcuenta**: conecta una subcuenta nativa. Puede seleccionar una subcuenta existente o crear una en el flujo de incorporación admitido cuando la billetera principal cumpla con los requisitos de Hyperliquid.
+- **Préstamos en cadena (Alfa)**: conecta una cuenta LeverAcc, que utiliza préstamos USDC respaldados por garantías. Al vincular la cuenta no se inicia el comercio; Posteriormente se puede configurar para el copia de operaciones. El selector de cuenta Grid actual excluye este tipo.
+
+Su cuenta principal Owly maneja el inicio de sesión y la administración. Una cuenta comercial mantiene o accede al capital utilizado por su estrategia. Estos roles pueden utilizar la misma dirección o direcciones diferentes; Agregar una dirección independiente no mueve automáticamente los fondos de su billetera de inicio de sesión.
+
+Owly genera y almacena los agentes de firma de billetera API utilizados para los dos primeros tipos de cuentas. La autorización proviene de la billetera comercial o de la billetera maestra de la subcuenta nativa. Los tres tipos de cuentas comparten un límite de **10 cuentas comerciales activas por Owly cuenta principal**. La elegibilidad y las cuotas de la subcuenta nativa de Hyperliquid están separadas.
+
+Lea [Tipo de cuenta](/es/guide/account-types) para conocer los requisitos previos y los límites de seguridad, o siga [Inicio rápido](/es/guide/quick-start).
+
+## Indicadores clave
+
+Compare métricas durante el mismo período de tiempo y alcance de cuenta. Un valor mostrado para el comercio perpetuo no es necesariamente un rendimiento de cada activo mantenido en la cuenta.
+
+### ROI y Retorno
+
+Los depósitos y retiros son movimientos de capital, no ganancias comerciales. Por lo tanto, un simple cambio en el valor de la cuenta dividido por su saldo inicial puede alterar el desempeño.
+
+El copy trading **resumen de la cartera** utiliza la contabilidad de acciones NAV. Los flujos de capital externos agregan o eliminan acciones, y el valor de la cuenta por acción determina el NAV:
+
+```text
+NAV = Account value / Shares
+ROI = (Ending NAV / Starting NAV - 1) × 100%
+```
+
+Para cuentas unificadas y de margen de cartera, este cálculo utiliza la valoración de cuenta combinada, incluido el valor perpetuo, al contado, de bóveda y de participación. Otros modos de cuenta admitidos utilizan la valoración de cuenta perpetua. En consecuencia, la cartera ROI puede tener un alcance diferente al PnL perpetuo que se muestra junto a ella.
+
+Otras superficies, incluidas las estadísticas de los comerciantes y los informes de rendimiento, pueden utilizar diferentes períodos y cálculos de rentabilidad. Por ejemplo, los informes de rendimiento backend ajustan el capital según el momento de los flujos de efectivo utilizando Modified Dietz. Lea la información sobre herramientas de la métrica y el alcance seleccionado en lugar de asumir que cada etiqueta ROI usa una fórmula. La falta de un historial de cuenta, datos del libro mayor o flujos de efectivo no respaldados pueden hacer que una devolución no esté disponible.
+
+### Relación de Sharpe
+
+El índice de Sharpe mide el exceso de rendimiento por unidad de volatilidad del rendimiento. Un valor más alto generalmente indica un mejor rendimiento histórico para esa volatilidad, pero las comparaciones dependen del período de muestreo y la metodología. No garantiza rendimiento futuro.
+
+### Reducción máxima
+
+La mayor disminución observada desde un pico hasta un mínimo posterior en la historia medida. Describe una pérdida histórica, no un límite para pérdidas futuras. Compare la reducción junto con la curva de retorno y el período seleccionado.
+
+### Tasa de victorias
+
+```text
+Win rate = Winning trades / Trades included in the metric × 100%
+```
+
+Compruebe si la vista mide las operaciones completadas, los cierres de operaciones o las posiciones actuales. Una alta tasa de ganancias por sí sola no establece la rentabilidad: una pequeña cantidad de grandes pérdidas pueden compensar muchas operaciones ganadoras.
+
+### Volatilidad
+
+La volatilidad mide la variación en los rendimientos. La menor volatilidad histórica indica una serie de rendimientos más uniforme durante ese período, sin eliminar el riesgo de mercado.
+
+## Copiar lógica comercial
+
+### Evaluación de comerciantes
+
+Utilice juntos los filtros, la clasificación, el historial de operadores y el análisis de riesgos disponibles. Las dimensiones útiles incluyen rentabilidad, reducción, frecuencia de negociación, concentración de posiciones y restricciones de ejecución. Una clasificación o puntuación histórica no garantiza que los mismos resultados puedan copiarse con un tamaño de cuenta o nivel de tarifa diferente.
+
+### Cuenta y Cartera SL/TP
+
+Las estrategias de copia individuales pueden tener límites de pérdida, obtención de ganancias y reducción desde umbrales altos. La descripción general de la cartera también ofrece una configuración **Portfolio SL/TP** que cubre un grupo de cuentas de copy trading.
+
+La cartera SL/TP rastrea las líneas base configuradas de capital inicial y ganancias, con umbrales separados de pérdida, obtención de ganancias y reducción. Revise las cuentas cubiertas, verifique el intervalo y los valores de activación al guardarlo o recalibrarlo. Es más amplia que una orden de suspensión en una posición.
+
+Estos controles pueden iniciar un cierre de protección cuando se detectan sus condiciones. Los intervalos de votación, la disponibilidad de datos, la liquidez y la ejecución afectan el resultado final; un umbral configurado no garantiza un precio de salida exacto ni preserva el capital. Consulte [Gestión de riesgos](/es/advantages/risk-management).

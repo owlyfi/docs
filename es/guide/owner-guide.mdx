@@ -1,0 +1,93 @@
+---
+title: "Para propietarios de activos"
+description: "Agregue cuentas comerciales y otorgue acceso a los administradores en sus cuentas Owly"
+icon: "user-shield"
+---
+
+Owly permite al propietario de un activo agregar administradores con permisos comerciales seleccionados. **La autorización del administrador se aplica a todas las cuentas comerciales activas del propietario, incluidas las cuentas agregadas posteriormente.** Es una relación de propietario a administrador, no una asignación separada para una subcuenta.
+
+## Prepare sus cuentas
+
+Inicie sesión en [Owly](https://app.owly.fi/accounts) como propietario del activo. Para una cuenta comercial normal, utilice la configuración de billetera [API](/es/guide/quick-start). También puede agregar subcuentas nativas Hyperliquid como se describe a continuación. El límite de cuenta compartida de Owly y las reglas de elegibilidad nativas de Hyperliquid son independientes; consulte [Tipo de cuenta](/es/guide/account-types).
+
+### Agregar una subcuenta nativa Hyperliquid
+
+1. Inicie sesión con la billetera maestra Hyperliquid que posee o creará la subcuenta nativa.
+2. Abra la administración de cuentas, elija **Crear subcuenta**, luego **Hyperliquid Subcuenta**.
+3. Seleccione una subcuenta existente. Si es elegible, puede elegir **Crear subcuenta** en el mismo formulario, ingresar un nombre único de hasta 16 caracteres y seguir las instrucciones de autorización y creación. Owly primero prepara o reutiliza la autorización de billetera API normal que necesita este flujo. Verifique la dirección de la billetera y el resultado antes de continuar.
+4. Si la creación no está confirmada, actualice la lista de subcuentas para verificar el intento original antes de volver a crear.
+5. Ingrese el nombre para mostrar de la cuenta y continúe. Revise y firme cualquier habilitación de cuenta unificada requerida, aprobación de billetera API dedicada y autorización de tarifa de desarrollador con la billetera maestra.
+6. Espere a que finalice y verifique la dirección de la cuenta comercial seleccionada. No ingresa ni copia claves privadas.
+
+También puede crear una subcuenta nativa elegible en [Hyperliquid](https://app.hyperliquid.xyz/subAccounts) y luego seleccionarla en Owly. Las subcuentas nativas existentes siguen siendo compatibles. Las billeteras heredadas administradas por Owly son un tipo de cuenta diferente: la nueva creación, la configuración de un nuevo bot y el reinicio del bot están deshabilitados para esas billeteras.
+
+<Note>
+Las subcuentas nativas no tienen clave privada propia. Su billetera principal autoriza las billeteras API. Owly genera una billetera API dedicada para cada importación para reducir los conflictos de nonce compartido; esto no restringe al agente a esa subcuenta en el nivel de protocolo Hyperliquid.
+</Note>
+
+## Agregar un administrador
+
+El administrador debe ser un usuario Owly registrado con una dirección EVM. No puedes agregarte a ti mismo ni agregar al mismo administrador dos veces. Cada propietario puede agregar **hasta 20 administradores**.
+
+1. En administración de cuentas, busque **Cuentas de administrador** y seleccione **Agregar administrador**.
+2. Ingrese la dirección de billetera registrada del administrador y un apodo opcional.
+3. Revise los permisos **Ver**, **Iniciar Bot** y **Detener Bot**. Los tres están seleccionados de forma predeterminada; conserve sólo los permisos que desee conceder.
+4. Confirmar. El administrador puede usar **Subcuentas administradas** para acceder a sus cuentas de acuerdo con esos permisos.
+
+<Warning>
+Esto otorga acceso a todas sus cuentas activas, incluidas las adiciones futuras. Revise el alcance completo a nivel de propietario antes de confirmar. Una subcuenta comercial dedicada no hace que la autorización del administrador sea específica para esa subcuenta.
+</Warning>
+
+## Permisos
+
+| Permiso | Qué permite |
+| --- | --- |
+| **Ver (`VIEW`)** | Vea información de cuenta y estrategia a través de las vistas de administración admitidas |
+| **Iniciar robot (`START`)** | Iniciar o reiniciar un bot compatible |
+| **Detener Bot (`STOP`)** | Detener un bot o solicitar su terminación y limpieza |
+
+Los cambios en la configuración del bot utilizan las comprobaciones de permisos de inicio/detención; no hay un interruptor de permiso de configuración de administrador independiente. Los permisos de administrador no otorgan al propietario operaciones como retiros, editar la propiedad/configuración de la cuenta o agregar otros administradores. Aún se aplican restricciones de tipo de cuenta y autorizaciones de billetera.
+
+Una billetera API firma acciones comerciales autorizadas. Los propietarios de activos conservan la función de firma de billetera de financiación o billetera maestra para la financiación y los retiros externos. Una billetera API filtrada aún puede causar pérdidas a través de transacciones maliciosas. Para cuentas LeverAcc, administre retiros de garantía, deuda, reembolso y protocolo a través de LeverAcc; Detener un bot no paga un préstamo.
+
+## Monitorear y detener operaciones
+
+Revisar saldos de cuentas, posiciones, pedidos, pérdidas y ganancias y estado de bot en administración de cuentas y cartera. Verifique el tiempo de ejecución y el estado de limpieza, así como el estado del ciclo de vida mostrado.
+
+- **Stop** detiene la ejecución automatizada; él mismo no cierra las posiciones existentes.
+- **Cerrar/terminar** solicita la terminación de la estrategia y la limpieza de posición/orden. Confirmar el resultado de la limpieza y las posiciones reales; no asuma que cada intento cercano tiene éxito.
+- Una limpieza pendiente o fallida requiere seguimiento. Mantenga la cuenta financiada para sus obligaciones de margen restantes hasta que haya verificado el resultado.
+
+## Cambiar o eliminar un administrador
+
+Utilice **Edit** en la tarjeta de administrador para actualizar su apodo o permisos. Utilice **Remove** para revocar la autorización de ese propietario para el administrador.
+
+**La eliminación de un administrador no detiene automáticamente la ejecución de bots, cierra posiciones, cancela órdenes o revoca Hyperliquid API aprobaciones de billetera.** Si desea finalizar las operaciones, detenga o cierre cada bot afectado usted mismo y verifique su estado y exposición restante. Eliminar un administrador tampoco revoca el acceso de otro administrador.
+
+Si una billetera API puede verse comprometida, detenga la automatización afectada y revise su autorización en la página [Hyperliquid API](https://app.hyperliquid.xyz/API) usando la billetera maestra. Siga el flujo de administración de cuentas de Owly para aprobar un reemplazo. Nunca envíe una frase inicial o una clave privada al Asistente, al soporte o a un administrador.
+
+## Preguntas comunes
+
+<AccordionGroup>
+  <Accordion title="¿Puedo asignar un administrador a una sola cuenta comercial?">
+    La relación de administrador actual cubre las cuentas activas del propietario. La creación de una subcuenta nativa separada para ese propietario no limita la concesión a una sola cuenta.
+  </Accordion>
+  <Accordion title="¿Por qué falló al agregar un administrador?">
+    Verifique la dirección de EVM, confirme que el administrador se haya registrado y asegúrese de que no sea su propia dirección ni la de un administrador existente. El límite de propietarios es 20 administradores.
+  </Accordion>
+  <Accordion title="¿Por qué no está disponible la creación de subcuentas nativas?">
+    Siga el resultado de elegibilidad y capacidad en el formulario. Aún puedes seleccionar una subcuenta elegible existente. Si la creación no está confirmada, actualice antes de volver a intentarlo para evitar duplicados.
+  </Accordion>
+  <Accordion title="¿Puede el administrador retirar fondos? Los permisos Ver/Iniciar/Detener de">
+    Owly no otorgan autoridad de retiro o transferencia. La billetera del propietario y las reglas del protocolo de la cuenta rigen esas acciones.
+  </Accordion>
+</AccordionGroup>
+
+<CardGroup cols={2}>
+  <Card title="Tipo de cuenta" href="/es/guide/account-types" icon="wallet">
+    Verifique los requisitos de autorización y configuración de la cuenta.
+  </Card>
+  <Card title="Gestión de activos" href="/es/guide/asset-management" icon="wallet">
+    Revise los fondos, los retiros y los límites específicos de la cuenta.
+  </Card>
+</CardGroup>

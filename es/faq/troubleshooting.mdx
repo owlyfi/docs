@@ -1,0 +1,51 @@
+---
+title: "Solución de problemas"
+description: "Resolver problemas de configuración, financiación, autorización y estrategia de la cuenta"
+icon: "wrench"
+---
+
+## Monedero y configuración
+
+| Síntoma | Qué comprobar |
+| --- | --- |
+| La billetera no se puede conectar | Desbloquee la billetera, verifique los permisos del sitio y las extensiones de la competencia y vuelva a intentarlo con la dirección deseada |
+| Cartera con firma incorrecta | Compare las direcciones de inicio de sesión, propietario comercial y financiación de Owly. Pueden diferir; volver a la billetera solicitada por el paso actual |
+| API La configuración de la billetera solicita financiación | La dirección propietaria aún no está activada en Hyperliquid. Complete el depósito integrado y espere la activación antes de la cuenta unificada y la autorización API |
+| Dirección rechazada como propietario | Utilice la billetera del usuario propietario Hyperliquid, en lugar de una dirección de agente, bóveda o subcuenta nativa |
+| No hay ninguna subcuenta nativa disponible | Verifique el maestro que inició sesión, actualice la lista y use la opción de creación solo cuando se aprueben las comprobaciones de elegibilidad y capacidad. |
+| Se alcanzó el límite de cuenta | Los tres tipos admitidos comparten el límite de cuentas comerciales 10 activas Owly |
+| API La autorización de la billetera falla | Revise su vencimiento y las ranuras de billetera Hyperliquid API disponibles, luego complete la autorización pendiente con el maestro correcto |
+
+Una sesión de inicio de sesión Owly vencida y una autorización comercial Hyperliquid vencida son problemas diferentes. Vuelva a conectarse e inicie sesión en el primero; actualizar la autorización comercial de la cuenta para este último.
+
+## Depósitos, permutas y retiros
+
+- **Utilice el punto de entrada correcto.** Cambie los fondos de la billetera propietaria que haya iniciado sesión; Las cuentas vinculan API usuarios de billetera y subcuenta nativa a Hyperliquid. Los botones LeverAcc abren su interfaz integrada. Consulte [Gestión de activos](/es/guide/asset-management).
+- **Red o activo incorrecto:** el flujo comercial integrado utiliza Arbitrum una red principal y depósitos USDC, con una preparación opcional de USDT a USDC. LeverAcc HYPE pertenece a HyperEVM. Verifique la red y el token reales de la transacción.
+- **Intercambio no disponible:** Los intercambios sin gas dependen de la configuración del proveedor, los métodos de aprobación admitidos, los saldos y una cotización nueva. Prepare usted mismo el activo requerido si no se ofrece una cotización respaldada.
+- **ETH preparado pero aún falta HYPE:** LeverAcc los verifica de forma independiente. Complete la preparación restante y vuelva a verificar los saldos.
+- **Envío pendiente o desconocido:** reanuda la operación original y verifica el estado. Utilice su hash de transacción de origen cuando se le solicite; no envíe otra transacción hasta que se conozca el resultado.
+- **Retiro rechazado:** verifique la identidad del monedero propietario, el modo de cuenta unificada, el saldo retirable y las tarifas reales. El monto de la operación debe exceder tanto 0.2 USDC como la tarifa aplicable.
+- **Depósito no visible:** compare la dirección de la cuenta financiada, la transacción de origen y el saldo de destino. Un envío exitoso de la billetera no prueba el crédito en Hyperliquid.
+
+## Estrategias y acceso a cuentas
+
+| Síntoma | Qué comprobar |
+| --- | --- |
+| La cuenta administrada heredada no puede iniciar un bot | Este tipo de cuenta se retira para actualizaciones de inicio/reinicio/configuración; detener o cerrar la automatización restante y utilizar su ruta de retiro admitida |
+| LeverAcc no puede comenzar a copiar | Confirmar la vinculación del proyecto, la autorización de ejecución del monedero, la financiación y la disponibilidad actual; La copia de orden pendiente no es compatible |
+| LeverAcc falta en la cuadrícula | El selector de cuenta actual de Grid Bot excluye las cuentas LeverAcc |
+| Operaciones no copiadas | Verifique el estado del bot, la validez de la autorización, la garantía disponible, los mercados habilitados, los filtros de monedas, los tamaños mínimos y la actividad de la fuente |
+| Diferentes tamaños de posición o precios de entrada | La tasa de copia, el movimiento del mercado, el redondeo, los filtros configurados y la disponibilidad de márgenes pueden cambiar la ejecución |
+| Se eliminó el administrador pero el bot aún se ejecuta | Eliminar el acceso de administración no detiene a los bots. El propietario debe detener o cerrar el bot por separado. |
+| Controles de seguimiento de cuadrícula deshabilitados | El seguimiento no está disponible actualmente en la interfaz de usuario; Los campos de backend guardados no lo habilitan aquí. Los umbrales |
+
+SL/TP no son valores predeterminados de protección que se completan automáticamente. Verifique la configuración guardada y [Gestión de riesgos](/es/advantages/risk-management).
+
+## Balanzas y gráficos
+
+Compare la misma dirección de cuenta comercial y período de tiempo. El valor de la cuenta no es saldo retirable. ROI puede no estar disponible cuando no se puede establecer el alcance de la valoración o el historial de flujo de efectivo; no debe leerse como cero. Actualice y verifique [Portfolio & Navigation](/es/guide/dashboard) para ver las definiciones de métricas.
+
+## Soporte
+
+Póngase en contacto con [Telegram soporte](https://t.me/owlyfi_support) o [support@owly.fi](mailto:support@owly.fi). Incluya direcciones de cuentas públicas, hora de emisión, red, hashes de transacciones y capturas de pantalla redactadas. Nunca envíe claves privadas, frases iniciales, tokens de sesión ni copias de seguridad de billetera.

@@ -1,0 +1,69 @@
+---
+title: "Gestión de riesgos"
+description: "Configurar filtros de copy trading, sincronización y umbrales de protección"
+icon: "shield"
+---
+
+Owly proporciona controles para seleccionar qué copiar, sincronizar posiciones y responder a umbrales de pérdida o ganancia configurados. Su efecto depende de la configuración de la cuenta y la estrategia.
+
+## Funciones de control de riesgos
+
+<CardGroup cols={2}>
+  <Card title="Detener pérdidas y obtener ganancias" icon="hand">
+    Configure la estrategia de pérdida, obtención de ganancias y reducción de umbrales altos. Dejar un umbral en blanco no establece un porcentaje de protección.
+  </Card>
+  <Card title="Copiar alcance" icon="filter">
+    Seleccione copia perpetua o puntual, intercambios incluidos y reglas de inclusión o exclusión de monedas.
+  </Card>
+  <Card title="Filtro de recuperación de posición" icon="gauge">
+    Un umbral de ROE puede excluir las posiciones de origen de la sincronización de recuperación para reducir las posiciones de persecución que ya se han movido.
+  </Card>
+  <Card title="Filtro de liquidez" icon="sliders">
+    Opcionalmente, omita los mercados perpetuos por debajo del interés abierto mínimo del sistema o los requisitos de volumen de operaciones diario.
+  </Card>
+</CardGroup>
+
+## Configuración de copia actual
+
+Estos son los valores iniciales del formulario estándar de configuración avanzada. Las cuentas existentes conservan su configuración guardada y una configuración guiada puede cambiar la configuración propuesta antes de la confirmación.
+
+| Configuración | Valor inicial | Significado |
+| :--- | :--- | :--- |
+| Copiar multiplicador | **1×** | Escala la proporción de copia; no es garantía de igualdad de tamaño de posición o retornos |
+| Stop Loss / Take Profit / límite de drawdown | **No configurado** | Ingrese los umbrales de protección que desea utilizar |
+| Filtro de recuperación de ROE | **Habilitado, 10%** | Filtra las posiciones de origen para la sincronización de actualización; no deja de copiar nuevos pedidos o ejecuciones posteriores |
+| Límite de relación PE | **30%** | Limita el capital de copia efectivo en relación con el valor de la cuenta de origen; Este no es un porcentaje máximo por puesto. |
+| Sincronización del apalancamiento | **Habilitado, 83 segundos** | Sigue la configuración de apalancamiento del operador de origen; este no es un límite de apalancamiento máximo fijo |
+| Sincronización de posición | **61 segundos** | Sincronización periódica cuando la copia perpetua está habilitada |
+| Saltarse los mercados de baja liquidez | **Apagado** | Cuando está habilitado, aplica umbrales de elegibilidad del mercado propiedad del sistema |
+
+## Cartera SL/TP
+
+La [descripción general de la cartera](/es/guide/dashboard) ofrece una estrategia separada que cubre un grupo de cuentas de copy trading. Tiene umbrales de pérdida, toma de ganancias y reducción desde niveles altos, junto con líneas de base rastreadas y un intervalo de verificación configurable. Revise las cuentas cubiertas y los valores de activación al guardarlas o recalibrarlas.
+
+Un activador de cartera es diferente de una orden de parada adjunta a una posición. El control de la cartera y los umbrales de la cuenta individual deben revisarse en conjunto.
+
+## Cómo utilizar los controles
+
+<Steps>
+  <Step title="Revisar la cuenta y la fuente">
+    Confirme la cuenta comercial financiada, el operador de origen, el multiplicador de copia, los mercados y cualquier mensaje de riesgo de configuración.
+  </Step>
+  <Step title="Establecer umbrales explícitos">
+    Ingrese los valores de stop-loss y take-profit que necesita y luego revise la confirmación. Los campos vacíos no son protección predeterminada.
+  </Step>
+  <Step title="Monitorear la estrategia guardada">
+    Verifique el estado de la estrategia, las posiciones, el valor de la cuenta y los intervalos de verificación configurados. Un filtro de posición u orden también puede significar que alguna actividad de origen no se copia.
+  </Step>
+  <Step title="Verificar acciones protectoras">
+    Después de una activación o parada manual, inspeccione el estado real de la cuenta y las posiciones restantes. Detener la copia y cerrar posiciones son acciones separadas.
+  </Step>
+</Steps>
+
+<Note>
+Los controles de riesgos dependen de los datos y la ejecución. Las brechas del mercado, la liquidez, las interrupciones y los intervalos de control pueden provocar salidas más allá de un umbral. No garantizan protección del principal ni una pérdida máxima específica.
+</Note>
+
+<Tip>
+Comience con una asignación más pequeña, inspeccione la diferencia entre sus colocaciones y las del comerciante de origen, y ajuste solo después de comprender el comportamiento de la cuenta.
+</Tip>

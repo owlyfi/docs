@@ -1,0 +1,52 @@
+---
+title: "Estructura de comisiones"
+description: "Comisiones de trading de la plataforma, límites de autorización y otros costes"
+icon: "receipt"
+---
+
+Owly cobra comisiones de trading mediante el mecanismo de comisiones de Builder de Hyperliquid. Las tasas base van de **2–10 bps (0.02%–0.1%)** y dependen de la configuración de la estrategia elegida. Los descuentos por invitación que correspondan se aplican a esa tasa base.
+
+## Comisiones de trading de la plataforma
+
+| Producto | Comisión | Cuándo se aplica |
+| :--- | :--- | :--- |
+| **Copia de operaciones** | **2–10 bps (0.02%–0.1%)**, según la comisión de Builder configurada para la estrategia | Sobre el volumen de las operaciones ejecutadas |
+| **Terminal de trading** | **0.02% (2 bps)** | Sobre el volumen de las operaciones ejecutadas desde el terminal |
+| **Bot de cuadrícula y otros bots configurados** | **2–10 bps (0.02%–0.1%)**, según la comisión de Builder configurada para la estrategia | Sobre el volumen de las operaciones ejecutadas por el bot |
+
+Un punto básico (bps) equivale al **0.01%**. Imagina una estrategia con una comisión base de Builder de **5.5 bps (0.055%)**. Una operación de 10,000 USDC genera una comisión de plataforma de `10,000 × 0.055% = 5.50 USDC` antes de aplicar descuentos. La tasa de 5.5 bps sirve como ejemplo. Las tasas base reales van de 2–10 bps según la configuración de cada estrategia.
+
+<Note>
+Las comisiones de trading de la plataforma varían según la estrategia. La tasa de 2 bps corresponde al terminal. Comprueba la comisión de Builder y los descuentos aplicables a la estrategia antes de iniciarla o reanudarla.
+</Note>
+
+## Límite de la autorización de Builder
+
+La autorización estándar de Builder solicita una tasa máxima del **0.1% (10 bps)**. Autorizarla permite cobrar hasta ese límite, sin pago por adelantado ni una tasa fija para cada operación. La comisión de Builder enviada con cada orden determina lo que cobra la plataforma por esa operación dentro del límite autorizado.
+
+En algunos procesos de alta, la aplicación comprueba si la autorización existente cumple el mínimo exigido para ese proceso. La tasa autorizada por sí sola no determina la comisión que cobrará una estrategia.
+
+## Descuentos por invitación
+
+Durante el periodo de descuento, los usuarios invitados que cumplan los requisitos reciben una **reducción del 5% en la comisión de Builder aplicable** para las estrategias compatibles gestionadas por Owly, sea cual sea el nivel de la persona que los invitó. La duración se fija según la configuración vigente al vincular la invitación. La reducción se aplica directamente a la comisión y no genera un saldo que pueda retirarse. Consulta el [sistema de invitaciones](/es/guide/referral).
+
+Las recompensas por invitación se calculan sobre las comisiones de Builder efectivamente cobradas que cumplan los requisitos, después de aplicar los descuentos. A cada beneficiario se le aplica su porcentaje L1 o L2. El volumen total negociado y las comisiones del mercado de Hyperliquid quedan fuera del cálculo. El descuento empieza al vincular la invitación. Las recompensas pueden continuar después de que venza el descuento.
+
+## Comisiones de rendimiento y de gestión
+
+El proceso de trading actual no añade una comisión de rendimiento ni de gestión a la comisión de Builder. La rentabilidad sigue dependiendo de las comisiones de trading, los pagos de financiación, los precios de ejecución y otros costes.
+
+## Otros costes
+
+La comisión de trading de la plataforma se cobra por separado de los siguientes conceptos.
+
+- **Comisiones de Hyperliquid**, incluidas las de maker y taker y cualquier descuento aplicable en el mercado.
+- **Pagos de financiación de contratos perpetuos**, que puedes pagar o recibir mientras mantienes posiciones abiertas.
+- **Cargos de red, puentes, intercambios o retiros** al mover fondos o usar servicios externos.
+- **Costes de financiación** al utilizar una cuenta de préstamos en cadena.
+
+Revisa la transacción o cotización que se muestra al depositar o retirar. Aunque la comisión de rendimiento de la plataforma sea cero, operar o mover fondos puede generar costes.
+
+<Tip>
+Compara la rentabilidad después de descontar las comisiones y los pagos de financiación. Distingue entre el límite que apruebas en tu billetera, la comisión de Builder que cobra la plataforma en una ejecución y la comisión de Hyperliquid.
+</Tip>

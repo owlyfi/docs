@@ -1,0 +1,73 @@
+---
+title: "Terminal comercial"
+description: "Opere con su billetera de inicio de sesión, administre fondos e inspeccione cuentas públicas en modo de solo lectura"
+icon: "chart-candlestick"
+---
+
+Abra **Trade** en [app.owly.fi/trade](https://app.owly.fi/trade) para ver gráficos de mercado, el libro de órdenes, operaciones recientes e información de la cuenta. Seleccione un mercado entre los mercados spot y perpetuo disponibles en la terminal.
+
+## ¿Qué cuenta se está negociando?
+
+En su propia sesión comercial, la dirección comercial es su **autenticada Owly billetera de inicio de sesión**. El terminal no utiliza el selector de cuentas de copy-trading. Conectar una cuenta separada en un cuadro de diálogo de configuración de copy-trading no cambia la identidad comercial del terminal.
+
+Owly usa Privy para la conexión de billetera externa. El inicio de sesión actual admite billeteras; no crea una billetera integrada ni ofrece correo electrónico o inicio de sesión social. Verifique la dirección y la red mostradas antes de cada acción comercial o de financiación.
+
+## Configurar autorización comercial
+
+El terminal comprueba la activación de la cuenta, el modo de cuenta unificada, la autorización de la comisión Builder y la conexión de la billetera API. Complete los pasos que se muestran en **Configuración de operaciones** y revise cada solicitud de billetera.
+
+1. Si la billetera no está activada en Hyperliquid, complete el flujo de depósito y espere la llegada confirmada.
+2. Habilite el modo Cuenta unificada cuando se solicite.
+3. Revisar y completar la autorización de la comisión Builder. Las configuraciones confirmadas existentes se pueden reutilizar; la página informa pasos no disponibles o no confirmados.
+4. Autorizar el API Wallet utilizado por este terminal. Si su autorización ha caducado o ha cambiado, utilice la acción de recuperación que se muestra en la configuración.
+
+Después de la autorización, el terminal puede utilizar el agente autorizado para intentar la configuración de referencia Hyperliquid opcional para una cuenta sin un referente. Se conserva un referente existente; El fracaso de este paso opcional no bloquea la preparación para el comercio.
+
+El terminal almacena su clave comercial API autorizada en el navegador de este dispositivo para visitas posteriores. La interfaz comercial actual requiere esa conexión local persistente y no expone una opción de solo sesión. El almacenamiento de este dispositivo está separado de la billetera API generada y administrada por Owly para una cuenta de copy-trading. Una autorización de reemplazo puede requerir que otros navegadores o dispositivos vuelvan a autorizar.
+
+<Warning>
+Utilice la terminal comercial solo en un dispositivo que usted controle. Una billetera API puede firmar acciones comerciales y una clave comprometida puede causar pérdidas comerciales. Nunca ingreses la clave privada o frase inicial de tu billetera principal en Owly, el Asistente o el chat de soporte.
+</Warning>
+
+## Depósito desde Arbitrum
+
+El flujo de financiación integrado admite **Arbitrum una red principal únicamente**. Utiliza el **USDC o USDT de la billetera seleccionada en Arbitrum**, luego deposita USDC en la cuenta Hyperliquid de esa billetera a través de CCTP.
+
+- USDT primero debe cambiarse por USDC.
+- Si la financiación de USDC carece de suficiente ETH para gas, el flujo puede ofrecer un intercambio de USDC a ETH cuando estén disponibles una cotización respaldada y el servicio requerido.
+- Revise cada swap y depósito por separado. La finalización de un intercambio no significa que haya llegado el depósito Hyperliquid.
+- Las direcciones de billetera de agente, bóveda y subcuenta nativa no se pueden financiar como billeteras propias a través de este flujo. En su lugar, siga las indicaciones específicas de la cuenta.
+
+La verificación inicial del saldo de la billetera de origen requiere al menos **1 unidad del token seleccionado** para una cuenta activada o **2 unidades** para una dirección no activada. Estos son cheques de saldo, no un depósito mínimo aceptado garantizado. El monto del depósito final debe exceder la **tarifa CCTP actual más cualquier tarifa de activación de cuenta**; Los swaps y el gas también requieren fondos suficientes. Utilice la cotización de honorarios y el recibo estimado que se muestran antes de firmar.
+
+El mismo componente de financiación puede aparecer al crear una cuenta de copy-trading API Wallet. En esa configuración, financia la billetera comercial **seleccionada explícitamente en el cuadro de diálogo**, que puede diferir de su billetera de inicio de sesión. Consulte [Inicio rápido](/es/guide/quick-start).
+
+## Retirar a Arbitrum
+
+Los retiros comerciales se envían **USDC a la misma dirección de billetera conectada en Arbitrum One**. Este formulario no proporciona un campo de destinatario arbitrario.
+
+La billetera debe ser un usuario Hyperliquid activado en modo Cuenta Unificada. El monto solicitado debe:
+
+- sea **mayor que 0.2 USDC**;
+- exceder la tarifa de retiro del protocolo actual;
+- encaja dentro de la cantidad disponible actualmente después de la reserva de gas de retiro requerida.
+
+Por lo tanto, el mínimo efectivo depende de la tarifa activa y del estado de la cuenta. Revise la tarifa y el monto estimado recibido. El envío por sí solo no significa finalización: el flujo verifica la transacción y el recibo de destino antes de presentar la finalización verificada. Si el estado sigue pendiente o incierto, regrese con la misma billetera y verifique la operación original antes de enviar otra. Confirme la finalización para regresar a la pestaña de historial **Transfer** del terminal.
+
+## Órdenes e historial de cuenta
+
+La terminal proporciona entrada de órdenes de mercado, límite y TWAP. La opción Cuadrícula en su menú de pedidos es actualmente una vista previa con el envío deshabilitado; use [Trading Bots → Grid Trading](/es/guide/grid-bot) para el robot de grid separado.
+
+Seleccione el mercado, la dirección, el precio o la duración, el tamaño y cualquier configuración de riesgo disponible, luego revise la confirmación. La precisión, el margen, los pedidos mínimos y los datos actuales del mercado específicos del mercado pueden bloquear una acción. Los paneles de cuentas incluyen saldos, posiciones, órdenes abiertas, TWAP, historial comercial, historial de financiación, historial de órdenes y transferencias. Seleccionar un mercado no significa que todas las filas del historial de la cuenta pertenezcan a ese mercado; La disponibilidad de la acción se verifica por separado.
+
+## Inspeccionar otra dirección con modo fantasma
+
+Desde la página de detalles de un comerciante, use el enlace de dirección para abrir la terminal de esa cuenta pública. La URL tiene esta forma:
+
+```text
+https://app.owly.fi/trade?ghost=0x1111111111111111111111111111111111111111
+```
+
+Reemplace el ejemplo con una dirección EVM de carácter 42 válida. El modo fantasma es **de solo lectura**: puede explorar los mercados y los saldos, posiciones, órdenes e historial públicos disponibles de la dirección. No permite operaciones, cancelaciones, depósitos o retiros para esa dirección. La acción Copy Trading abre el flujo de copy-trading del operador, donde debe seleccionar su propia cuenta y confirmarla por separado.
+
+Usa el control de salida de Ghost para regresar a tu propia terminal. Una dirección Ghost no válida muestra un error en lugar de cambiar a una cuenta diferente.

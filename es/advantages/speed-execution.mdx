@@ -1,0 +1,36 @@
+---
+title: "Velocidad y ejecución"
+description: "Comprender la copia asincrónica, los rellenos y los límites de ejecución"
+icon: "bolt"
+---
+
+Owly envía acciones estratégicas a Hyperliquid y actualiza el estado de la cuenta a medida que los resultados de la ejecución están disponibles. La copia, la aceptación de intercambio, la ejecución y la actualización de la cartera son etapas separadas.
+
+## Qué afecta la ejecución
+
+| Etapa | Qué puede afectarlo |
+| --- | --- |
+| **Observación de fuente** | Actualización de los datos y actividad de mercado de la fuente |
+| **Decisión estratégica** | Estado de la cuenta, tasa de copia, lugares habilitados, filtros de monedas y configuración de riesgo |
+| **Envío de pedido** | Validez de la autorización, tamaño mínimo del pedido, garantía y reglas de intercambio |
+| **Relleno** | Tipo de orden, precio, liquidez, ejecución parcial y movimiento del mercado |
+| **Actualización de pantalla** | Conectividad WebSocket, disponibilidad API y datos almacenados en caché o actualizados |
+
+Un pedido enviado puede permanecer abierto, completarse parcialmente o ser rechazado. Una solicitud de inicio exitosa significa que la solicitud de estrategia fue aceptada, no que ya se hayan copiado todas las posiciones de origen.
+
+## Copia y sincronización
+
+Las configuraciones de copia incluyen posición periódica, spot, apalancamiento y sincronización opcional de órdenes pendientes. Cada uno tiene su propio estado e intervalo habilitados. Un intervalo de sincronización no es una garantía de ejecución de un extremo a otro. LeverAcc no admite la copia de órdenes pendientes.
+
+Grid Bot concilia su grilla configurada en su propio intervalo. Su comportamiento y requisitos de cuenta se describen en [Grid Bot](/es/guide/grid-bot).
+
+## Verificar resultados
+
+1. Verifique el estado actual del bot y cualquier error reportado.
+2. Inspeccionar los pedidos y los pedidos reales, incluidos los pedidos parciales o rechazados.
+3. Compare el mismo mercado y alcance de cuenta antes de juzgar una diferencia con respecto a la fuente.
+4. Después de detener o cerrar, inspeccionar las órdenes restantes, las posiciones y el estado de limpieza. La implementación fuente de
+
+Owly no establece una latencia fija o una garantía de deslizamiento. Las condiciones del mercado y la disponibilidad upstream afectan el resultado. Consulte [Solución de problemas](/es/faq/troubleshooting) cuando la ejecución difiere de las expectativas.
+
+Para el SDK Hyperliquid asíncrono del equipo, consulte [async-hyperliquid](https://github.com/owlyfi/async-hyperliquid). Los puntos de referencia del SDK describen sus propias condiciones de prueba y no deben tratarse como una latencia comercial garantizada para el usuario.
